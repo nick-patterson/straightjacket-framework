@@ -1,0 +1,552 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"navicon-menu",
+				"navicon-menu-button"
+			],
+			[
+				"current",
+				"currentGlassSize"
+			],
+			[
+				"color",
+				"color__danna-green"
+			],
+			[
+				"psj_re",
+				"psj_responsiveLineHeightRatio"
+			],
+			[
+				"re",
+				"responsiveIndex"
+			],
+			[
+				"psj_",
+				"psj_responsiveTextRatio"
+			],
+			[
+				"create",
+				"create-responsive-text"
+			],
+			[
+				"worm",
+				"wormButtonHeight"
+			],
+			[
+				"rot",
+				"rotatorWidth"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"ge",
+				"getHeight"
+			],
+			[
+				"padding",
+				"paddingBottom"
+			],
+			[
+				"ele",
+				"elementMarginIndex"
+			],
+			[
+				"arr",
+				"arrowContainer"
+			],
+			[
+				"body",
+				"bodyLineHeightIndex"
+			],
+			[
+				"ex",
+				"expeditioncontents"
+			],
+			[
+				"exhi",
+				"exhibitionCurrentNumber"
+			],
+			[
+				"exhibi",
+				"exhibitionCurrentNumber"
+			],
+			[
+				"expl",
+				"explorationtodiscovery"
+			],
+			[
+				"st",
+				"strategytoexploration"
+			],
+			[
+				"head",
+				"headerMarginIndex"
+			],
+			[
+				"he",
+				"headerMarginIndex"
+			],
+			[
+				"powe",
+				"powerbutton"
+			],
+			[
+				"mar",
+				"margin-bottom"
+			],
+			[
+				"r",
+				"rgba()"
+			],
+			[
+				"p",
+				"phantasm-footer"
+			],
+			[
+				"border",
+				"border-right"
+			],
+			[
+				"bord",
+				"border-right"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/navigation/_menus.scss",
+			"settings":
+			{
+				"buffer_size": 3997,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 153.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/site/primary/_posts-and-pages.scss",
+		"/C/Users/Nick/Desktop/node.js experiment/inputs/tabs.scss",
+		"/C/Users/Nick/Desktop/node.js experiment/inputs/tab-example-src.html",
+		"/C/Users/Nick/Desktop/LOCALSITES/area-15-dev/src/scripts/main.js",
+		"/C/Users/Nick/Desktop/LOCALSITES/area-15-dev/src/styles/styles.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/area-15-dev/dist/index.html",
+		"/C/Users/Nick/Desktop/LOCALSITES/area-15-dev/gulpfile.js",
+		"/C/Users/Nick/Desktop/LOCALSITES/area-15-dev/dist/styles/styles.min.css",
+		"/C/Users/Nick/Desktop/LOCALSITES/area-15-dev/package.json",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/straightjacket.css",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/demo.html",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/_mixins.scss",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/_functionality.scss",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/_colors.scss",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/straightjacket.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/navigation/_links.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/navigation/_menus.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/variables-site/_colors.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/js/source/main.js",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/site/primary/_footer.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/straightjacket/_functionality.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/straightjacket/straightjacket.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/page-homepage.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/404.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/header.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/footer.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/page.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/page-products-and-services.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/functions.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/js/plugins.min.js",
+		"/C/Users/Nick/AppData/Local/Temp/fz3temp-1/functions.php",
+		"/C/Users/Nick/AppData/Local/Temp/fz3temp-1/wp-config.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-export/wp-content/themes/danna_printing_and_promotionals/functions.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-export/wp-content/themes/danna_printing_and_promotionals/style.css",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-export/wp-config.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev - Copy/wp-config.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev - Copy/wp-config-sample.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev - Copy/wp-config-local.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-config-sample.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-config.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-config-local.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/gulpfile.js",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/gulp.config.js",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/inc/page-category-taxonomy.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/three-js-experiment/index.html",
+		"/C/Users/Nick/Desktop/LOCALSITES/three.js/examples/js/controls/OrbitControls.js",
+		"/C/Users/Nick/Desktop/LOCALSITES/three-js-experiment/cabin.js",
+		"/C/Users/Nick/Desktop/maya webGL/nick.js",
+		"/C/Users/Nick/Desktop/maya webGL/test.js",
+		"/C/Users/Nick/Desktop/maya webGL/convert_obj_three.py",
+		"/C/Users/Nick/Desktop/maya webGL/README.md",
+		"/C/Users/Nick/Desktop/pymel-master/pymel/__init__.py",
+		"/C/Users/Nick/Desktop/pymel-master/pymel/versions.py",
+		"/C/Users/Nick/Desktop/pymel-master/setup.py",
+		"/C/Users/Nick/Desktop/pymel-master/README.md",
+		"/C/Users/Nick/Desktop/LOCALSITES/maryland-excels-dev/wp-content/themes/mdexcels/functions.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/maryland-excels-dev/wp-content/themes/mdexcels/inc/template-tags.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/.gitignore",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/typography/_copy.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/variables-site/_typography.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/typography/_typography.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/mixins/_mixins-master.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/typography/_headings.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/site/_site.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/straightjacket/_mixins.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/maryland-excels-dev/wp-content/themes/mdexcels/sass/site/primary/home.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/straightjacket/_colors.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/maryland-excels-dev/wp-content/themes/mdexcels/js/source/main.js",
+		"/C/Users/Nick/Desktop/LOCALSITES/maryland-excels-dev/wp-content/themes/mdexcels/sass/navigation/_links.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/maryland-excels-dev/wp-content/themes/mdexcels/sass/site/primary/global.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/maryland-excels-dev/wp-content/themes/mdexcels/sass/mixins/_mixins-master.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/js/build/main.js",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/js/vendor/straightjacket.js",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/modules/_accessibility.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/style.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/_normalize.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/style.css",
+		"/C/Users/Nick/Desktop/LOCALSITES/maryland-excels-dev/wp-content/themes/mdexcels/page-homepage.php",
+		"/C/Users/Nick/Desktop/LOCALSITES/maryland-excels-dev/wp-content/themes/mdexcels/sass/site/primary/_posts-and-pages.scss",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/js/source/straightjacket.js",
+		"/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/font-awesome/font-awesome.min.css",
+		"/C/Users/Nick/AppData/Local/Temp/wzae24/font-awesome-4.4.0/css/font-awesome.css",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Clients/DAnna Printing & Promotionals, Inc/danna-dev/wp-content/themes/danna_printing_and_promotionals/gulpfile.js",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Clients/DAnna Printing & Promotionals, Inc/danna-dev/wp-content/themes/danna_printing_and_promotionals/package.json",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Clients/DAnna Printing & Promotionals, Inc/danna-dev/wp-content/themes/danna_printing_and_promotionals/.gitignore",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Clients/DAnna Printing & Promotionals, Inc/danna-dev/wp-content/themes/danna_printing_and_promotionals/node_modules/gulp-ruby-sass-ns/README.md",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/straightjacket.js",
+		"/C/Users/Nick/.ssh/id_rsa",
+		"/C/Users/Nick/AppData/Local/Temp/fz3temp-1/straightjacketstructure.scss",
+		"/C/Users/Nick/Desktop/UA Nav Experiment/scriptsNONUMBERS.js",
+		"/C/Users/Nick/Desktop/UA Nav Experiment/stylesNONUMBERS.scss",
+		"/C/Users/Nick/Desktop/UA Nav Experiment/main.js",
+		"/C/Users/Nick/Desktop/UA Nav Experiment/uanavtestNONUMBERS.html",
+		"/C/Users/Nick/Desktop/UA Nav Experiment/stylesNONUMBERS.css",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Custom Coded Portfolio Website/js/scripts.js",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Custom Coded Portfolio Website/css/styles.scss",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Custom Coded Portfolio Website/uanavtestNONUMBERS.html",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Custom Coded Portfolio Website/css/straightjacket.scss",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Custom Coded Portfolio Website/css/stylesNONUMBERS.scss",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Custom Coded Portfolio Website/css/stylesNONUMBERS.css",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/_straightjacketbuttons",
+		"/C/Users/Nick/AppData/Local/Temp/fz3temp-1/_posts-and-pages.scss",
+		"/C/Users/Nick/AppData/Local/Temp/fz3temp-1/style.scss",
+		"/C/Users/Nick/AppData/Local/Temp/fz3temp-1/style 2.css",
+		"/C/Users/Nick/AppData/Local/Temp/fz3temp-1/style.css",
+		"/C/Users/Nick/Desktop/page-homepage.php",
+		"/C/Users/Nick/Documents/page-homepage.php",
+		"/C/Users/Nick/AppData/Local/Temp/fz3temp-1/_global.scss",
+		"/C/Users/Nick/AppData/Local/Temp/fz3temp-1/page-homepage.php",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/framework experiment.html",
+		"/C/Users/Nick/Desktop/straightjacketstructure.scss",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/styles.css",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/font.css",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/Straightjacket.scss",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Tools/Framework/Straightjacket.css",
+		"/C/Users/Nick/Desktop/ScrollTop Experiment/scrollPath Experiment.html",
+		"/C/Users/Nick/Desktop/ScrollTop Experiment/scripts.js",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Custom Coded Portfolio Website/index.html",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Custom Coded Portfolio Website/styles.css",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Custom Coded Portfolio Website/straightjacket.css",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Custom Coded Portfolio Website/scripts.js",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Custom Coded Portfolio Website/scripts2.js",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Wordpress Portfolio Website/Sandbox/sandbox.css",
+		"/C/Users/Nick/Pictures/Design/Design Firm/Wordpress Portfolio Website/Sandbox/Sandbox.html",
+		"/C/Users/Nick/Desktop/DirectionAwareHoverEffect/js/jquery.hoverdir.js",
+		"/C/Users/Nick/AppData/Local/Temp/fz3temp-1/functions 2.php",
+		"/C/Users/Nick/AppData/Local/Temp/fz3temp-1/pluggable.php",
+		"/C/Users/Nick/Desktop/A Growing Girl.html"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"!important",
+			"center",
+			"$psj_text",
+			"class",
+			"\"",
+			"$",
+			";",
+			"$",
+			"TweenMax",
+			"button",
+			"submit",
+			"Format",
+			"format",
+			"Format",
+			";\n",
+			"\">			",
+			"628C5E",
+			"mainBandHeight",
+			"ContentArea",
+			"slide",
+			"header",
+			"top",
+			"$psj_rem",
+			"$psj_base",
+			"headers",
+			"$digits",
+			"log",
+			"exponent",
+			"$product",
+			"$exponent",
+			"$base",
+			"$headers",
+			"$header",
+			"$base",
+			"classPrefix",
+			"8",
+			"2",
+			" sm-12",
+			"dem",
+			"border",
+			"top",
+			" scale(1.01,1.01)",
+			"00",
+			"opacity: 1;",
+			"height: 2px;",
+			"$uared",
+			"height / 2",
+			"Height / 2",
+			"height / 2",
+			"Height / 2",
+			"height / 2",
+			"height / 4",
+			"1.5em 3em",
+			"1em 2em",
+			"rect",
+			"margin",
+			"max-height",
+			"250px",
+			"(width * 2)",
+			"slideRotation",
+			"Direction",
+			"//",
+			"line-height: normal;",
+			"4",
+			"1",
+			"1.5",
+			"5",
+			"4",
+			"sm-12",
+			"12",
+			"md-6",
+			"sm-6",
+			"sm",
+			"xs",
+			"<div class=\"inner\"></div>",
+			"exhibitionsidebar",
+			"current",
+			"7",
+			" 1.7",
+			"3",
+			"2.5",
+			"4",
+			"1.5",
+			"Subtitle",
+			"2",
+			"200",
+			"2",
+			"6",
+			"8",
+			"3",
+			"8",
+			"4",
+			"3",
+			".9",
+			"52",
+			"48",
+			"48s",
+			".2",
+			".5",
+			"bbbdc0",
+			"5",
+			"2.5",
+			"#58585b",
+			"511",
+			"1140",
+			"exploration",
+			"researchbranch",
+			"strategy",
+			"researchbranch",
+			"{",
+			"console.log(beenHovered);",
+			"nc",
+			"research",
+			"1.15",
+			"15px",
+			"exploration",
+			"researchtostrategy",
+			"10",
+			"\"",
+			"=",
+			"chem",
+			"id",
+			"-moz-",
+			"moz",
+			"headerIndex",
+			"globalIndex",
+			"mediaQueries",
+			"media"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/Nick/Desktop/LOCALSITES/danna-dev/wp-content/themes/danna_printing_and_promotionals/sass/navigation/_menus.scss",
+					"settings":
+					{
+						"buffer_size": 3997,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1936,
+								1936
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SASS/Syntaxes/SASS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 14.0,
+						"translation.y": 1827.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 124.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 204.0,
+	"status_bar_visible": false
+}

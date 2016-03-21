@@ -1,0 +1,236 @@
+// ================================================= /
+// ======   Straightjacket Funtions   ============== /
+// ================================================= /
+
+
+/*@function psj_responsiveTextRatio($viewPortWidth, $element, $property) {
+
+	@if $property == font-size {
+
+		@each $textElement, $sizeMap in map-get($psj_text, textElements) {
+
+			@if $element == $textElement {
+
+				$psj_breakpointsList: map_keys(map-get($psj_text, breakpoints));
+				$psj_breakpintsListSize: length($psj_breakpointsList);
+
+				@each $size, $breakWidth in map-get($psj_text, breakpoints) {
+
+					@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
+
+						$ratio: $viewPortWidth / $breakWidth;
+
+						@if $breakWidth == 0 {
+							$ratio: 1;
+						}
+
+						@return $ratio * map-get(map-get(map-get($psj_text, textElements), $element), $size);
+					}
+
+					@if $viewPortWidth > map-get(map-get($psj_text, breakpoints), nth($psj_breakpointsList, $psj_breakpintsListSize)) {
+
+						@return map-get(map-get(map-get($psj_text, textElements), $element), nth($psj_breakpointsList, $psj_breakpintsListSize));
+					}
+				}
+			}
+		}
+
+	@return 1;
+
+	}
+
+	@if $property == line-height {
+
+		@each $size, $breakWidth in map-get($psj_text, breakpoints) {
+
+			@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
+
+				$ratio: $viewPortWidth / $breakWidth;
+
+				@if $breakWidth == 0 {
+					$ratio: 1;
+				}
+
+				@if $element == p {
+					@return $psj_bodyLineHeight + (.055 * ($ratio * map-get(map-get($psj_text, lineHeights), $size)) + .003);
+				}
+
+				@else {
+					@return 1.2 - (.08 * ($ratio / (map-get(map-get(map-get($psj_text, textElements), $element), $size)) * map-get(map-get($psj_text, lineHeights), $size)) + .005);
+				}				
+			}
+
+			@if $viewPortWidth > 1200 {
+				@return 1.2 - (.08 * (1 / (map-get(map-get(map-get($psj_text, textElements), $element), $size)) * map-get(map-get($psj_text, lineHeights), $size)) + .005);
+			}
+		}
+	}
+
+	@if $property == margin-bottom {
+
+		@each $size, $breakWidth in map-get($psj_text, breakpoints) {
+
+			@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
+
+				$ratio: $viewPortWidth / $breakWidth;
+
+				@if $breakWidth == 0 {
+					$ratio: 1;
+				}
+
+				@if $element == p {
+					@return 2.7 + (.095 * ($ratio * map-get(map-get($psj_text, margins), $size)) - .023);
+				}
+
+				@else {
+					@return .75;
+				}				
+			}
+
+			@else {
+				@return .75;
+			}
+		}
+	}	
+}*/
+
+
+// ================================================= /
+// ======   Utility Funtions   ===================== /
+// ================================================= /
+
+
+// Exponential Functions (Supports only integers as exponents for now)
+
+@function pow($b, $x){
+
+	@if type_of($b) != number or type_of($x) != number or not unitless($b) or not unitless($x) {
+		@warn 'both arguments must be unitless numbers.';
+		@return $b;
+	}
+
+	@else {
+
+		@if round($x) != $x {
+			@warn '#{ $x } must be an integer.';
+			@return $b;
+		}
+
+		@else {
+
+			@if $x == 0 {
+				@return 1;
+			}
+			@else if $x == 1 {
+				@return $b;
+			}
+			@else if $x > 0 and $x < 1 {
+				@return ln($x * ln($b));
+			}
+			@else {
+				$y: $b;
+				@for $i from 1 to abs($x) {
+					$y: $y * $b;
+				}
+				@if $x < 0 {
+					@return 1 / ($y);
+				}
+				@else {
+					@return $y;
+				}
+			}
+		}
+	}
+}
+
+
+// Approximating Natural Logarithmic Functions by Using Taylor Expansion
+
+@function ln($x) {
+
+	@if type_of($x) != number or not unitless($x) {
+		@warn 'argument must be a unitless number';
+		@return $b;
+	}
+
+	$originalx: $x;
+
+	@if abs($x) > 1 {
+		$x: 1 / $x;
+	}
+
+	$t: $x - 1;	
+	
+	$y: $t;
+
+	@for $i from 2 to round($x + 150) {
+		@if $i % 2 != 0 {
+			$y: $y + (pow($t,$i) / $i);
+		}
+
+		@else {
+			$y: $y - (pow($t,$i) / $i);
+		}		
+	}
+
+	@if abs($originalx) > 1 {
+		@return $y * -1;
+	}
+
+	@else {
+		@return $y;
+	}
+}
+
+
+// Round decimals
+
+@function roundDecimal($number, $places: 0, $mode: round) {
+
+    $n: 1;
+
+    // $number must be a number
+    @if type-of($number) != number {
+        @warn '#{ $number } must be a number';
+        @return $number;
+    }
+
+    // $places must be a unitless number
+    @if type-of($places) != number or not unitless($places) {
+        @warn '#{ $places } must be a unitless number';
+        @return $number;
+    }
+
+    @for $i from 1 through $places {
+        $n: $n * 10;
+    }
+
+    @if $mode == round {
+        @return round($number * $n) / $n;
+    }
+
+    @else if $mode == ceil {
+        @return ceil($number * $n) / $n;
+    }
+
+    @else if $mode == floor {
+        @return floor($number * $n) / $n;
+    }
+
+    @else {
+        @warn '#{ $mode } is not a recognized mode of rounding.';
+        @return $number;
+    }
+}
+
+// Get colors
+
+@function color($color){
+	@if map-has-key($colorMap, $color) {
+		@return map-get($colorMap, $color);
+	}
+
+	@else {
+		@warn '#{ $color } is not defined in your color map';
+	}
+}

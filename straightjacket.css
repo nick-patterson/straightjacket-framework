@@ -1,0 +1,191 @@
+/* DESCRIPTION: -------------------------------------/
+
+   A lightweight and powerful framework designed
+   for maximum customizability. 
+
+   Straightjacket aims to substantiate complex css
+   into a system of awesome features and functions
+   that are presented as a collection of modules.
+
+   Straightjacket's modules can be created, destroyed,
+   duplicated, and modified at your will to suit the
+   project at hand. Tweak your configurations to
+   perfection or just jump right in and start firing
+   off some defaults. It's all up to you.
+
+   In order to keep your code clean and your project
+   fast, Straightjacket makes no assumptions and
+   will not act unless called upon, thus keeping
+   all of the power where it belongs: in the
+   hands of the developer.
+
+/-------------------------------------------------- */
+/* VERSION: 1.0 ------------------------------------ /
+/- RELEASE: JULY 3, 2015 --------------------------- /
+/- AUTHOR: NICK PATTERSON (PHANTASM) AT 15FOUR ----- /
+
+/- PHANTASM: Phantasmcs.net ------------------------ /
+/- 15FOUR: 15four.com ------------------------------ /
+/-------------------------------------------------- */
+/* TABLE OF CONTENTS ------------------------------- /
+/-
+/- #0 Global Proportions --------------------------- /
+/- #1 Mixins --------------------------------------- /
+/- #2 Colors --------------------------------------- /
+/- #3 Structure ------------------------------------ /
+/- #4 Text ----------------------------------------- /
+/- #5 Buttons -------------------------------------- /
+/- #6 General Helpers ------------------------------*/
+/*@function psj_responsiveTextRatio($viewPortWidth, $element, $property) {
+
+	@if $property == font-size {
+
+		@each $textElement, $sizeMap in map-get($psj_text, textElements) {
+
+			@if $element == $textElement {
+
+				$psj_breakpointsList: map_keys(map-get($psj_text, breakpoints));
+				$psj_breakpintsListSize: length($psj_breakpointsList);
+
+				@each $size, $breakWidth in map-get($psj_text, breakpoints) {
+
+					@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
+
+						$ratio: $viewPortWidth / $breakWidth;
+
+						@if $breakWidth == 0 {
+							$ratio: 1;
+						}
+
+						@return $ratio * map-get(map-get(map-get($psj_text, textElements), $element), $size);
+					}
+
+					@if $viewPortWidth > map-get(map-get($psj_text, breakpoints), nth($psj_breakpointsList, $psj_breakpintsListSize)) {
+
+						@return map-get(map-get(map-get($psj_text, textElements), $element), nth($psj_breakpointsList, $psj_breakpintsListSize));
+					}
+				}
+			}
+		}
+
+	@return 1;
+
+	}
+
+	@if $property == line-height {
+
+		@each $size, $breakWidth in map-get($psj_text, breakpoints) {
+
+			@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
+
+				$ratio: $viewPortWidth / $breakWidth;
+
+				@if $breakWidth == 0 {
+					$ratio: 1;
+				}
+
+				@if $element == p {
+					@return $psj_bodyLineHeight + (.055 * ($ratio * map-get(map-get($psj_text, lineHeights), $size)) + .003);
+				}
+
+				@else {
+					@return 1.2 - (.08 * ($ratio / (map-get(map-get(map-get($psj_text, textElements), $element), $size)) * map-get(map-get($psj_text, lineHeights), $size)) + .005);
+				}				
+			}
+
+			@if $viewPortWidth > 1200 {
+				@return 1.2 - (.08 * (1 / (map-get(map-get(map-get($psj_text, textElements), $element), $size)) * map-get(map-get($psj_text, lineHeights), $size)) + .005);
+			}
+		}
+	}
+
+	@if $property == margin-bottom {
+
+		@each $size, $breakWidth in map-get($psj_text, breakpoints) {
+
+			@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
+
+				$ratio: $viewPortWidth / $breakWidth;
+
+				@if $breakWidth == 0 {
+					$ratio: 1;
+				}
+
+				@if $element == p {
+					@return 2.7 + (.095 * ($ratio * map-get(map-get($psj_text, margins), $size)) - .023);
+				}
+
+				@else {
+					@return .75;
+				}				
+			}
+
+			@else {
+				@return .75;
+			}
+		}
+	}	
+}*/
+/* FEATURES TO ADD ----------------------
+
+- Helper modules - each module has them!
+
+- Blockquotes in text module
+
+- Dropdowns
+
+- Modals
+
+- Tooltips
+
+- Forms
+
+- Tables
+
+- Breadcrumbs
+
+- Progress bars
+
+
+
+ IDEAS -------------------------------------------------------------------
+
+- Complex hover effects driven by JS...simply by adding a class with CSS
+
+- Table(?) / CSS3 Column(?) driven grid that adapts to largest content box
+
+- Pedominantly margin-top free system that uses negative margin-tops strategically utilized through advanced selectors to compensate for added space
+
+- Universal focus effects for accessibility
+
+
+
+NAMES ----------------------
+
+- Framework: Straightjacket
+
+- HTML Expander/Renderer: SomethingOrAnother
+
+- Data Visualization Library: Hallucination, Delusion, Apparition, Injection, Diagnosis, Prognosis, Diagnostic, Vision, Illusion
+
+- Complete Workflow: Asylum
+
+
+TO DOs ====================================================== /////
+
+- ELIMINATE JQUERY AND GREENSOCK DEPENDENCY
+
+- CHANGE PREFIX SYSTEM TO "ACCOMPANYING CLASS SYSTEM TO PREVENT JAVASCRIPT CONFUSION"
+
+2. Add warnings to limit user fuckups in all modules
+3. Experiment with assigning "white-space:nowrap" to parents of arrow buttons when they are firing
+4. Experiment with rem sizing for font size and font size only
+5. Rethink structure of buttons so that they dont need to have another type element within
+7. Come up with a better way to control padding on paragraphs accross columns
+	.column-12 > p:first-child {
+		margin-top: psj_responsiveTextRatio($width, p, margin-bottom) / 2 * -1em;
+	}
+
+*/
+
+/*# sourceMappingURL=straightjacket.css.map */

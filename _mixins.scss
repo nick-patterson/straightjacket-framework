@@ -1,0 +1,99 @@
+@mixin checkList() {
+
+	margin: 0 0 0 1em;
+	padding-left: 1em;
+	list-style-type: none;
+
+	li {
+		position: relative;
+		padding-left: 28px;
+		text-indent: -33px;
+		margin-bottom: 1.25em;
+
+		&:before {
+			content: '';
+			display: inline-block;
+			margin-right: 5px;
+			width: 24px;
+			height: 16px;
+			background: url('../img/check-mark.png') top left no-repeat;
+			background-size: 24px 16px;
+		}
+	}
+}
+
+
+// Rem sizes with pixel fallback
+
+@mixin font-size($size: 1){
+	font-size: $size * $psj_textBase * 1px;
+	font-size: $size * 1rem;
+}
+
+
+// Ultimate rem fallback for any kind of spacing
+
+@mixin spacing($type,$side,$size: 1){
+	@if $type == "line-height" or $type == "letter-spacing" {
+		#{$type}: $size * $psj_textBase * 1px;
+		#{$type}: $size * 1rem;
+	}
+	@else {
+		#{$type}-#{$side}: $size * $psj_textBase * 1px;
+		#{$type}-#{$side}: $size * 1rem;
+	}
+}
+
+// Master Button
+
+@mixin button($config: ()) {
+
+	padding: map-get($config, padding);
+	white-space: nowrap;
+	margin-bottom: 1em;
+	background: map-get($config, background);
+	display: inline-block;
+	color: map-get($config, textColor);
+	transition: .35s;
+
+	@if type_of(map-get($config, override)) != map and map-get($config, override) != $psj_default  {
+		@warn 'override argument must be a map';
+	}
+	@else {
+		@each $key, $value in map-get($config, override) {
+			#{$key}: #{$value};
+		}
+	}
+
+	&:hover {
+		cursor: pointer;
+		@if map-get($config, hover) != none {
+			@if map-get($config, hover) == $psj_default and map-get($config, background) != none  {
+				background: darken(map-get($config, background), 5);
+			}
+			@else {
+				@if type_of(map-get($config, hover)) != map and map-get($config, hover) != $psj_default {
+					@warn 'hover argument must be a map';
+				}
+				@else {
+					@each $key, $value in map-get($config, hover) {
+						#{$key}: #{$value};
+					}
+				}
+			}
+		}		
+	}
+
+	&.disabled {
+		opacity: .75;
+		&:hover {
+			cursor: not-allowed;
+			background: map-get($config, background);
+		}
+	}
+
+	:first-child {
+		margin: 0;
+		display: inline-block;
+	}
+}

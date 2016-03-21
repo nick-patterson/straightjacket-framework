@@ -1,0 +1,885 @@
+// ================================================= /
+// ======   PHANTASM STRAIGHTJACKET   ============== /
+// ================================================= /
+// ------   RESPONSIVE CSS FRAMEWORK --------------- /
+// ------------------------------------------------- /
+
+
+
+/* DESCRIPTION: -------------------------------------/
+
+   A lightweight and powerful framework designed
+   for maximum customizability. 
+
+   Straightjacket aims to substantiate complex css
+   into a system of awesome features and functions
+   that are presented as a collection of modules.
+
+   Straightjacket's modules can be created, destroyed,
+   duplicated, and modified at your will to suit the
+   project at hand. Tweak your configurations to
+   perfection or just jump right in and start firing
+   off some defaults. It's all up to you.
+
+   In order to keep your code clean and your project
+   fast, Straightjacket makes no assumptions and
+   will not act unless called upon, thus keeping
+   all of the power where it belongs: in the
+   hands of the developer.
+
+/-------------------------------------------------- */
+
+
+/* VERSION: 1.0 ------------------------------------ /
+/- RELEASE: JULY 3, 2015 --------------------------- /
+/- AUTHOR: NICK PATTERSON (PHANTASM) AT 15FOUR ----- /
+
+/- PHANTASM: Phantasmcs.net ------------------------ /
+/- 15FOUR: 15four.com ------------------------------ /
+/-------------------------------------------------- */
+
+
+/* TABLE OF CONTENTS ------------------------------- /
+/-
+/- #0 Global Proportions --------------------------- /
+/- #1 Mixins --------------------------------------- /
+/- #2 Colors --------------------------------------- /
+/- #3 Structure ------------------------------------ /
+/- #4 Text ----------------------------------------- /
+/- #5 Buttons -------------------------------------- /
+/- #6 General Helpers ------------------------------*/
+
+
+
+
+
+
+// ================================================= /
+// ======   #0 Global Proportions   ================ /
+// ================================================= /
+
+
+$psj_base: 10;
+$psj_textBase: 16;
+
+$psj_default: psj_default;
+
+
+// Default Vars (Extract from this document & Place into skeleton)
+
+
+// ================================================= /
+// ======   #1 Mixins & Functionality   ============ /
+// ================================================= /
+
+@import 'functionality';
+@import 'mixins';
+
+
+
+// ================================================= /
+// ======   #2 Colors   ============================ /
+// ================================================= /
+
+
+$psj_colorMap: (
+	black: #000000,
+	pseudoBlack: #222,
+	darkGray: #5a5a5a,
+	midGray: #adadae,
+	lightGray: #d4d4d6,
+	white: #ffffff,
+	pseudoWhite: #f4f4f4,
+	phantasmRed: #ba141a,
+	phantasmOrange: #ea5e25,
+	phantasmTeal: #94d0ad,
+	phantasmNavy: #08223e,
+	phantasmDarkGray:#bbbdc0,
+	phantasmLightGray: #a7a9ab
+);
+
+@import 'colors';
+
+
+
+// ================================================= /
+// ======   #3 Structure   ========================= /
+// ================================================= /
+
+
+$psj_breakpointMap: (
+	sm: (
+		viewportWidth: 480px,
+		containerWidth: 90%
+	),
+	md: (
+		viewportWidth: 768px,
+		containerWidth: 718px
+	),
+	lg: (
+		viewportWidth: 992px,
+		containerWidth: 940px
+	),
+	xl: (
+		viewportWidth: 1200px,
+		containerWidth: 1080px
+	)
+);
+
+
+// ------   Container Module   -------------- /
+// ------------------------------------------ /
+
+
+@mixin responsive-layout($config: ()) {
+
+	// Default configuration
+
+	$config: map-merge((
+			class: '',
+			defaultWidth: 90%, // Container width for mobile devices
+			breakpointMap: $psj_breakpointMap,
+			padding: 0 ($psj_base * 2px),
+			centered: true
+		), $config);
+
+	$specificClassSelector: '';
+
+	@if map-get($config, class) != '' {
+		$specificClassSelector: '.' + map-get($config, class);
+	}
+
+	// Default container (for mobile devices & other tiny screens)
+
+	.#{ container + $specificClassSelector } {
+		width: map-get($config, defaultWidth);
+		padding: map-get($config, padding);
+
+		@if map-get($config, centered) == true {
+			margin: 0 auto;
+		}
+
+		box-sizing: border-box;
+	}
+
+	// Container for other screen sizes
+
+	@each $breakpointLabel, $propMap in $psj_breakpointMap {
+
+		@media (min-width: map-get($propMap, viewportWidth)) {
+			.#{ container + $specificClassSelector } {
+				width: map-get($propMap, containerWidth);
+			}
+		}
+	};
+}
+
+
+
+// ------   Grid Module   ------------------- /
+// ------------------------------------------ /
+
+
+@mixin grid($config: ()) {
+
+	// Default configuration
+
+	$config: map-merge((
+		class: '',
+		columns: 12,
+		breakpointMap: $psj_breakpointMap,
+		gutter: $psj_base * 4px,
+	), $config);
+
+	$specificClassSelector: '';
+
+	@if map-get($config, class) != '' {
+		$specificClassSelector: '.' + map-get($config, class);
+	}
+
+
+	// Column styles
+
+	%column {
+		position: relative;
+		float: left;
+		padding-left: map-get($config, gutter);
+		box-sizing: border-box;
+	}
+
+	// Grid styles
+
+	.#{ grid + $specificClassSelector } {
+		margin-left: map-get($config, gutter) * -1;
+		clear: both;
+		box-sizing: border-box;
+		&:after {
+			content: "Expect Awesome // Create. Amazing.";
+			visibility: hidden;
+			display: block;
+			text-align: center;
+			height: 0px;
+			clear: both;
+		}
+	}
+
+	// Default Columns (used for mobile devices & other tiny screens)
+
+	@for $i from 1 through map-get($config, columns) {
+
+		.#{ column-#{$i + $specificClassSelector } } {
+			width: ((100 / map-get($config, columns)) * $i) * 1%;
+			@extend %column;
+		}
+	};
+
+
+	// Columns for other screen sizes
+
+	@each $breakpointLabel, $propMap in map-get($config, breakpointMap) {
+
+		@media (min-width: map-get($propMap, viewportWidth)) {
+
+			@for $i from 1 through map-get($config, columns) {
+
+				.#{ $breakpointLabel }-#{ $i + $specificClassSelector } {
+					width: ((100 / map-get($config, columns)) * $i) * 1%;
+				}
+			}
+		}
+	};
+
+
+	// Pushes
+
+	@for $i from 1 through (map-get($config, columns) - 1) {
+		.#{ push }-#{ $i + $specificClassSelector } {
+			margin-left: ((100 / map-get($config, columns)) * $i) * 1%;
+		}
+	};
+}
+
+
+// ------   Structure Helper Module   ------- /
+// ------------------------------------------ /
+
+
+@mixin structure-helpers(){
+
+	// Float Helpers
+
+	.float-right {
+		float: right;
+	}
+
+	.float-left {
+		float: left;
+	}
+
+	.clear-left {
+		clear: left;
+	}
+
+	.clear-right {
+		clear: right;
+	}
+
+	.clear-both {
+		clear: both;
+	}
+
+	// Row: to clear complex grid rows
+
+	.row {
+		clear: both;
+	}
+
+	// Band: best used to denote full width sections
+
+	.band {
+		width: 100%;
+	}
+
+	// Center: centers block elements within their respective parent elements
+
+	.centered {
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+//@include responsive-layout($config: ());
+//@include grid($config: ());
+//@include structure-helpers();
+
+
+
+// ================================================= /
+// ======   #4 Text   ============================== /
+// ================================================= /
+
+$psj_text: (
+	defaults: (
+		h1: (
+			font-size: 2.125,
+			line-height: 1.25
+		),
+		h2: (
+			font-size: 1.5,
+			line-height: 1
+		),
+		h3: (
+			font-size: 1.25,
+			line-height: 1
+		),
+		h4: (
+			font-size: 1.25,
+			line-height: 1
+		),
+		p: (
+			font-size: 1,
+			line-height: 1.475
+		)
+	),
+	textElements: (
+		h1: (
+			sm: (
+				font-size: 2.6,
+				line-height: 1.25,
+			),
+			md: (
+				font-size: 3,
+				line-height: 1.25
+			),
+			lg:	(
+				font-size: 3.6,
+				line-height: 1.125
+			),
+			xl: (
+				font-size: 4,
+				line-height: 1.05
+			)
+		),
+		h2: (
+			sm: (
+				font-size: 1.725,
+				line-height: 1.15384614
+			),
+			md: (
+				font-size: 2,
+				line-height: 1.25
+			),
+			lg:	(
+				font-size: 2.25,
+				line-height: 1.25
+			),
+			xl: (
+				font-size: 2.65,
+				line-height: 1.25
+			)
+		),
+		h3: (
+			sm: (
+				font-size: 1.375,
+				line-height: 1.13636364
+			),
+			md: (
+				font-size: 1.45,
+				line-height: 1.25
+			),
+			lg:	(
+				font-size: 1.65,
+				line-height: 1.25
+			),
+			xl: (
+				font-size: 1.8,
+				line-height: 1.25
+			)
+		),
+		h4: (
+			sm: (
+				font-size: 1.25,
+				line-height: 1.11111111
+			),
+			md: (
+				font-size: 1.25,
+				line-height: 1.11111111
+			),
+			lg:	(
+				font-size: 1.35,
+				line-height: 1.22222222
+			),
+			xl: (
+				font-size: 1.4,
+				line-height: 1.22222222
+			)
+		),
+		p: (
+			sm: (
+				font-size: 1.03,
+				line-height: 1.465
+			),
+			md: (
+				font-size: 1.055,
+				line-height: 1.54
+			),
+			lg:	(
+				font-size: 1.06,
+				line-height: 1.5475
+			),
+			xl: (
+				font-size: 1.07,
+				line-height: 1.545
+			)
+		)
+	),	
+);
+
+
+
+// ------   Text Module   ------------------- /
+// ------------------------------------------ /
+
+
+@mixin responsive-text($config: ()){
+
+	// Default configuration
+
+	$config: map-merge((
+		breakpointMap: $psj_breakpointMap,
+		class: '',
+		base: 16px,
+	), $config);
+
+	$specificClassSelector: '';
+
+	@if map-get($config, class) != '' {
+		$specificClassSelector: '.' + map-get($config, class);
+	}
+
+
+	// Default text (used for mobile devices and other tiny screens)
+
+	body {
+		font-size: map-get($config, base);
+		color: color(darkGray);
+		font-family: sans-serif;
+	}
+
+	h1, h2 {
+		font-weight: bold;
+	}
+
+	@each $element, $propMap in map-get($psj_text, defaults) {
+		#{ $element + $specificClassSelector } { 
+			@each $prop, $value in $propMap {
+				#{ $prop }: $value + em;
+			}
+		};
+	};
+
+	// Responsive Text
+
+	@each $breakpointLabel, $breakpointPropMap in map-get($config, breakpointMap) {
+
+		@media (min-width: map-get($breakpointPropMap, viewportWidth)) {
+
+			@each $element, $textPropMap in map-get($psj_text, textElements) {
+
+				#{ $element + $specificClassSelector } {
+					@each $prop, $value in map-get($textPropMap, $breakpointLabel) {
+						#{ $prop }: $value + em;
+					}
+				}
+			}
+		}
+	}	
+
+	#{ $specificClassSelector }.text-center {
+		text-align: center;
+	}
+}
+
+
+// ------   Text Helpers   ------------------ /
+// ------------------------------------------ /
+
+@mixin text-helpers() {
+
+	// Uppercase: Transforms text to uppercase
+
+	.uppercase {
+		text-transform: uppercase;
+	}
+
+	// Lowercase: Transforms text to lowercase
+
+	.lowercase {
+		text-transform: lowercase;
+	}
+
+	// Capitalize: Transforms the first letter of each word to uppercase
+
+	.caitalize {
+		text-transform: capitalize;
+	}
+
+	// Center Aligned Text: Aligns text to the center of the containing element
+
+	.text-center {
+		text-align: center;
+	}
+
+	// Right Aligned Text: Aligns text to the right of the containing element
+
+	.text-right {
+		text-align: right;
+	}
+
+	@each $color, $hex in $colorMap {
+		.text-#{ '' + $color } {
+			color: $hex;
+		}
+	}
+}
+
+
+// Body text
+
+//@include responsive-text($config: ());
+//@include text-helpers();
+
+
+
+// ================================================= /
+// ======   #5 Buttons   =========================== /
+// ================================================= /
+
+
+// ------   Standard Button Module   -------- /
+// ------------------------------------------ /
+
+
+@mixin standard-button($config:()) {
+
+
+	// Default configuration
+
+	$config: map-merge((
+		prefix: '',
+		padding: 1em 2em,
+		textColor: color(secondary),
+		background: color(primary),
+		hover: $psj_default,
+		override: $psj_default,
+	), $config);
+
+	.#{map-get($config, prefix)}button {
+		@include button($config);
+	}
+}
+
+
+// ------   Arrow Button Module   ----------- /
+// ------------------------------------------ /
+
+
+@mixin arrow-button($config:()) {
+
+
+	// Default configuration
+
+	$config: map-merge((
+		prefix: '',
+		padding: 1em 2em,
+		textColor: color(secondary),
+		background: color(primary),
+		hover: $psj_default,
+		override: $psj_default,
+		arrowColor: $psj_default,
+	), $config);
+
+
+	.#{map-get($config, prefix)}button-arrow {
+
+		@include button($config);
+
+		* {
+			display: inline-block;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 0;
+			vertical-align: baseline;
+		}
+
+		.arrowcontainer {
+			line-height: normal;
+			overflow: hidden;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		.arrow {
+			vertical-align: top;
+			line {
+				@if map-get($config, arrowColor) == $psj_default {
+					stroke: map-get($config, textColor);
+				}
+				@else {
+					stroke: map-get($config, arrowColor);
+				}
+			}
+			polygon {
+				@if map-get($config, arrowColor) == $psj_default {
+					fill: map-get($config, textColor);
+				}
+				@else {
+					fill: map-get($config, arrowColor);
+				}
+			}
+		}
+	}
+}
+
+
+// ------   Worm Button Module   ------------ /
+// ------------------------------------------ /
+
+
+@mixin worm-button($config: ()){
+
+
+	// Default configuration
+
+	$config: map-merge((
+		prefix: '',
+		padding: 1em 2em,
+		textColor: color(secondary),
+		background: none,
+		hover: $psj_default,
+		override: $psj_default,
+		wormColor: $psj_default,
+		wormWeight: 3,
+	), $config);
+
+
+	.#{map-get($config, prefix)}button-worm {
+
+		position: relative;
+		box-sizing: border-box;
+		max-width: 100%;
+
+		@include button($config);
+
+		* {
+			display: inline-block;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+
+		.wormbuttonpath {
+			width: 100%;
+			height: 100%;
+			display: inline;
+			position: absolute;
+			fill: none;
+			line-height: normal;
+
+			rect {
+				@if map-get($config, wormColor) == $psj_default {
+					stroke: map-get($config, textColor);
+				}
+				@else {
+					stroke: map-get($config,wormColor);
+				}
+
+				stroke-width: map-get($config, wormWeight);
+			}
+		}
+	}
+}
+
+
+// ------   Worm Button Module   ---- ------- /
+// ------------------------------------------ /
+
+
+@mixin slide-button($config: ()) {
+
+
+	// Default configuration
+
+	$config: map-merge((
+		prefix: '',
+		padding: 1em 2em,
+		textColor: color(secondary),
+		background: none,
+		hover: $psj_default,
+		override: $psj_default,
+		slideBackground: color(primary),
+	), $config);
+
+
+	.#{map-get($config, prefix)}button-slide {
+		overflow: hidden;
+		position: relative;
+		vertical-align: bottom;
+		box-sizing: border-box;
+
+		@include button($config);
+
+		* {
+			position: relative;
+			display: inline-block;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+
+		.slide {
+			background: map-get($config, slideBackground);
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+
+//@include standard-button();
+//@include arrow-button();
+//@include worm-button();
+//@include slide-button($config: (hover: (color: white)));
+
+
+
+
+// ================================================= /
+// ======   #6 General Helpers   =================== /
+// ================================================= /
+
+
+@mixin general-helpers() {
+
+	// Box Model Helpers
+
+	$helperIncrement: .5;
+	$helperNumber: 10;
+
+	$helpers: (
+		types: (
+			margin,
+			padding
+		),
+		directions: (
+			top,
+			right,
+			bottom,
+			left
+		)		
+	);
+
+	@each $helperType in map-get($helpers, types) {
+		@each $helperDirection in map-get($helpers, directions) {
+			$helperAmount: 0;
+			@for $i from 1 through $helperNumber {
+				$helperAmount: $helperAmount + $helperIncrement;
+				.#{ $helperType }-#{ $helperDirection }-#{ $i } {
+					#{ $helperType }-#{ $helperDirection }: $helperAmount + em;
+				}
+			}
+		}
+	}
+
+	// Display Helpers
+
+	.invisible {
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	.hidden {
+		display: none;
+	}
+
+	.inline {
+		display: inline;
+	}
+
+	.block {
+		display: block;
+	}
+
+	.inline-block {
+		display: inline-block;
+	}
+
+}
+
+//@include general-helpers();
+
+
+/* FEATURES TO ADD ----------------------
+
+- Helper modules - each module has them!
+
+- Blockquotes in text module
+
+- Dropdowns
+
+- Modals
+
+- Tooltips
+
+- Forms
+
+- Tables
+
+- Breadcrumbs
+
+- Progress bars
+
+
+
+ IDEAS -------------------------------------------------------------------
+
+- Complex hover effects driven by JS...simply by adding a class with CSS
+
+- Table(?) / CSS3 Column(?) driven grid that adapts to largest content box
+
+- Pedominantly margin-top free system that uses negative margin-tops strategically utilized through advanced selectors to compensate for added space
+
+- Universal focus effects for accessibility
+
+
+
+NAMES ----------------------
+
+- Framework: Straightjacket
+
+- HTML Expander/Renderer: SomethingOrAnother
+
+- Data Visualization Library: Hallucination, Delusion, Apparition, Injection, Diagnosis, Prognosis, Diagnostic, Vision, Illusion
+
+- Complete Workflow: Asylum
+
+
+TO DOs ====================================================== /////
+
+- ELIMINATE JQUERY AND GREENSOCK DEPENDENCY
+
+- CHANGE PREFIX SYSTEM TO "ACCOMPANYING CLASS SYSTEM TO PREVENT JAVASCRIPT CONFUSION"
+
+2. Add warnings to limit user fuckups in all modules
+3. Experiment with assigning "white-space:nowrap" to parents of arrow buttons when they are firing
+4. Experiment with rem sizing for font size and font size only
+5. Rethink structure of buttons so that they dont need to have another type element within
+7. Come up with a better way to control padding on paragraphs accross columns
+	.column-12 > p:first-child {
+		margin-top: psj_responsiveTextRatio($width, p, margin-bottom) / 2 * -1em;
+	}
+
+*/
