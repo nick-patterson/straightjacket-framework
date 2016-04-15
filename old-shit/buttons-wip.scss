@@ -1,0 +1,196 @@
+// ------   Standard Button Module   -------- /
+// ------------------------------------------ /
+
+
+@mixin standard-button($config:()) {
+
+
+	// Default configuration
+
+	$config: map-merge((
+		prefix: '',
+		padding: 1em 2em,
+		textColor: color(secondary),
+		background: color(primary),
+		hover: $psj_default,
+		override: $psj_default,
+	), $config);
+
+	.#{map-get($config, prefix)}button {
+		@include button($config);
+	}
+}
+
+
+// ------   Arrow Button Module   ----------- /
+// ------------------------------------------ /
+
+
+@mixin arrow-button($config:()) {
+
+
+	// Default configuration
+
+	$config: map-merge((
+		prefix: '',
+		padding: 1em 2em,
+		textColor: color(secondary),
+		background: color(primary),
+		hover: $psj_default,
+		override: $psj_default,
+		arrowColor: $psj_default,
+	), $config);
+
+
+	.#{map-get($config, prefix)}button-arrow {
+
+		@include button($config);
+
+		* {
+			display: inline-block;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 0;
+			vertical-align: baseline;
+		}
+
+		.arrowcontainer {
+			line-height: normal;
+			overflow: hidden;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		.arrow {
+			vertical-align: top;
+			line {
+				@if map-get($config, arrowColor) == $psj_default {
+					stroke: map-get($config, textColor);
+				}
+				@else {
+					stroke: map-get($config, arrowColor);
+				}
+			}
+			polygon {
+				@if map-get($config, arrowColor) == $psj_default {
+					fill: map-get($config, textColor);
+				}
+				@else {
+					fill: map-get($config, arrowColor);
+				}
+			}
+		}
+	}
+}
+
+
+// ------   Worm Button Module   ------------ /
+// ------------------------------------------ /
+
+
+@mixin worm-button($config: ()){
+
+
+	// Default configuration
+
+	$config: map-merge((
+		prefix: '',
+		padding: 1em 2em,
+		textColor: color(secondary),
+		background: none,
+		hover: $psj_default,
+		override: $psj_default,
+		wormColor: $psj_default,
+		wormWeight: 3,
+	), $config);
+
+
+	.#{map-get($config, prefix)}button-worm {
+
+		position: relative;
+		box-sizing: border-box;
+		max-width: 100%;
+
+		@include button($config);
+
+		* {
+			display: inline-block;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+
+		.wormbuttonpath {
+			width: 100%;
+			height: 100%;
+			display: inline;
+			position: absolute;
+			fill: none;
+			line-height: normal;
+
+			rect {
+				@if map-get($config, wormColor) == $psj_default {
+					stroke: map-get($config, textColor);
+				}
+				@else {
+					stroke: map-get($config,wormColor);
+				}
+
+				stroke-width: map-get($config, wormWeight);
+			}
+		}
+	}
+}
+
+
+// ------   Worm Button Module   ---- ------- /
+// ------------------------------------------ /
+
+
+@mixin slide-button($config: ()) {
+
+
+	// Default configuration
+
+	$config: map-merge((
+		prefix: '',
+		padding: 1em 2em,
+		textColor: color(secondary),
+		background: none,
+		hover: $psj_default,
+		override: $psj_default,
+		slideBackground: color(primary),
+	), $config);
+
+
+	.#{map-get($config, prefix)}button-slide {
+		overflow: hidden;
+		position: relative;
+		vertical-align: bottom;
+		box-sizing: border-box;
+
+		@include button($config);
+
+		* {
+			position: relative;
+			display: inline-block;
+			padding-top: 0;
+			padding-bottom: 0;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+
+		.slide {
+			background: map-get($config, slideBackground);
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+
+//@include standard-button();
+//@include arrow-button();
+//@include worm-button();
+//@include slide-button($config: (hover: (color: white)));

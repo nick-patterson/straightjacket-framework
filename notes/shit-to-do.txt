@@ -1,0 +1,84 @@
+/* 
+
+ARCHITECTURE MANIFESTO -----------------------------------------------------
+
+- Responsive Text ---------------------
+
+The Phantasm Straightjacket Responsive Text Engine computes text attributes for all of the main text elements based on the size of the viewport (breakpoint) for maximum readability and hierarchy.
+
+- Start with Breakpoints --------------
+
+All breakpoints, container widths, and responsive text attributes will be driven by one default object (PSJ_Defaults) that should not be changed by mortal developers, and a series of variables pointing to it.
+
+If the structure module is enabled, the user may specify their own breakpoint and container width scheme for their design. If they do, and the text module is detected, The PSJ Responsive Text Engine will generate a responsive text attribute scheme adjusted to the user's breakpoint scheme for use in the text module if it gets enabled.
+
+The goal is to force the user to start their development thinking with structural breakpoints. Responsive text cannot be based on different breakpoints than the main structural scheme (unless you write them yourself). All text breakpoints will respond directly to the structural breakpoints unless no structure module is detected, in which case, the user will have the ability to specify breakpoints for responsive text with the PSJ_Defaults acting as a fallback.
+
+
+FEATURES TO ADD ----------------------------------------------------------
+
+- Buttons
+	- Regular 
+	- Arrow
+	- Worm
+	- Slide
+
+- Helper modules - each module has them!
+
+- Blockquotes in text module
+
+- Dropdowns
+
+- Modals
+
+- Tooltips
+
+- Forms
+
+- Tables
+
+- Breadcrumbs
+
+- Progress bars
+
+
+
+ IDEAS -------------------------------------------------------------------
+
+- Complex hover effects driven by JS...simply by adding a class with CSS
+
+- Table(?) / CSS3 Column(?) driven grid that adapts to largest content box
+
+- Pedominantly margin-top free system that uses negative margin-tops strategically utilized through advanced selectors to compensate for added space
+
+- Universal focus effects for accessibility
+
+
+
+NAMES ----------------------
+
+- Framework: Straightjacket
+
+- HTML Expander/Renderer: SomethingOrAnother
+
+- Data Visualization Library: Hallucination, Delusion, Apparition, Injection, Diagnosis, Prognosis, Diagnostic, Vision, Illusion
+
+- Complete Workflow: Asylum
+
+
+TO DOs ====================================================== /////
+
+- ELIMINATE JQUERY AND GREENSOCK DEPENDENCY
+
+- CHANGE PREFIX SYSTEM TO "ACCOMPANYING CLASS SYSTEM TO PREVENT JAVASCRIPT CONFUSION"
+
+2. Add warnings to limit user fuckups in all modules
+3. Experiment with assigning "white-space:nowrap" to parents of arrow buttons when they are firing
+4. Experiment with rem sizing for font size and font size only
+5. Rethink structure of buttons so that they dont need to have another type element within
+7. Come up with a better way to control padding on paragraphs accross columns
+	.column-12 > p:first-child {
+		margin-top: psj_responsiveTextRatio($width, p, margin-bottom) / 2 * -1em;
+	}
+
+*/
