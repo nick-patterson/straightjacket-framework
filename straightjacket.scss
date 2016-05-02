@@ -189,6 +189,7 @@ $psj_breakpointMap: (
 		columns: 12,
 		breakpointMap: $psj_breakpointMap,
 		gutter: $psj_base * 4px,
+		inline: true,
 	), $config);
 
 	$specificClassSelector: '';
@@ -207,19 +208,35 @@ $psj_breakpointMap: (
 		box-sizing: border-box;
 	}
 
+
+	%column-inline {
+		position: relative;
+		display: inline-block;
+		padding-left: map-get($config, gutter);
+		box-sizing: border-box;
+		font-size: $psj_textBase * 1px;
+		vertical-align: middle;
+	}
+
 	// Grid styles
 
 	.#{ grid + $specificClassSelector } {
 		margin-left: map-get($config, gutter) * -1;
 		clear: both;
 		box-sizing: border-box;
-		&:after {
-			content: "Expect Awesome // Create. Amazing.";
-			visibility: hidden;
-			display: block;
-			text-align: center;
-			height: 0px;
-			clear: both;
+		@if (map-get($config, inline)) {
+			font-size: 0;
+		}
+
+		@else {			
+			&:after {
+				content: "Expect Awesome // Create. Amazing.";
+				visibility: hidden;
+				display: block;
+				text-align: center;
+				height: 0px;
+				clear: both;
+			}
 		}
 	}
 
@@ -227,9 +244,16 @@ $psj_breakpointMap: (
 
 	@for $i from 1 through map-get($config, columns) {
 
-		.#{ column-#{$i + $specificClassSelector } } {
+		.#{ grid + $specificClassSelector } .#{ column-#{ $i } } {
 			width: ((100 / map-get($config, columns)) * $i) * 1%;
-			@extend %column;
+
+			@if (map-get($config, inline)) {
+				@extend %column-inline;
+			}
+
+			@else {
+				@extend %column;
+			}
 		}
 	};
 
@@ -242,7 +266,7 @@ $psj_breakpointMap: (
 
 			@for $i from 1 through map-get($config, columns) {
 
-				.#{ $breakpointLabel }-#{ $i + $specificClassSelector } {
+				.#{ grid + $specificClassSelector } .#{ $breakpointLabel }-#{ $i } {
 					width: ((100 / map-get($config, columns)) * $i) * 1%;
 				}
 			}
@@ -253,7 +277,7 @@ $psj_breakpointMap: (
 	// Pushes
 
 	@for $i from 1 through (map-get($config, columns) - 1) {
-		.#{ push }-#{ $i + $specificClassSelector } {
+		.#{ grid + $specificClassSelector } .#{ push }-#{ $i } {
 			margin-left: ((100 / map-get($config, columns)) * $i) * 1%;
 		}
 	};
@@ -309,9 +333,9 @@ $psj_breakpointMap: (
 	}
 }
 
-//@include responsive-layout($config: ());
-//@include grid($config: ());
-//@include structure-helpers();
+@include responsive-layout($config: ());
+@include grid($config: ());
+@include structure-helpers();
 
 
 
