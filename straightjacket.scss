@@ -143,23 +143,21 @@ $psj_breakpointMap: (
 			centered: true
 		), $config);
 
-	$specificClassSelector: '';
+	$containerClass: container;
 
 	@if map-get($config, class) != '' {
-		$specificClassSelector: '.' + map-get($config, class);
+		$containerClass: '.' + map-get($config, class);
 	}
 
 	// Default container (for mobile devices & other tiny screens)
 
-	.#{ container + $specificClassSelector } {
+	.#{ $containerClass } {
 		width: map-get($config, defaultWidth);
 		padding: map-get($config, padding);
 
 		@if map-get($config, centered) == true {
 			margin: 0 auto;
 		}
-
-		box-sizing: border-box;
 	}
 
 	// Container for other screen sizes
@@ -167,7 +165,7 @@ $psj_breakpointMap: (
 	@each $breakpointLabel, $propMap in $psj_breakpointMap {
 
 		@media (min-width: map-get($propMap, viewportWidth)) {
-			.#{ container + $specificClassSelector } {
+			.#{ $containerClass } {
 				width: map-get($propMap, containerWidth);
 			}
 		}
@@ -179,6 +177,35 @@ $psj_breakpointMap: (
 // ------   Grid Module   ------------------- /
 // ------------------------------------------ /
 
+// Grid styles
+
+%psj_grid {		
+	clear: both;
+}
+
+%psj_inlineGrid {
+	font-size: 0;
+}
+
+// Column styles
+
+%psj_floatColumn {
+	float: left;
+}
+
+
+%psj_inlineColumn {
+	display: inline-block;
+	font-size: $psj_textBase * 1px;
+	vertical-align: top;
+}
+
+// Row: to clear complex grid rows
+
+%psj_row {
+	clear: both;
+}
+
 
 @mixin grid($config: ()) {
 
@@ -189,43 +216,24 @@ $psj_breakpointMap: (
 		columns: 12,
 		breakpointMap: $psj_breakpointMap,
 		gutter: $psj_base * 4px,
-		inline: true,
+		type: float,
 	), $config);
 
-	$specificClassSelector: '';
+	$gridClass: grid;
 
 	@if map-get($config, class) != '' {
-		$specificClassSelector: '.' + map-get($config, class);
+		$gridClass: map-get($config, class);
 	}
 
 
-	// Column styles
+	.#{ $gridClass } {
 
-	%column {
-		position: relative;
-		float: left;
-		padding-left: map-get($config, gutter);
-		box-sizing: border-box;
-	}
-
-
-	%column-inline {
-		position: relative;
-		display: inline-block;
-		padding-left: map-get($config, gutter);
-		box-sizing: border-box;
-		font-size: $psj_textBase * 1px;
-		vertical-align: middle;
-	}
-
-	// Grid styles
-
-	.#{ grid + $specificClassSelector } {
 		margin-left: map-get($config, gutter) * -1;
-		clear: both;
-		box-sizing: border-box;
-		@if (map-get($config, inline)) {
-			font-size: 0;
+
+		@extend %psj_grid;
+
+		@if (map-get($config,type) == inline) {
+			@extend %psj_inlineGrid;
 		}
 
 		@else {			
@@ -240,20 +248,33 @@ $psj_breakpointMap: (
 		}
 	}
 
+	// Rows
+
+	.row {
+		@extend %psj_row;
+	}
+
+
+	// All columns (type dependencies & paddings...all in one declaration!)
+
+	.#{ $gridClass } [class*="column"] {
+		@if (map-get($config, type) == inline) {
+			@extend %psj_inlineColumn;
+		}
+
+		@else {
+			@extend %psj_floatColumn;
+		}
+
+		padding-left: map-get($config, gutter);
+	}
+
 	// Default Columns (used for mobile devices & other tiny screens)
 
 	@for $i from 1 through map-get($config, columns) {
 
-		.#{ grid + $specificClassSelector } .#{ column-#{ $i } } {
+		.#{ $gridClass } .#{ column-#{ $i } } {
 			width: ((100 / map-get($config, columns)) * $i) * 1%;
-
-			@if (map-get($config, inline)) {
-				@extend %column-inline;
-			}
-
-			@else {
-				@extend %column;
-			}
 		}
 	};
 
@@ -266,7 +287,7 @@ $psj_breakpointMap: (
 
 			@for $i from 1 through map-get($config, columns) {
 
-				.#{ grid + $specificClassSelector } .#{ $breakpointLabel }-#{ $i } {
+				.#{ $gridClass } .#{ $breakpointLabel }-#{ $i } {
 					width: ((100 / map-get($config, columns)) * $i) * 1%;
 				}
 			}
@@ -277,64 +298,104 @@ $psj_breakpointMap: (
 	// Pushes
 
 	@for $i from 1 through (map-get($config, columns) - 1) {
-		.#{ grid + $specificClassSelector } .#{ push }-#{ $i } {
+		.#{ $gridClass } .#{ push }-#{ $i } {
 			margin-left: ((100 / map-get($config, columns)) * $i) * 1%;
 		}
 	};
+
+	// Helpers
+
+	.#{ $gridClass } .float-left {
+		@extend %psj_floatLeft;
+	}
+
+	.#{ $gridClass } .float-right {
+		@extend %psj_floatRight;
+	}
+
+	.#{ $gridClass } .clear-left {
+		@extend %psj_clearLeft;
+	}
+
+	.#{ $gridClass } .clear-right {
+		@extend %psj_clearRight;
+	}
+
+	.#{ $gridClass } .clear-both {
+		@extend %psj_clearBoth;
+	}
+
+	.#{ $gridClass } .centered {
+		@extend %psj_centered;
+	}
+
+
 }
 
 
 // ------   Structure Helper Module   ------- /
 // ------------------------------------------ /
 
+%psj_floatLeft {
+	float: left;
+}
+
+%psj_floatRight {
+	float: right;
+}
+
+%psj_clearLeft {
+	clear: left;
+}
+
+%psj_clearRight {
+	clear: right;
+}
+
+%psj_clearBoth {
+	clear: both;
+}
+
+%psj_centered {
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 
 @mixin structure-helpers(){
 
 	// Float Helpers
 
-	.float-right {
-		float: right;
+	.float-left {
+		@extend %psj_floatLeft;
 	}
 
-	.float-left {
-		float: left;
+	.float-right {
+		@extend %psj_floatRight;
 	}
 
 	.clear-left {
-		clear: left;
+		@extend %psj_clearLeft;
 	}
 
 	.clear-right {
-		clear: right;
+		@extend %psj_clearRight;
 	}
 
 	.clear-both {
-		clear: both;
+		@extend %psj_clearBoth;
 	}
 
-	// Row: to clear complex grid rows
-
-	.row {
-		clear: both;
-	}
-
-	// Band: best used to denote full width sections
-
-	.band {
-		width: 100%;
-	}
-
-	// Center: centers block elements within their respective parent elements
+	// Center (centers block elements within their respective parent elements)
 
 	.centered {
-		float: none;
-		margin-left: auto;
-		margin-right: auto;
+		@extend %psj_centered;
 	}
 }
 
 @include responsive-layout($config: ());
-@include grid($config: ());
+@include grid($config: (gutter: 20px));
 @include structure-helpers();
 
 
