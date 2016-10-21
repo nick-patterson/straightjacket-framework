@@ -1,0 +1,280 @@
+// ================================================= /
+// ======   PHANTASM STRAIGHTJACKET   ============== /
+// ================================================= /
+// ------   CONFIGURATION   ------------------------ /
+// ================================================= /
+
+/* DESCRIPTION: -------------------------------------/
+
+   This file sets the default configuration for
+   StraightJacket. All user configuration objects
+   and variables should be stored here.
+
+/ ------------------------------------------------- */
+
+
+
+
+
+// ================================================= /
+// ======   Global Proportions   =================== /
+// ================================================= /
+
+
+// ------   Bases   ------------------------- /
+
+/* Lorem ipsum
+
+/ ------------------------------------------ */
+
+$base: 10;
+$textBase: 16;
+
+
+
+
+// ================================================= /
+// ======   Colors   =============================== /
+// ================================================= /
+
+// ------   Color Map   --------------------- /
+
+/* Lorem ipsum
+
+/ ------------------------------------------ */
+
+$colorMap: (
+	black: #000000,
+	pseudo-black: #222,
+	dark-gray: #5a5a5a,
+	mid-gray: #adadae,
+	light-gray: #d4d4d6,
+	white: #ffffff,
+	pseudo-white: #f4f4f4,
+	phantasm-red: #ba141a,
+	phantasm-orange: #ea5e25,
+	phantasm-teal: #94d0ad,
+	phantasm-navy: #08223e,
+	phantasm-dark-gray:#bbbdc0,
+	phantasm-light-gray: #a7a9ab
+);
+
+
+
+
+// ================================================= /
+// ======   Structure   ============================ /
+// ================================================= /
+
+
+// ------   Breakpoint Map   ---------------- /
+
+/* Lorem ipsum
+
+/ ------------------------------------------ */
+
+$breakpointMap: (
+	xs: (
+		viewportWidth: 480px,
+		containerWidth: 90%
+	),
+	sm: (
+		viewportWidth: 680px,
+		containerWidth: 90%
+	),
+	md: (
+		viewportWidth: 768px,
+		containerWidth: 718px
+	),
+	lg: (
+		viewportWidth: 992px,
+		containerWidth: 960px
+	),
+	xl: (
+		viewportWidth: 1200px,
+		containerWidth: 1120px
+	),
+	xxl: (
+		viewportWidth: 1600px,
+		containerWidth: 1400px
+	)
+);
+
+
+
+
+// ================================================= /
+// ======   Text   ================================= /
+// ================================================= /
+
+// ------   Text Map   ---------------- /
+
+/* Lorem ipsum
+
+/ ------------------------------------------ */
+
+$textMap: (
+	defaults: (
+		h1: (
+			font-size: 2.125,
+			line-height: 1.25
+		),
+		h2: (
+			font-size: 1.3,
+			line-height: 1.125
+		),
+		h3: (
+			font-size: 1.75,
+			line-height: 1.125
+		),
+		h4: (
+			font-size: 1.25,
+			line-height: 1.125
+		),
+		p: (
+			font-size: 1,
+			line-height: 1.475
+		)
+	),
+	textElements: (
+		h1: (
+			xs: (
+				font-size: 2.6,
+				line-height: 1.25,
+			),
+			sm: (
+				font-size: 2.6,
+				line-height: 1.25,
+			),
+			md: (
+				font-size: 3,
+				line-height: 1.25
+			),
+			lg:	(
+				font-size: 3.25,
+				line-height: 1.125
+			),
+			xl: (
+				font-size: 3.5,
+				line-height: 1.05
+			),
+			xxl: (
+				font-size: 3.65,
+				line-height: 1.05
+			)
+		),
+		h2: (
+			xs: (
+				font-size: 1.35,
+				line-height: 1.15384614
+			),
+			sm: (
+				font-size: 1.35,
+				line-height: 1.15384614
+			),
+			md: (
+				font-size: 1.35,
+				line-height: 1.25
+			),
+			lg:	(
+				font-size: 1.55,
+				line-height: 1.25
+			),
+			xl: (
+				font-size: 1.65,
+				line-height: 1.25
+			),
+			xxl: (
+				font-size: 1.65,
+				line-height: 1.25
+			),
+		),
+		h3: (
+			xs: (
+				font-size: 1.75,
+				line-height: 1.13636364
+			),
+			sm: (
+				font-size: 1.75,
+				line-height: 1.13636364
+			),
+			md: (
+				font-size: 1.75,
+				line-height: 1.25
+			),
+			lg:	(
+				font-size: 2.2,
+				line-height: 1.225
+			),
+			xl: (
+				font-size: 2.375,
+				line-height: 1.225
+			),
+			xxl: (
+				font-size: 2.375,
+				line-height: 1.225
+			),
+		),
+		h4: (
+			xs: (
+				font-size: 1.25,
+				line-height: 1.11111111
+			),
+			sm: (
+				font-size: 1.25,
+				line-height: 1.11111111
+			),
+			md: (
+				font-size: 1.25,
+				line-height: 1.11111111
+			),
+			lg:	(
+				font-size: 1.25,
+				line-height: 1.22222222
+			),
+			xl: (
+				font-size: 1.25,
+				line-height: 1.22222222
+			),
+			xxl: (
+				font-size: 1.25,
+				line-height: 1.22222222
+			)
+		),
+		p: (
+			xs: (
+				font-size: 1,
+				line-height: 1.45
+			),
+			sm: (
+				font-size: 1,
+				line-height: 1.45
+			),
+			md: (
+				font-size: 1,
+				line-height: 1.45
+			),
+			lg:	(
+				font-size: 1,
+				line-height: 1.45
+			),
+			xl: (
+				font-size: 1,
+				line-height: 1.6
+			),
+			xxl: (
+				font-size: 1,
+				line-height: 1.6
+			)
+		)
+	),	
+);
+
+
+
+/* ------------------------------------------------ */
+
+// Reference the StraightJacket core
+@import 'core/straightjacket-core';
+
+/* ------------------------------------------------ */

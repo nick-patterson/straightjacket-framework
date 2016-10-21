@@ -1,0 +1,64 @@
+// ------   General Helpers   --------------- /
+// ------------------------------------------ /
+
+
+@mixin general-helpers() {
+
+	// Box Model Helpers
+
+	$helperIncrement: .5;
+	$helperNumber: 10;
+
+	$helpers: (
+		types: (
+			margin,
+			padding
+		),
+		directions: (
+			top,
+			right,
+			bottom,
+			left
+		)		
+	);
+
+	@each $helperType in map-get($helpers, types) {
+		@each $helperDirection in map-get($helpers, directions) {
+			$helperAmount: 0;
+			@for $i from 1 through $helperNumber {
+				$helperAmount: $helperAmount + $helperIncrement;
+				.#{ $helperType }-#{ $helperDirection }-#{ $i } {
+					#{ $helperType }-#{ $helperDirection }: $helperAmount + em;
+				}
+			}
+		}
+	}
+
+	// Display Helpers
+
+	.display {
+
+		@at-root {
+			&--invisible {
+				visibility: hidden;
+				opacity: 0;
+			}
+
+			&--hidden {
+				display: none;
+			}
+
+			&--inline {
+				display: inline;
+			}
+
+			&--block {
+				display: block;
+			}
+
+			&--inline-block {
+				display: inline-block;
+			}
+		}
+	}
+}

@@ -1,0 +1,47 @@
+// ------   Text Helpers   ------------------ /
+// ------------------------------------------ /
+
+
+@mixin text-helpers() {
+
+	.text {
+		@at-root {
+
+			// Uppercase: Transforms text to uppercase
+
+			&--uppercase {
+				text-transform: uppercase;
+			}
+
+			// Lowercase: Transforms text to lowercase
+
+			&--lowercase {
+				text-transform: lowercase;
+			}
+
+			// Capitalize: Transforms the first letter of each word to uppercase
+
+			&--caitalize {
+				text-transform: capitalize;
+			}
+
+			// Center Aligned Text: Aligns text to the center of the containing element
+
+			&--align-center {
+				text-align: center;
+			}
+
+			// Right Aligned Text: Aligns text to the right of the containing element
+
+			&--align-right {
+				text-align: right;
+			}
+
+			@each $color, $hex in $colorMap {
+				&--#{ '' + $color } {
+					color: $hex;
+				}
+			}
+		}
+	}
+}

@@ -92,7 +92,7 @@
 		}
 	}
 
-	:first-child {
+	&:first-child {
 		margin: 0;
 		display: inline-block;
 	}

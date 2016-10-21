@@ -1,0 +1,66 @@
+// ------   Structure Helpers Module   ------ /
+// ------------------------------------------ /
+
+
+
+@mixin structure-helpers(){
+
+
+	// ------   Placeholders   ------- /
+
+	%psj_floatLeft {
+		float: left;
+	}
+
+	%psj_floatRight {
+		float: right;
+	}
+
+	%psj_clearLeft {
+		clear: left;
+	}
+
+	%psj_clearRight {
+		clear: right;
+	}
+
+	%psj_clearBoth {
+		clear: both;
+	}
+
+	%psj_centered {
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+
+
+	// ------   Float Helpers   ---- /
+
+	.float-left {
+		@extend %psj_floatLeft;
+	}
+
+	.float-right {
+		@extend %psj_floatRight;
+	}
+
+	.clear-left {
+		@extend %psj_clearLeft;
+	}
+
+	.clear-right {
+		@extend %psj_clearRight;
+	}
+
+	.clear-both {
+		@extend %psj_clearBoth;
+	}
+
+	// Center (centers block elements within their respective parent elements)
+
+	.centered {
+		@extend %psj_centered;
+	}
+}

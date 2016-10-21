@@ -1,0 +1,42 @@
+// ------   Container Module   -------------- /
+// ------------------------------------------ /
+
+@mixin containers($config: ()) {
+
+	// Default configuration
+
+	$config: map-merge((
+			class: 'container',
+			defaultWidth: 90%, // Container width for mobile devices
+			padding: 0 ($base * 2px),
+			centered: true
+		), $config);
+
+	$containerClass: container;
+
+	@if map-get($config, class) != '' {
+		$containerClass: map-get($config, class);
+	}
+
+	// Default container (for mobile devices & other tiny screens)
+
+	.#{ $containerClass } {
+		width: map-get($config, defaultWidth);
+		padding: map-get($config, padding);
+
+		@if map-get($config, centered) == true {
+			margin: 0 auto;
+		}
+	}
+
+	// Container for other screen sizes
+
+	@each $breakpointLabel, $propMap in $breakpointMap {
+
+		@media (min-width: map-get($propMap, viewportWidth)) {
+			.#{ $containerClass } {
+				width: map-get($propMap, containerWidth);
+			}
+		}
+	};
+}

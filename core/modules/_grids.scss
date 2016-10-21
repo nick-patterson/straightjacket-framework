@@ -1,0 +1,182 @@
+// ------   Grid Module   ------------------- /
+// ------------------------------------------ /
+
+
+
+@mixin grid($config: ()) {
+
+	// Default configuration
+
+	$config: map-merge((
+		class: 'grid',
+		columns: 12,
+		gutter: $base * 4px,
+		type: 'block',
+	), $config);
+
+	$gridClass: #{map-get($config, class)};
+
+
+
+	// ------   Dynamic Placeholders   ------- /
+
+
+	// Grid placeholders
+
+	%#{$gridClass}_grid {		
+		clear: both;
+	}
+	%#{$gridClass}_blockGrid {
+		&:after {
+			content: "Expect Awesome // Create. Amazing.";
+			visibility: hidden;
+			display: block;
+			text-align: center;
+			height: 0px;
+			clear: both;
+		}
+	}
+
+	// Column placeholders
+
+	%#{$gridClass}_column {
+		padding-left: map-get($config, gutter);
+	}
+	%#{$gridClass}_floatColumn {
+		float: left;
+	}
+	%#{$gridClass}_inlineColumn {
+		display: inline-block;
+		font-size: $textBase * 1px;
+		vertical-align: top;
+	}
+
+	// Row placeholders
+
+	%#{$gridClass}_row {
+		clear: both;
+	}
+
+
+
+	// ------   Generated CSS   -------------- /
+
+
+	.#{$gridClass} {
+		margin-left: map-get($config, gutter) * -1;
+		@extend %#{$gridClass}_grid;
+
+		@if (map-get($config,type) == inline) {
+			@extend %#{$gridClass}_inlineGrid;
+		}
+
+		@else {			
+			@extend %#{$gridClass}_blockGrid;
+		}
+
+		@at-root {
+
+
+			// Rows
+
+			.#{ $gridClass }__row {
+				@extend %#{$gridClass}_row;
+			}
+
+
+			// Default Columns (used for mobile devices & other tiny screens)
+
+			@for $i from 1 through map-get($config, columns) {
+
+				.#{ $gridClass }__column--#{ $i } {
+
+					width: ((100 / map-get($config, columns)) * $i) * 1%;
+
+					@extend %#{$gridClass}_column;
+
+					@if (map-get($config, type) == inline) {
+						@extend %#{$gridClass}_inlineColumn;
+					}
+
+					@else {
+						@extend %#{$gridClass}_floatColumn;
+					}
+				}
+			};
+
+
+			// Columns for other screen sizes
+
+			@each $breakpointLabel, $propMap in $breakpointMap {
+
+				@media (min-width: map-get($propMap, viewportWidth)) {
+
+					@for $i from 1 through map-get($config, columns) {
+
+						// Dynamc placeholder
+
+						%#{$gridClass}-column-#{ $i }-#{ $breakpointLabel } {
+							width: ((100 / map-get($config, columns)) * $i) * 1%;
+						}
+
+						@for $c from 1 through map-get($config, columns) {
+
+							.#{ $gridClass }__column--#{ $i }.#{ $breakpointLabel }--#{ $c } {
+								@extend %#{$gridClass}-column-#{ $c }-#{ $breakpointLabel };
+							}
+						}
+					}
+				}
+			};
+
+
+			// Pushes
+
+			@for $i from 1 through (map-get($config, columns) - 1) {
+
+				// Dynamc placeholder
+
+				%#{$gridClass}-column-#{ $i }-push-#{ $i } {
+					margin-left: ((100 / map-get($config, columns)) * $i) * 1%;
+				}
+
+				@for $c from 1 through (map-get($config, columns) - 1) {
+
+					.#{ $gridClass }__column--#{ $c }.#{ push }--#{ $i } {
+						@extend %#{$gridClass}-column-#{ $i }-push-#{ $i };
+					}
+				}
+			};
+
+
+			// Helpers /* MAY OR MAY NOT USE */
+
+			@for $i from 1 through map-get($config, columns) {
+
+				.#{ $gridClass }__column--#{ $i }.float-left {
+					//@extend %psj_floatLeft;
+				}
+
+				.#{ $gridClass }__column--#{ $i }.float-right {
+					//@extend %psj_floatRight;
+				}
+
+				.#{ $gridClass }__column--#{ $i }.clear-left {
+					//@extend %psj_clearLeft;
+				}
+
+				.#{ $gridClass }__column--#{ $i }.clear-right {
+					//@extend %psj_clearRight;
+				}
+
+				.#{ $gridClass }__column--#{ $i }.clear-both {
+					//@extend %psj_clearBoth;
+				}
+
+				.#{ $gridClass }__column--#{ $i }.centered {
+					//@extend %psj_centered;
+				}
+			}
+		}
+	}
+}

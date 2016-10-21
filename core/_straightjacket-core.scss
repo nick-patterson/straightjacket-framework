@@ -1,0 +1,162 @@
+// ================================================= /
+// ======   PHANTASM STRAIGHTJACKET   ============== /
+// ================================================= /
+// ------   RESPONSIVE CSS FRAMEWORK CORE   -------- /
+// ================================================= /
+
+
+
+/* DESCRIPTION: -------------------------------------/
+
+   A lightweight and powerful framework designed
+   for maximum customizability. 
+
+   Straightjacket aims to substantiate complex css
+   into a system of awesome features and functions
+   that are presented as a collection of modules.
+
+   Straightjacket's modules can be created, destroyed,
+   duplicated, and modified at your will to suit the
+   project at hand. Tweak your configurations to
+   perfection or just jump right in and start firing
+   off some defaults. It's all up to you.
+
+   In order to keep your code clean and your project
+   fast, Straightjacket makes no assumptions and
+   will not act unless called upon, thus keeping
+   all of the power where it belongs: in the
+   hands of the developer.
+
+/ ------------------------------------------------- */
+
+
+/* VERSION: 1.1 ------------------------------------ /
+/- RELEASE: OCTOBER 21, 2016 ----------------------- /
+/- AUTHOR: NICK PATTERSON AT FIFTEEN FOUR ---------- /
+
+/- PHANTASM: Phantasmcs.net ------------------------ /
+/- 15FOUR: fifteenfour.com ------------------------- /
+/ ------------------------------------------------- */
+
+
+/* TABLE OF CONTENTS ------------------------------- /
+/-
+/- #0 Global Proportions --------------------------- /
+/- #1 Mixins --------------------------------------- /
+/- #2 Colors --------------------------------------- /
+/- #3 Structure ------------------------------------ /
+/- #4 Text ----------------------------------------- /
+/- #5 Buttons -- WORK IN PROGRESS ------------------ /
+/- #6 General Helpers ------------------------------ /
+/-
+/ ------------------------------------------------- */
+
+
+
+
+
+// ================================================= /
+// ======   #0 Global Proportions   ================ /
+// ================================================= /
+
+// ------------------------------------------------- /
+
+/*  Global proportons ensure that margins, text
+	sizes, etc. adhere to a global standard.
+
+	These variables can be found in the
+	StraightJacket Configuration file.
+
+/ ------------------------------------------------- */
+
+
+
+
+// ================================================= /
+// ======   #1 Mixins & Functionality   ============ /
+// ================================================= /
+
+@import 'essentials/functionality';
+@import 'essentials/mixins';
+
+
+
+
+// ================================================= /
+// ======   #2 Colors   ============================ /
+// ================================================= /
+
+// ------------------------------------------------- /
+
+/*  Global colors live inside of a map that
+	allows users to easily access them with the
+	simple color(color) function.
+
+	This map can be found in the StraightJacket
+	Configuration file.
+
+/ ------------------------------------------------- */
+
+
+
+
+// ================================================= /
+// ======   #3 Structure   ========================= /
+// ================================================= /
+
+
+// ------   Container Module   -------------- /
+// ------------------------------------------ /
+@import 'modules/containers';
+
+
+// ------   Grid Module   ------------------- /
+// ------------------------------------------ /
+@import 'modules/grids';
+
+
+// ------   Structure Helpers Module   ------ /
+// ------------------------------------------ /
+@import 'modules/structure-helpers';
+
+
+
+
+// ================================================= /
+// ======   #4 Text   ============================== /
+// ================================================= /
+
+
+// ------   Text Sizing Module   ------------ /
+// ------------------------------------------ /
+@import 'modules/text-sizing';
+
+
+// ------   Text Helpers Module   ----------- /
+// ------------------------------------------ /
+@import 'modules/text-helpers';
+
+
+
+
+// ================================================= /
+// ======   #5 Buttons   =========================== /
+// ================================================= /
+
+/* TODO: Add button module */
+
+
+
+
+// ================================================= /
+// ======   #6 General Helpers   =================== /
+// ================================================= /
+
+
+// ------   General Helpers Module   -------- /
+// ------------------------------------------ /
+@import 'modules/general-helpers';
+
+
+
+

@@ -1,0 +1,60 @@
+// ------   Text Sizing Module   ------------ /
+// ------------------------------------------ /
+
+
+@mixin text-sizing($config: ()){
+
+	// Default configuration
+
+	$config: map-merge((
+		breakpointMap: $psj_breakpointMap,
+		class: '',
+		base: 16px,
+	), $config);
+
+	$specificClassSelector: '';
+
+	@if map-get($config, class) != '' {
+		$specificClassSelector: '.' + map-get($config, class);
+	}
+
+
+	// Default text (used for mobile devices and other tiny screens)
+
+	body {
+		font-size: map-get($config, base);
+	}
+
+	h1, h2 {
+		font-weight: bold;
+	}
+
+	@each $element, $propMap in map-get($psj_text, defaults) {
+		#{ $element + $specificClassSelector } { 
+			@each $prop, $value in $propMap {
+				#{ $prop }: $value + em;
+			}
+		};
+	};
+
+	// Responsive Text
+
+	@each $breakpointLabel, $breakpointPropMap in map-get($config, breakpointMap) {
+
+		@media (min-width: map-get($breakpointPropMap, viewportWidth)) {
+
+			@each $element, $textPropMap in map-get($psj_text, textElements) {
+
+				#{ $element + $specificClassSelector } {
+					@each $prop, $value in map-get($textPropMap, $breakpointLabel) {
+						#{ $prop }: $value + em;
+					}
+				}
+			}
+		}
+	}	
+
+	#{ $specificClassSelector }.text-center {
+		text-align: center;
+	}
+}
