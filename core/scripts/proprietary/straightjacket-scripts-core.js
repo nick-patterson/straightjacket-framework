@@ -38,10 +38,36 @@
 
 
 
+/* TODOS: -------------------------------------/
+
+   1: Add ability to pass DOM element in as
+      an argument to the PSJ function   
+      -- Simply add element to empty nodelist
+         and attach methods
+
+    2: Flesh out event system
+       -- Include delegation
+       -- Include namespacing
+       -- Include function to delete events
+          from the global object when they
+          are 'unlistened'
+
+    3: Finish removeClass function
+
+/ ------------------------------------------------- */
+
+
+
+
 
 // ================================================= /
 // ======   #0 Core Functions   ==================== /
 // ================================================= /
+
+
+
+// ------   Helper Functions   -------------- /
+// ------------------------------------------ /
 
 var psjHelpers = {
 
@@ -67,17 +93,55 @@ var psjHelpers = {
 	},
 };
 
-var PSJObject = function(selector, name) {
+
+
+// ------   Event Handling   ---------------- /
+// ------------------------------------------ /
+
+var psjEvents = {};
+
+// TODO: EVENT NAMESPACING
+
+function PSJEvent(elements, type, filter, handler) {
+	this.elements = elements;
+	this.type = type;
+	this.filter = filter;
+	this.handler = handler;
+}
+
+PSJEvent.prototype = {
+	register: function() {
+		var self = this;		
+		psjHelpers.each(this.elements, function(index, element) {
+
+			if (!psjEvents[element]) {
+				psjEvents[element] = [];
+				psjEvents[element].push(self);
+			}
+			else if (!psjEvents[element].indexOf(self)) {
+				psjEvents[element].push(self);
+			}
+			element.addEventListener(self.type, self.handler);
+		});	
+	}
+};
+
+
+// ------   PSJ Object   -------------------- /
+// ------------------------------------------ /
+
+
+function PSJObject(selector, name) {
 	var self = this;
 	this.selector = selector;
 	this.elements = document.querySelectorAll(selector);
 	this.name = name;
-};
+}
 
-var PSJ = function(selector, name) {
+function PSJ(selector, name) {
 	var newObject = new PSJObject(selector, name);
 	return newObject;
-};
+}
 
 PSJObject.prototype = {
 
@@ -97,7 +161,6 @@ PSJObject.prototype = {
 			element,
 			i = 0,
 			c = 0;
-
 		while ((element = this.elements[i++])) {
 			var classOfElement = psjHelpers.stripAndCollapse(psjHelpers.getClass(element));
 			for (c; c < classesToCheck.length; c++) {
@@ -109,6 +172,7 @@ PSJObject.prototype = {
 		return true;
 	},
 
+	// Adding classis if they don't exist
 	addClass: function(classToAdd) {
 		if (!this.hasClass(classToAdd)) {
 			psjHelpers.each(this.elements, function(index, element) {
@@ -118,78 +182,121 @@ PSJObject.prototype = {
 		return this;
 	},
 
+	// Removing classes if they exist
 	removeClass: function(element, classToAdd) {
 
 	},
 
-	// Event Handling
+	// Attaches events
+	listen: function(eventType, filter, handler) {
+		var event = new PSJEvent(this.elements, eventType, filter, handler);
+		event.register();
+		return this;
+	},
 
+	// Removes events
+	ignore: function(eventType) {
+		var self = this;
+		console.log(psjEvents);
+		psjHelpers.each(this.elements, function(index, element) {
+			psjHelpers.each(psjEvents[element], function(index, eventObject) {
+				if (eventObject.type === eventType) {
+					console.log('eventRemoved');
+					element.removeEventListener(eventType, eventObject.handler);
+				}
+			});
+		});
+	}
 };
 
 
-PSJ('.modal__initializer', 'Bitch').sayHello();
 
-window.setTimeout(function() {
-	PSJ('#example-modal').addClass('modal--is-staged modal--is-visible');
-}, 3000);
 
-/*function Modals() {
+// ================================================= /
+// ======   #1 Accessibility Core   ================ /
+// ================================================= /
+
+
+
+
+
+// ================================================= /
+// ======   #2 Popover Modals Module   ============= /
+// ================================================= /
+
+
+function PSJPopoverModals(className, onLaunch, onClose) {
 
 	var self = this;
 
     this.current = '';
     this.initializingElement = '';
+    this.closingElement = '';
     this.currentInitializer = '';
+
+    this.classSelector = '.' + className;
+    this.onlaunch = onLaunch;
+    this.onClose = onClose;
 
     this.events = function() {
 
-		modal.initializingElement.on('click', function(event) {
+    	// Clicking on initializer
+		self.initializingElement.listen('click', null, function(event) {
+			self.launch(this);
+		});
 
-            event.preventDefault();
-            modal.launch($(this));
+		// Clicking on initializer
+		PSJ('.modal__destroyer').listen('click', null, function(event) {
+			console.log('clickDestroy');
+			self.initializingElement.ignore('click');
+		});
 
-			$('html').css('overflow-y', 'hidden');
-
-        });
-
-
-        $('.modal').on('click', function(event) {
+        /*$('.modal').on('click', function(event) {
             if (!$(event.target).is('.modal__box *')) {
                 modal.closeModal();
             }
+        });*/
+
+        // Clicking on close button
+        self.closingElement.listen('click', null, function(event) {
+        	console.log('close modal');
+            //modal.closeModal();
         });
 
-        $('.js-close-modal').on('click', function(event) {
-              event.preventDefault();
-              modal.closeModal();
-        });
-
-        $('.modal').on('childrenLoseFocus', function(event) {
+        /*$('.modal').on('childrenLoseFocus', function(event) {
             $.accessibility.focusFirstElement(modal.current);
-        });
+        });*/
     };
 
     this.init = function() {
 
         // Define initializing element
-        modal.initializingElement = $('.js-modal');
+        self.initializingElement = PSJ(self.classSelector + '__initializer');
+
+        // Define closing element
+        self.closingElement = PSJ(self.classSelector + '__closer');
 
         // Wire up synthetic focusout event
-        $.accessibility.childrenLoseFocus($('.modal'));
+        //$.accessibility.childrenLoseFocus($('.modal'));
 
-        modal.events();
+        self.events();
     };
 
     this.launch = function(initializer) {
 
-        initializer = $(initializer);
+    	//event.preventDefult();
+
+        //initializer = PSJ(initializer);
 
         // Update vars
-        modal.current = $(initializer.data('target'));
-        modal.currentInitializer = initializer;
+        self.current = PSJ(initializer.dataset.target);
+        self.currentInitializer = initializer;
 
-        // Display Modal & wire up ESC button
-        modal.current.addClass('is-staged is-visible');
+
+        // Display modal
+        self.current.addClass('modal--is-staged modal--is-visible');
+
+        /*// Wire up ESC key listener
         $(document).on('keydown.modalCloseKeydown', function(event) {
             if ( event.keyCode &&  event.keyCode === 27 ) {
               console.log('Running');
@@ -199,17 +306,31 @@ window.setTimeout(function() {
         });
 
         // Focus first element
-        $.accessibility.focusFirstElement(modal.current);
+        $.accessibility.focusFirstElement(modal.current);*/
+
+        // Execute specified onLaunch function
+        if (self.onLaunch && typeof self.onLaunch === 'function') {
+        	self.onLaunch.call();
+        }
     };
 
-    this.closeModal = function() {
-        modal.current.removeClass('is-visible');
-		$('html').css('overflow-y', '');
+   /* this.closeModal = function() {
+
+   		// Hide modal
+        modal.current.removeClass('modal--is-staged modal--is-visible');
+
+        // Remove ESC key listener
         $(document).off('keydown.modalCloseKeydown');
+
         modal.currentInitializer.focus();
 
-        window.setTimeout(function(){
-            modal.current.removeClass('is-staged');
-        }, 250);
-    };
-}*/
+
+        // Execute specified onClose function
+        if (self.onClose && typeof self.onClose === 'function') {
+        	self.onClose.call();
+        }
+    };*/
+}
+
+var psjPopoverModals = new PSJPopoverModals('modal');
+psjPopoverModals.init();

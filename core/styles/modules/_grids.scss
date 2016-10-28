@@ -5,7 +5,7 @@
 
 @mixin grid($config: ()) {
 
-	// Default configuration
+	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
 		class: 'grid',
