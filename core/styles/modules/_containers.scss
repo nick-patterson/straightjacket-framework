@@ -8,19 +8,14 @@
 	$config: map-merge((
 			class: 'container',
 			defaultWidth: 90%, // Container width for mobile devices
-			padding: 0 ($base * 2px),
+			padding: 0,
 			centered: true
 		), $config);
 
-	$containerClass: container;
-
-	@if map-get($config, class) != '' {
-		$containerClass: map-get($config, class);
-	}
 
 	// Default container (for mobile devices & other tiny screens)
 
-	.#{ $containerClass } {
+	.#{ map-get($config, class) } {
 		width: map-get($config, defaultWidth);
 		padding: map-get($config, padding);
 
@@ -34,7 +29,7 @@
 	@each $breakpointLabel, $propMap in $breakpointMap {
 
 		@media (min-width: map-get($propMap, viewportWidth)) {
-			.#{ $containerClass } {
+			.#{ map-get($config, class) } {
 				width: map-get($propMap, containerWidth);
 			}
 		}

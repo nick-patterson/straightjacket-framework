@@ -1,7 +1,7 @@
 // Rem sizes with pixel fallback
 
 @mixin font-size($size: 1){
-	font-size: $size * $textBase * 1px;
+	font-size: $size * $textBase;
 	font-size: $size * 1rem;
 }
 
@@ -10,11 +10,11 @@
 
 @mixin spacing($type,$side,$size: 1){
 	@if $type == "line-height" or $type == "letter-spacing" {
-		#{$type}: $size * $textBase * 1px;
+		#{$type}: $size * $textBase;
 		#{$type}: $size * 1rem;
 	}
 	@else {
-		#{$type}-#{$side}: $size * $textBase * 1px;
+		#{$type}-#{$side}: $size * $textBase;
 		#{$type}-#{$side}: $size * 1rem;
 	}
 }
