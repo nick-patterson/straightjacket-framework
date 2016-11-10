@@ -17,16 +17,45 @@
    and variables should be stored here.
 
 / ------------------------------------------------- */
-/* Lorem ipsum
+/* DESCRIPTION:
+
+   Defines simple global proportions to
+   use when calculating consistent margins,
+   widths, text sizes, etc.
 
 / ------------------------------------------ */
-/* Lorem ipsum
+/* DESCRIPTION:
+
+   Defines color values that can be easily
+   retrieved using the color() function.
+
+   Simply define a color with any valid
+   CSS value (or SASS value) and pass the
+   name of the key into the color() function
+   to reference it anywhere.
 
 / ------------------------------------------ */
-/* Lorem ipsum
+/* DESCRIPTION:
+
+   Defines breakpoints necessary for the
+   container and grid modules.
+
+   Also defines reference breakpoints for
+   the text sizing module, although you
+   do not need to use all of them.
 
 / ------------------------------------------ */
-/* Lorem ipsum
+/* DESCRIPTION:
+
+   Defines selectors, properties, and
+   values for text elements at each
+   breakpoint corresponding to those
+   in the breakpoint map.
+
+   Note that there does not need to be
+   a 1:1 relationship between the maps
+   although it is highly recommended and
+   thus the default in StraightJacket.
 
 / ------------------------------------------ */
 /* ------------------------------------------------ */
@@ -52,11 +81,11 @@
    hands of the developer.
 
 / ------------------------------------------------- */
-/* VERSION: 1.1 ------------------------------------ /
+/* VERSION: 0.2 ------------------------------------ /
 /- RELEASE: OCTOBER 21, 2016 ----------------------- /
 /- AUTHOR: NICK PATTERSON AT FIFTEEN FOUR ---------- /
 
-/- PHANTASM: Phantasmcs.net ------------------------ /
+/- PHANTASM: phantasmcs.net ------------------------ /
 /- 15FOUR: fifteenfour.com ------------------------- /
 / ------------------------------------------------- */
 /* TABLE OF CONTENTS ------------------------------- /
@@ -78,96 +107,6 @@
 	StraightJacket Configuration file.
 
 / ------------------------------------------------- */
-/*@function psj_responsiveTextRatio($viewPortWidth, $element, $property) {
-
-	@if $property == font-size {
-
-		@each $textElement, $sizeMap in map-get($psj_text, textElements) {
-
-			@if $element == $textElement {
-
-				$psj_breakpointsList: map_keys(map-get($psj_text, breakpoints));
-				$psj_breakpintsListSize: length($psj_breakpointsList);
-
-				@each $size, $breakWidth in map-get($psj_text, breakpoints) {
-
-					@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
-
-						$ratio: $viewPortWidth / $breakWidth;
-
-						@if $breakWidth == 0 {
-							$ratio: 1;
-						}
-
-						@return $ratio * map-get(map-get(map-get($psj_text, textElements), $element), $size);
-					}
-
-					@if $viewPortWidth > map-get(map-get($psj_text, breakpoints), nth($psj_breakpointsList, $psj_breakpintsListSize)) {
-
-						@return map-get(map-get(map-get($psj_text, textElements), $element), nth($psj_breakpointsList, $psj_breakpintsListSize));
-					}
-				}
-			}
-		}
-
-	@return 1;
-
-	}
-
-	@if $property == line-height {
-
-		@each $size, $breakWidth in map-get($psj_text, breakpoints) {
-
-			@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
-
-				$ratio: $viewPortWidth / $breakWidth;
-
-				@if $breakWidth == 0 {
-					$ratio: 1;
-				}
-
-				@if $element == p {
-					@return $psj_bodyLineHeight + (.055 * ($ratio * map-get(map-get($psj_text, lineHeights), $size)) + .003);
-				}
-
-				@else {
-					@return 1.2 - (.08 * ($ratio / (map-get(map-get(map-get($psj_text, textElements), $element), $size)) * map-get(map-get($psj_text, lineHeights), $size)) + .005);
-				}				
-			}
-
-			@if $viewPortWidth > 1200 {
-				@return 1.2 - (.08 * (1 / (map-get(map-get(map-get($psj_text, textElements), $element), $size)) * map-get(map-get($psj_text, lineHeights), $size)) + .005);
-			}
-		}
-	}
-
-	@if $property == margin-bottom {
-
-		@each $size, $breakWidth in map-get($psj_text, breakpoints) {
-
-			@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
-
-				$ratio: $viewPortWidth / $breakWidth;
-
-				@if $breakWidth == 0 {
-					$ratio: 1;
-				}
-
-				@if $element == p {
-					@return 2.7 + (.095 * ($ratio * map-get(map-get($psj_text, margins), $size)) - .023);
-				}
-
-				@else {
-					@return .75;
-				}				
-			}
-
-			@else {
-				@return .75;
-			}
-		}
-	}	
-}*/
 /*  Global colors live inside of a map that
 	allows users to easily access them with the
 	simple color(color) function.
@@ -179,29 +118,6 @@
 /* TODO: Add button module */
 /* ------------------------------------------------ */
 /* ------------------------------------------------ */
-.container {
-  width: 90%;
-  padding: 0 20px;
-  margin: 0 auto; }
-
-@media (min-width: 480px) {
-  .container {
-    width: 90%; } }
-@media (min-width: 680px) {
-  .container {
-    width: 90%; } }
-@media (min-width: 768px) {
-  .container {
-    width: 718px; } }
-@media (min-width: 992px) {
-  .container {
-    width: 960px; } }
-@media (min-width: 1200px) {
-  .container {
-    width: 1120px; } }
-@media (min-width: 1600px) {
-  .container {
-    width: 1400px; } }
 .grid {
   clear: both; }
 
@@ -509,71 +425,145 @@
   .grid__column--1.push--11, .grid__column--2.push--11, .grid__column--3.push--11, .grid__column--4.push--11, .grid__column--5.push--11, .grid__column--6.push--11, .grid__column--7.push--11, .grid__column--8.push--11, .grid__column--9.push--11, .grid__column--10.push--11, .grid__column--11.push--11 {
     margin-left: 91.66667%; }
 
-.float-left {
-  float: left; }
+h1 {
+  font-size: 2.125em;
+  line-height: 1.25em; }
 
-.float-right {
-  float: right; }
+h2 {
+  font-size: 1.3em;
+  line-height: 1.125em; }
 
-.clear-left {
-  clear: left; }
+h3 {
+  font-size: 1.75em;
+  line-height: 1.125em; }
 
-.clear-right {
-  clear: right; }
+h4 {
+  font-size: 1.25em;
+  line-height: 1.125em; }
 
-.clear-both {
-  clear: both; }
+p {
+  font-size: 1em;
+  line-height: 1.475em; }
 
-.centered {
-  float: none;
-  margin-left: auto;
-  margin-right: auto; }
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 2.6em;
+    line-height: 1.25em; }
 
-.modal {
-  position: fixed;
-  z-index: -999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  visibility: hidden;
-  opacity: 0;
-  background: rgba(0, 0, 0, 0.925);
-  transition: opacity 0.2s, visibility 0.2s ease-out, z-index 0s 0.2s; }
-  .modal--is-staged {
-    z-index: 10;
-    visibility: visible;
-    transition: opacity 0.2s, visibility 0.2s ease-out, z-index 0s; }
+  h2 {
+    font-size: 1.35em;
+    line-height: 1.15385em; }
 
-  .modal--is-visible {
-    opacity: 1; }
+  h3 {
+    font-size: 1.75em;
+    line-height: 1.13636em; }
 
-  .modal__box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    overflow: hidden;
-    transform: translate(-50%, -50%) scale(0.97);
-    transition: transform 0.2s ease-out;
-    width: 80%;
-    max-width: 1536px;
-    height: 80%;
-    max-height: 864px; }
-    .is-visible .modal__box {
-      transform: translate(-50%, -50%) scale(1); }
+  h4 {
+    font-size: 1.25em;
+    line-height: 1.11111em; }
 
-  .modal__closer {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    right: 25px;
-    top: 25px;
-    cursor: pointer; }
-    .modal__closer .closex {
-      width: 100%;
-      height: 100%; }
-      .modal__closer .closex line {
-        stroke: white;
-        stroke-width: 2; }
+  p {
+    font-size: 1em;
+    line-height: 1.45em; } }
+@media screen and (max-width: 680px) {
+  h1 {
+    font-size: 2.6em;
+    line-height: 1.25em; }
+
+  h2 {
+    font-size: 1.35em;
+    line-height: 1.15385em; }
+
+  h3 {
+    font-size: 1.75em;
+    line-height: 1.13636em; }
+
+  h4 {
+    font-size: 1.25em;
+    line-height: 1.11111em; }
+
+  p {
+    font-size: 1em;
+    line-height: 1.45em; } }
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 3em;
+    line-height: 1.25em; }
+
+  h2 {
+    font-size: 1.35em;
+    line-height: 1.25em; }
+
+  h3 {
+    font-size: 1.75em;
+    line-height: 1.25em; }
+
+  h4 {
+    font-size: 1.25em;
+    line-height: 1.11111em; }
+
+  p {
+    font-size: 1em;
+    line-height: 1.45em; } }
+@media screen and (max-width: 992px) {
+  h1 {
+    font-size: 3.25em;
+    line-height: 1.125em; }
+
+  h2 {
+    font-size: 1.55em;
+    line-height: 1.25em; }
+
+  h3 {
+    font-size: 2.2em;
+    line-height: 1.225em; }
+
+  h4 {
+    font-size: 1.25em;
+    line-height: 1.22222em; }
+
+  p {
+    font-size: 1em;
+    line-height: 1.45em; } }
+@media screen and (max-width: 1200px) {
+  h1 {
+    font-size: 3.5em;
+    line-height: 1.05em; }
+
+  h2 {
+    font-size: 1.65em;
+    line-height: 1.25em; }
+
+  h3 {
+    font-size: 2.375em;
+    line-height: 1.225em; }
+
+  h4 {
+    font-size: 1.25em;
+    line-height: 1.22222em; }
+
+  p {
+    font-size: 1em;
+    line-height: 1.6em; } }
+@media screen and (max-width: 1600px) {
+  h1 {
+    font-size: 3.65em;
+    line-height: 1.05em; }
+
+  h2 {
+    font-size: 1.65em;
+    line-height: 1.25em; }
+
+  h3 {
+    font-size: 2.375em;
+    line-height: 1.225em; }
+
+  h4 {
+    font-size: 1.25em;
+    line-height: 1.22222em; }
+
+  p {
+    font-size: 1em;
+    line-height: 1.6em; } }
 
 /*# sourceMappingURL=straightjacket.css.map */

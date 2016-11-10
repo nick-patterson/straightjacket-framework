@@ -4,57 +4,65 @@
 
 @mixin text-sizing($config: ()){
 
-	// Default configuration
+	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
-		breakpointMap: $psj_breakpointMap,
 		class: '',
-		base: 16px,
+		breakpointMap: $breakpointMap,
+		textMap: $textMap
 	), $config);
 
-	$specificClassSelector: '';
 
-	@if map-get($config, class) != '' {
-		$specificClassSelector: '.' + map-get($config, class);
-	}
+	// ------   Generated CSS   ------------- /
 
+	// Default
 
-	// Default text (used for mobile devices and other tiny screens)
+	@each $selector, $propMap in map-deep-get($config, textMap, default) {
 
-	body {
-		font-size: map-get($config, base);
-	}
-
-	h1, h2 {
-		font-weight: bold;
-	}
-
-	@each $element, $propMap in map-get($psj_text, defaults) {
-		#{ $element + $specificClassSelector } { 
+		// Add a specific class selector to the selector in the text map if one is specified
+		$selector: if(map-get($config, class) == '', $selector, $selector + '.' + map-get($config, class));
+		
+		#{$selector} {
 			@each $prop, $value in $propMap {
-				#{ $prop }: $value + em;
+				#{$prop}: #{$value};
 			}
-		};
-	};
+		}
+	}
 
-	// Responsive Text
+	// Responsive
 
-	@each $breakpointLabel, $breakpointPropMap in map-get($config, breakpointMap) {
+	// Warn the user if the breakpoints in their respective breakpoint and text maps do not have a 1:1 relationship
+	@each $breakpoint, $breakpointPropMap in map-get($config, breakpointMap) {
 
-		@media (min-width: map-get($breakpointPropMap, viewportWidth)) {
+		$differentBreakpoints: false;
 
-			@each $element, $textPropMap in map-get($psj_text, textElements) {
+		@if (not map-has-key(map-get($config, textMap), $breakpoint)) {
+			$differentBreakpoints: true;
+		}
 
-				#{ $element + $specificClassSelector } {
-					@each $prop, $value in map-get($textPropMap, $breakpointLabel) {
-						#{ $prop }: $value + em;
+		@if ($differentBreakpoints) {
+			@warn 'You have breakpoints in your breakpoint map that do not exist in your text map or vice versa. Check to make sure this is what you want.';
+		}
+	}
+
+	@each $breakpoint, $breakpointPropMap in map-get($config, breakpointMap) {
+
+		@media screen and (max-width: map-get($breakpointPropMap, viewportWidth)) {
+
+			// Only print the CSS if the breakpoint exists
+			@if (map-has-key(map-get($config, textMap), $breakpoint)) {
+				@each $selector, $propMap in map-deep-get($config, textMap, $breakpoint) {
+
+					// Add a specific class selector to the selector in the text map if one is specified				
+					$selector: if(map-get($config, class) == '', $selector, $selector + '.' + map-get($config, class));
+			
+					#{$selector} {
+						@each $prop, $value in $propMap {
+							#{$prop}: #{$value};
+						}
 					}
 				}
 			}
 		}
 	}	
-
-	#{ $specificClassSelector }.text-center {
-		text-align: center;
-	}
 }

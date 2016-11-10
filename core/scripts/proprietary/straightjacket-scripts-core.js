@@ -59,7 +59,6 @@
 
 
 
-
 // ================================================= /
 // ======   #0 Core Functions   ==================== /
 // ================================================= /
@@ -234,6 +233,7 @@ function PSJPopoverModals(className, onLaunch, onClose) {
     this.closingElement = '';
     this.currentInitializer = '';
 
+    this.className = className;
     this.classSelector = '.' + className;
     this.onlaunch = onLaunch;
     this.onClose = onClose;
@@ -266,6 +266,9 @@ function PSJPopoverModals(className, onLaunch, onClose) {
         /*$('.modal').on('childrenLoseFocus', function(event) {
             $.accessibility.focusFirstElement(modal.current);
         });*/
+
+        // Wire up synthetic focusout event
+        //$.accessibility.childrenLoseFocus($('.modal'));
     };
 
     this.init = function() {
@@ -275,9 +278,6 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 
         // Define closing element
         self.closingElement = PSJ(self.classSelector + '__closer');
-
-        // Wire up synthetic focusout event
-        //$.accessibility.childrenLoseFocus($('.modal'));
 
         self.events();
     };

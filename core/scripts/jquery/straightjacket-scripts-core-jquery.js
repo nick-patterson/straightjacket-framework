@@ -30,126 +30,45 @@
 
 /* TABLE OF CONTENTS ------------------------------- /
 /-
-/- #0 Accessibility Core --------------------------- /
-/- #1 Popover Modals Module ------------------------ /
+/- #0 Core Functions ------------------------------- /
+/- #0 Accessibility -------------------------------- /
 /-
 / ------------------------------------------------- */
 
 
 
 
-
 // ================================================= /
-// ======   #0 Accessibility Core   ================ /
-// ================================================= /
-
-
-
-
-
-// ================================================= /
-// ======   #1 Popover Modals Module   ============= /
+// ======   #0 Core Functions   ==================== /
 // ================================================= /
 
+var PSJ = {
+};
 
-function PSJPopoverModals(className, onLaunch, onClose) {
 
-	var self = this;
+// ================================================= /
+// ======   #1 Accessibility Core   ================ /
+// ================================================= /
 
-    this.current = '';
-    this.initializingElement = '';
-    this.closingElement = '';
-    this.currentInitializer = '';
 
-    this.classSelector = '.' + className;
-    this.onlaunch = onLaunch;
-    this.onClose = onClose;
+PSJ.accessibility = {
 
-    this.events = function() {
+    childrenLoseFocus: function(elements) {
+        elements.on('focusout', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
 
-    	// Clicking on initializer
-		self.initializingElement.on('click.psjModalInitialize', function(event) {
-			event.preventDefult();
-			self.launch($(this));
-		});
+            var element = $(this);
 
-		// Clicking outside of modal box
-        $(self.classSelector).on('click.psjModalOutsideClick', function(event) {
-            if (!$(event.target).is('.modal__box *')) {
-                self.closeModal();
-            }
+            window.setTimeout(function() {
+                if (!element.has(document.activeElement).length) {
+                    element.trigger('childrenLoseFocus');
+                }
+            }, 0);
         });
+    },
 
-        // Clicking on close button
-        self.closingElement.on('click.psjModalClose', null, function(event) {
-        	event.preventDefault();
-            self.closeModal();
-        });
-
-        // Prevent tab focus from leaving modal
-        $(self.classSelector).on('childrenLoseFocus.psjModalChildrenLoseFocus', function(event) {
-            $.accessibility.focusFirstElement(modal.current);
-        });
-    };
-
-    this.init = function() {
-
-        // Define initializing element
-        self.initializingElement = PSJ(self.classSelector + '__initializer');
-
-        // Define closing element
-        self.closingElement = PSJ(self.classSelector + '__closer');
-
-        // Wire up synthetic focusout event
-        //$.accessibility.childrenLoseFocus($('.modal'));
-
-        self.events();
-    };
-
-    this.launch = function(initializer) {
-
-        // Update vars
-        self.current = $(initializer.data('target'));
-        self.currentInitializer = initializer;
-
-
-        // Display modal
-        self.current.addClass('modal--is-staged modal--is-visible');
-
-        // Wire up ESC key listener
-        $(document).on('keydown.modalCloseKeydown', function(event) {
-            if ( event.keyCode &&  event.keyCode === 27 ) {
-                event.preventDefault();
-                modal.closeModal();
-            }
-        });
-
-        // Focus first element
-        //$.accessibility.focusFirstElement(modal.current);
-
-        // Execute specified onLaunch function
-        if (self.onLaunch && typeof self.onLaunch === 'function') {
-        	self.onLaunch.call();
-        }
-    };
-
-   this.closeModal = function() {
-
-   		// Hide modal
-        modal.current.removeClass('modal--is-staged modal--is-visible');
-
-        // Remove ESC key listener
-        $(document).off('keydown.modalCloseKeydown');
-
-        // Restore focus to initializing element
-        modal.currentInitializer.focus();
-
-        // Execute specified onClose function
-        if (self.onClose && typeof self.onClose === 'function') {
-        	self.onClose.call();
-        }
-    };
-}
-
-var psjPopoverModals = new PSJPopoverModals('modal');
-psjPopoverModals.init();
+    focusFirstElement: function(container) {
+        $(container.find('*:tabbable')[0]).focus();
+    }
+};

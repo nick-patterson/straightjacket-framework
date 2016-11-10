@@ -1,0 +1,90 @@
+/*@function psj_responsiveTextRatio($viewPortWidth, $element, $property) {
+
+	@if $property == font-size {
+
+		@each $textElement, $sizeMap in map-get($psj_text, textElements) {
+
+			@if $element == $textElement {
+
+				$psj_breakpointsList: map_keys(map-get($psj_text, breakpoints));
+				$psj_breakpintsListSize: length($psj_breakpointsList);
+
+				@each $size, $breakWidth in map-get($psj_text, breakpoints) {
+
+					@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
+
+						$ratio: $viewPortWidth / $breakWidth;
+
+						@if $breakWidth == 0 {
+							$ratio: 1;
+						}
+
+						@return $ratio * map-get(map-get(map-get($psj_text, textElements), $element), $size);
+					}
+
+					@if $viewPortWidth > map-get(map-get($psj_text, breakpoints), nth($psj_breakpointsList, $psj_breakpintsListSize)) {
+
+						@return map-get(map-get(map-get($psj_text, textElements), $element), nth($psj_breakpointsList, $psj_breakpintsListSize));
+					}
+				}
+			}
+		}
+
+	@return 1;
+
+	}
+
+	@if $property == line-height {
+
+		@each $size, $breakWidth in map-get($psj_text, breakpoints) {
+
+			@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
+
+				$ratio: $viewPortWidth / $breakWidth;
+
+				@if $breakWidth == 0 {
+					$ratio: 1;
+				}
+
+				@if $element == p {
+					@return $psj_bodyLineHeight + (.055 * ($ratio * map-get(map-get($psj_text, lineHeights), $size)) + .003);
+				}
+
+				@else {
+					@return 1.2 - (.08 * ($ratio / (map-get(map-get(map-get($psj_text, textElements), $element), $size)) * map-get(map-get($psj_text, lineHeights), $size)) + .005);
+				}				
+			}
+
+			@if $viewPortWidth > 1200 {
+				@return 1.2 - (.08 * (1 / (map-get(map-get(map-get($psj_text, textElements), $element), $size)) * map-get(map-get($psj_text, lineHeights), $size)) + .005);
+			}
+		}
+	}
+
+	@if $property == margin-bottom {
+
+		@each $size, $breakWidth in map-get($psj_text, breakpoints) {
+
+			@if $viewPortWidth < $breakWidth or $viewPortWidth == $breakWidth {
+
+				$ratio: $viewPortWidth / $breakWidth;
+
+				@if $breakWidth == 0 {
+					$ratio: 1;
+				}
+
+				@if $element == p {
+					@return 2.7 + (.095 * ($ratio * map-get(map-get($psj_text, margins), $size)) - .023);
+				}
+
+				@else {
+					@return .75;
+				}				
+			}
+
+			@else {
+				@return .75;
+			}
+		}
+	}	
+}*/

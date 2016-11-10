@@ -10,7 +10,7 @@
 	$config: map-merge((
 		class: 'grid',
 		columns: 12,
-		gutter: $base * 4px,
+		gutter: $base * 4,
 		type: 'block',
 	), $config);
 
@@ -47,7 +47,7 @@
 	}
 	%#{$gridClass}_inlineColumn {
 		display: inline-block;
-		font-size: $textBase * 1px;
+		font-size: $textBase * 1;
 		vertical-align: top;
 	}
 
