@@ -27,7 +27,7 @@
 		height: 100%;
 		opacity: 0;
 		visibility: hidden;
-		transition: opacity 0.2s, visibility 0.2s ease-out, z-index 0s 0.2s;
+		transition: opacity 0.2s ease-out, z-index 0s 0.2s;
 
 		@if map-get($config, opinionated) {
 			background: rgba(0,0,0,0.925);
@@ -38,7 +38,7 @@
 			&--is-staged {
 				z-index: 10;
 				visibility: visible;
-				transition: opacity 0.2s, visibility 0.2s ease-out, z-index 0s;
+				transition: opacity 0.2s ease-out, z-index 0s;
 			}
 
 			&--is-visible {

@@ -14,7 +14,7 @@
    These functions aim for great performance and
    accessibility accross all modern browsers
    (suck it, IE8), and act solely on vanilla JS
-   functions... no jQuery required!   
+   functions... no jQuery required!
 
 / ------------------------------------------------- */
 
@@ -41,7 +41,7 @@
 /* TODOS: -------------------------------------/
 
    1: Add ability to pass DOM element in as
-      an argument to the PSJ function   
+      an argument to the PSJ function
       -- Simply add element to empty nodelist
          and attach methods
 
@@ -82,6 +82,10 @@ var psjHelpers = {
 	// Iterating over a nodeList or array
 	each: function(obj, callback) {
 
+		if (obj && obj.length) {
+
+		}
+
 		for (var i = 0; i < obj.length ; i++) {
 			if (callback.call(obj[i], i, obj[i]) === false) {
 				break;
@@ -90,6 +94,21 @@ var psjHelpers = {
 
 		return obj;
 	},
+
+	parseEventTypeString: function(eventTypeString) {
+		return {
+			type: eventTypeString.indexOf('.') !== -1 ? eventTypeString.split('.')[0] : eventTypeString,
+			nameSpace: eventTypeString.indexOf('.') !== -1 ? eventTypeString.split('.')[1] : null
+		};
+	},
+
+	safeActiveElement: function() {
+		try {
+			return document.activeElement;
+		}
+		catch ( err ) {
+		}
+	}
 };
 
 
@@ -99,18 +118,36 @@ var psjHelpers = {
 
 var psjEvents = {};
 
-// TODO: EVENT NAMESPACING
+function PSJEvent(elements, typeString, filterString, handler) {
+	var self = this;
 
-function PSJEvent(elements, type, filter, handler) {
 	this.elements = elements;
-	this.type = type;
-	this.filter = filter;
-	this.handler = handler;
+
+	// Assign type and namespace
+	var eventTypeObject = psjHelpers.parseEventTypeString(typeString);
+	this.type = eventTypeObject.type;
+	this.nameSpace = eventTypeObject.nameSpace;
+
+	this.filter = filterString ? PSJ(filterString) : null;
+	this.handler = function(event) {
+
+		// If delegation is enabled, start filter logic --- figure out better way to do this... maybe conditional handler functions?
+		if (self.filter) {
+			for (var i = 0; i < self.filter.elements.length; i++) {
+				if (Array.prototype.slice.call(self.filter.elements[i].querySelector('*')).indexOf(event.target) !== -1) {
+					return handler.apply(event.target, [event]);
+				}
+			}
+		}
+		else {
+			handler.apply(event.target, [event]);
+		}
+	};
 }
 
 PSJEvent.prototype = {
 	register: function() {
-		var self = this;		
+		var self = this;
 		psjHelpers.each(this.elements, function(index, element) {
 
 			if (!psjEvents[element]) {
@@ -120,8 +157,9 @@ PSJEvent.prototype = {
 			else if (!psjEvents[element].indexOf(self)) {
 				psjEvents[element].push(self);
 			}
+
 			element.addEventListener(self.type, self.handler);
-		});	
+		});
 	}
 };
 
@@ -132,27 +170,27 @@ PSJEvent.prototype = {
 
 function PSJObject(selector, name) {
 	var self = this;
+
 	this.selector = selector;
-	this.elements = document.querySelectorAll(selector);
+
+	switch (typeof selector) {
+		case 'string':
+			var nodeList = document.querySelectorAll(selector);
+			this.elements = nodeList.length ? nodeList : [];
+			break;
+		default:
+			this.elements = [selector];
+	}
 	this.name = name;
 }
 
 function PSJ(selector, name) {
-	var newObject = new PSJObject(selector, name);
-	return newObject;
+	return new PSJObject(selector, name);
 }
 
 PSJObject.prototype = {
 
 	constructor: PSJ,
-
-	// Saying hello
-	sayHello: function() {
-		console.log('Hello, ' + this.name + '!');
-		console.log('Your elements array is an ' + typeof this.elements);
-		console.log(this.elements);
-		return this;
-	},
 
 	// Check to see if element has a certain class
 	hasClass: function(selector) {
@@ -171,40 +209,64 @@ PSJObject.prototype = {
 		return true;
 	},
 
-	// Adding classis if they don't exist
-	addClass: function(classToAdd) {
-		if (!this.hasClass(classToAdd)) {
+	// Adding classes if they don't exist
+	addClass: function(classList) {
+		if (!this.hasClass(classList)) {
 			psjHelpers.each(this.elements, function(index, element) {
-				element.className += ' ' + classToAdd;
+				element.className += ' ' + classList;
 			});
 		}
 		return this;
 	},
 
 	// Removing classes if they exist
-	removeClass: function(element, classToAdd) {
-
-	},
-
-	// Attaches events
-	listen: function(eventType, filter, handler) {
-		var event = new PSJEvent(this.elements, eventType, filter, handler);
-		event.register();
+	removeClass: function(classList) {
+		function removeTheClass(element, classToRemove) {
+			if (element.className.indexOf(classToRemove) !== -1) {
+				element.className = psjHelpers.stripAndCollapse(element.className.replace(classToRemove, ''));
+			}
+		}
+		psjHelpers.each(this.elements, function(index, element) {
+			if (classList.indexOf(' ') !== -1) {
+				psjHelpers.each(classList.split(' '), function(index, className) {
+					removeTheClass(element, className);
+				});
+			}
+			else {
+				removeTheClass(element, classList);
+			}
+		});
 		return this;
 	},
 
+	// Attaches events
+	listen: function(eventTypeString, filterString, handler) {
+		new PSJEvent(this.elements, eventTypeString, filterString, handler).register();
+		return this;
+	},
+
+	// TODO: Add support for multiple types by way of space separated typeString
 	// Removes events
-	ignore: function(eventType) {
-		var self = this;
-		console.log(psjEvents);
-		psjHelpers.each(this.elements, function(index, element) {
-			psjHelpers.each(psjEvents[element], function(index, eventObject) {
-				if (eventObject.type === eventType) {
-					console.log('eventRemoved');
-					element.removeEventListener(eventType, eventObject.handler);
+	ignore: function(eventTypeString) {
+		var eventTypeObject = psjHelpers.parseEventTypeString(eventTypeString);
+		psjHelpers.each(this.elements, function(elementIndex, element) {
+			psjHelpers.each(psjEvents[element], function(eventIndex, eventObject) {
+				if (eventObject.type === eventTypeObject.type && (eventObject.nameSpace === eventTypeObject.nameSpace || eventTypeObject.nameSpace === null)) {
+					element.removeEventListener(eventTypeObject.type, eventObject.handler);
+					psjEvents[element].splice(eventIndex, 1);
 				}
 			});
 		});
+		return this;
+	},
+
+	// Focuses first element in array
+	focus: function() {
+		var firstElement = this.elements[0];
+		if (firstElement.focus && firstElement !== psjHelpers.safeActiveElement()) {
+			firstElement.focus();
+		}
+		return self;
 	}
 };
 
@@ -215,6 +277,23 @@ PSJObject.prototype = {
 // ======   #1 Accessibility Core   ================ /
 // ================================================= /
 
+var psjAccessibility = {
+
+	// TODO: condiitonal for last focusable element
+
+	allFocusOut: function(psjObject) {
+		psjObject.listen('focusout', null, function(event) {
+			event.stopPropagation();
+			window.setTimeout(function() {
+				psjHelpers.each(psjObject.elements, function(index, element) {
+					if (Array.prototype.slice.call(element.querySelectorAll('*')).indexOf(psjHelpers.safeActiveElement()) === -1) {
+						return element.dispatchEvent(new Event('allFocusOut'));
+					}
+				});
+			}, 0);
+		});
+	}
+};
 
 
 
@@ -234,7 +313,6 @@ function PSJPopoverModals(className, onLaunch, onClose) {
     this.currentInitializer = '';
 
     this.className = className;
-    this.classSelector = '.' + className;
     this.onlaunch = onLaunch;
     this.onClose = onClose;
 
@@ -245,92 +323,91 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 			self.launch(this);
 		});
 
-		// Clicking on initializer
+		// Clicking on destroyer
 		PSJ('.modal__destroyer').listen('click', null, function(event) {
 			console.log('clickDestroy');
 			self.initializingElement.ignore('click');
 		});
 
-        /*$('.modal').on('click', function(event) {
-            if (!$(event.target).is('.modal__box *')) {
-                modal.closeModal();
-            }
+		// TODO: Narrow this down to only events that stem from NOT the box or close button
+		// Clicking outside of box but inside of modal
+        /*PSJ('.' + self.className).listen('click', null, function(event) {
+            self.closeModal();
         });*/
 
         // Clicking on close button
         self.closingElement.listen('click', null, function(event) {
-        	console.log('close modal');
-            //modal.closeModal();
+        	event.stopPropagation();
+            self.closeModal();
         });
 
-        /*$('.modal').on('childrenLoseFocus', function(event) {
-            $.accessibility.focusFirstElement(modal.current);
+        // Prevent focusing out of modal TODO: Disable this before re-focusing the initializer
+        /*psjAccessibility.allFocusOut(PSJ('.' + self.className));
+        PSJ('.' + self.className).listen('allFocusOut', null, function(event) {
+        	self.closingElement.focus();
         });*/
-
-        // Wire up synthetic focusout event
-        //$.accessibility.childrenLoseFocus($('.modal'));
     };
 
     this.init = function() {
 
         // Define initializing element
-        self.initializingElement = PSJ(self.classSelector + '__initializer');
+        self.initializingElement = PSJ('.' + self.className + '__initializer');
 
         // Define closing element
-        self.closingElement = PSJ(self.classSelector + '__closer');
+        self.closingElement = PSJ('.' + self.className + '__closer');
 
         self.events();
     };
 
     this.launch = function(initializer) {
 
-    	//event.preventDefult();
-
-        //initializer = PSJ(initializer);
-
         // Update vars
         self.current = PSJ(initializer.dataset.target);
         self.currentInitializer = initializer;
 
-
         // Display modal
-        self.current.addClass('modal--is-staged modal--is-visible');
+        self.current.addClass(self.className + '--is-staged ' + self.className + '--is-visible');
 
-        /*// Wire up ESC key listener
-        $(document).on('keydown.modalCloseKeydown', function(event) {
-            if ( event.keyCode &&  event.keyCode === 27 ) {
-              console.log('Running');
-                event.preventDefault();
-                modal.closeModal();
+        // Wire up ESC key listener
+        PSJ(document).listen('keydown.modalESCKeydown', null, function(event) {
+            if (event.keyCode &&  event.keyCode === 27) {
+              self.closeModal();
             }
         });
-
-        // Focus first element
-        $.accessibility.focusFirstElement(modal.current);*/
 
         // Execute specified onLaunch function
         if (self.onLaunch && typeof self.onLaunch === 'function') {
         	self.onLaunch.call();
         }
+
+        // Focus first element (close button for now)
+        window.setTimeout(function() {
+        	self.closingElement.focus();
+        }, 0);
     };
 
-   /* this.closeModal = function() {
+   this.closeModal = function() {
 
    		// Hide modal
-        modal.current.removeClass('modal--is-staged modal--is-visible');
+        self.current.removeClass(self.className + '--is-staged ' + self.className + '--is-visible');
 
         // Remove ESC key listener
-        $(document).off('keydown.modalCloseKeydown');
-
-        modal.currentInitializer.focus();
-
+        PSJ(document).ignore('keydown.modalESCKeydown');
 
         // Execute specified onClose function
         if (self.onClose && typeof self.onClose === 'function') {
         	self.onClose.call();
         }
-    };*/
+
+        // Return focus to initializing element
+        window.setTimeout(function() {
+        	console.log('focus');
+        	self.currentInitializer.focus();
+        }, 0);
+    };
 }
 
-var psjPopoverModals = new PSJPopoverModals('modal');
-psjPopoverModals.init();
+PSJ(window).listen('load', null, function(event) {
+	var psjPopoverModals = new PSJPopoverModals('modal');
+	psjPopoverModals.init();
+});

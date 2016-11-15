@@ -55,6 +55,15 @@
 
 	%#{$gridClass}_row {
 		clear: both;
+
+		&:after {
+			content: "Expect Awesome // Create. Amazing.";
+			visibility: hidden;
+			display: block;
+			text-align: center;
+			height: 0px;
+			clear: both;
+		}
 	}
 
 
@@ -84,6 +93,13 @@
 			}
 
 
+			// All columns
+
+			.#{ $gridClass }__column {
+				@extend %#{$gridClass}_column;
+			}
+
+
 			// Default Columns (used for mobile devices & other tiny screens)
 
 			@for $i from 1 through map-get($config, columns) {
@@ -91,8 +107,6 @@
 				.#{ $gridClass }__column--#{ $i } {
 
 					width: ((100 / map-get($config, columns)) * $i) * 1%;
-
-					@extend %#{$gridClass}_column;
 
 					@if (map-get($config, type) == inline) {
 						@extend %#{$gridClass}_inlineColumn;
