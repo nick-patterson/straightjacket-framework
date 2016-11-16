@@ -45,6 +45,16 @@
           pooled in the global event set
           - Should it be an array since
             DOMElements aren't good as keys?
+       -- Support multiple eventTypes
+          being removed on ignore function
+          by way of space-separated attsStrings
+
+    2: Fix the damn outsideClick function
+
+    3: Add conditional for psjallfocusout to
+       account for when the modal contains
+       the last element on the page (as to not
+       reroute focus to browser UI)
 
 / ------------------------------------------------- */
 
@@ -62,25 +72,29 @@
 
 var psjHelpers = {
 
+	// Returns whether or not an element is displayed (e.g. takes up space on the screen)
 	isDisplayed: function(element) {
 		return element.offsetWidth > 0 || element.offsetHeight > 0;
 	},
 
+	// Returns whether or not an element is both displayed and visible (visible defined as CSS viibility)
 	isVisible: function(element) {
 		var style = window.getComputedStyle(element);
 		return style.getPropertyValue('visibility') !== 'hidden' && psjHelpers.isDisplayed(element);
 	},
 
-	getClass: function(element) {
-		return element.getAttribute && element.getAttribute( 'class' ) || '';
-	},
-
+	// Strips and collapses whitespace in accordance with HTML spec
 	stripAndCollapse: function(string) {
 		var tokens = string.match( ( /[^\x20\t\r\n\f]+/g ) ) || [];
 		return tokens.join(' ');
 	},
 
-	// Iterating over a nodeList or array
+	// Safely gets the class attribute of an element
+	getClass: function(element) {
+		return psjHelpers.stripAndCollapse(element.getAttribute && element.getAttribute('class') || '');
+	},
+
+	// Iterates over a nodeList or array
 	each: function(obj, callback) {
 
 		for (var i = 0; i < obj.length ; i++) {
@@ -92,13 +106,15 @@ var psjHelpers = {
 		return obj;
 	},
 
-	parseEventTypeString: function(eventTypeString) {
+	// Parses an eventAtts string into an object containing a type and namespace
+	parseEventAttsString: function(eventAttsString) {
 		return {
-			type: eventTypeString.indexOf('.') !== -1 ? eventTypeString.split('.')[0] : eventTypeString,
-			nameSpace: eventTypeString.indexOf('.') !== -1 ? eventTypeString.split('.')[1] : null
+			type: eventAttsString.indexOf('.') !== -1 ? eventAttsString.split('.')[0] : eventAttsString,
+			nameSpace: eventAttsString.indexOf('.') !== -1 ? eventAttsString.split('.')[1] : null
 		};
 	},
 
+	// Safely gets the active element
 	safeActiveElement: function() {
 		try {
 			return document.activeElement;
@@ -115,15 +131,15 @@ var psjHelpers = {
 
 var psjEvents = {};
 
-function PSJEvent(elements, typeString, filterString, handler) {
+function PSJEvent(elements, attsString, filterString, handler) {
 	var self = this;
 
 	this.elements = elements;
 
 	// Assign type and namespace
-	var eventTypeObject = psjHelpers.parseEventTypeString(typeString);
-	this.type = eventTypeObject.type;
-	this.nameSpace = eventTypeObject.nameSpace;
+	var eventAttsObject = psjHelpers.parseEventAttsString(attsString);
+	this.type = eventAttsObject.type;
+	this.nameSpace = eventAttsObject.nameSpace;
 
 	this.filter = filterString ? PSJ(filterString) : null;
 	this.handler = function(event) {
@@ -210,13 +226,14 @@ PSJObject.prototype = {
 	// Adding classes if they don't exist
 	addClass: function(classList) {
 		function addTheClassIfNeeded(element, classToAdd) {
-			if (psjHelpers.getClass(element).indexOf(classToAdd) === -1) {
-				element.className += ' ' + classToAdd;
+			var elementClass = psjHelpers.getClass(element);
+			if (elementClass.indexOf(classToAdd) === -1) {
+				element.setAttribute('class', elementClass + ' ' + classToAdd);
 			}
 		}
 		if (!this.hasClass(classList)) {
 			psjHelpers.each(this.elements, function(index, element) {
-				psjHelpers.each(classList.split(' '), function(index, className) {
+				psjHelpers.each(psjHelpers.stripAndCollapse(classList).split(' '), function(index, className) {
 					addTheClassIfNeeded(element, className);
 				});
 			});
@@ -227,13 +244,14 @@ PSJObject.prototype = {
 	// Removing classes if they exist
 	removeClass: function(classList) {
 		function removeTheClassIfNeeded(element, classToRemove) {
+			var elementClass = psjHelpers.getClass(element);
 			if (psjHelpers.getClass(element).indexOf(classToRemove) !== -1) {
-				element.className = psjHelpers.stripAndCollapse(element.className.replace(classToRemove, ''));
+				element.setAttribute('class', elementClass.replace(classToRemove, ''));
 			}
 		}
 		if (this.hasClass(classList)) {
 			psjHelpers.each(this.elements, function(index, element) {
-				psjHelpers.each(classList.split(' '), function(index, className) {
+				psjHelpers.each(psjHelpers.stripAndCollapse(classList).split(' '), function(index, className) {
 					removeTheClassIfNeeded(element, className);
 				});
 			});
@@ -242,19 +260,18 @@ PSJObject.prototype = {
 	},
 
 	// Attaches events
-	listen: function(eventTypeString, filterString, handler) {
-		new PSJEvent(this.elements, eventTypeString, filterString, handler).register();
+	listen: function(eventAttsString, filterString, handler) {
+		new PSJEvent(this.elements, eventAttsString, filterString, handler).register();
 		return this;
 	},
 
-	// TODO: Add support for multiple types by way of space separated typeString
 	// Removes events
-	ignore: function(eventTypeString) {
-		var eventTypeObject = psjHelpers.parseEventTypeString(eventTypeString);
+	ignore: function(eventAttsString) {
+		var eventAttsObject = psjHelpers.parseEventAttsString(eventAttsString);
 		psjHelpers.each(this.elements, function(elementIndex, element) {
 			psjHelpers.each(psjEvents[element], function(eventIndex, eventObject) {
-				if (eventObject.type === eventTypeObject.type && (eventObject.nameSpace === eventTypeObject.nameSpace || eventTypeObject.nameSpace === null)) {
-					element.removeEventListener(eventTypeObject.type, eventObject.handler);
+				if (eventObject.type === eventAttsObject.type && (eventObject.nameSpace === eventAttsObject.nameSpace || eventAttsObject.nameSpace === null)) {
+					element.removeEventListener(eventAttsObject.type, eventObject.handler);
 					psjEvents[element].splice(eventIndex, 1);
 				}
 			});
@@ -281,7 +298,6 @@ PSJObject.prototype = {
 
 var psjAccessibility = {
 
-	// TODO: condiitonal for last focusable element
 	allFocusOut: function(psjObject) {
 		psjObject.listen('focusout', null, function(event) {
 			var element = this;
@@ -355,7 +371,6 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 			self.initializingElement.ignore('click');
 		});
 
-		// TODO: Narrow this down to only events that stem from NOT the box or close button
 		// Clicking outside of box but inside of modal
         self.modalObject.listen('click', null, function(event) {
             //self.closeModal();
