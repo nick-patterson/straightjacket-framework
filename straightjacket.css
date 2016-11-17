@@ -1,68 +1,13 @@
-/* DESCRIPTION: -------------------------------------/
+/* ================================================= /
+// ======   PHANTASM STRAIGHTJACKET   ============== /
+// ================================================= /
+// ------   RESPONSIVE SCSS FRAMEWORK   ------------ /
+// ================================================= /
 
-   This is the final destination for all of
-   StraightJacket's amazingness. All functions
-   that output CSS directly should be stored here.
-
-   Remember, all configuration objects and functions
-   funnel through here, so keep in mind that
-   the functions written here utilize those
-   configuration options to do their thing.
-
-/ ------------------------------------------------- */
-/* DESCRIPTION: -------------------------------------/
-
-   This file sets the default configuration for
-   StraightJacket. All user configuration objects
-   and variables should be stored here.
-
-/ ------------------------------------------------- */
-/* DESCRIPTION:
-
-   Defines simple global proportions to
-   use when calculating consistent margins,
-   widths, text sizes, etc.
-
-/ ------------------------------------------ */
-/* DESCRIPTION:
-
-   Defines color values that can be easily
-   retrieved using the color() function.
-
-   Simply define a color with any valid
-   CSS value (or SASS value) and pass the
-   name of the key into the color() function
-   to reference it anywhere.
-
-/ ------------------------------------------ */
-/* DESCRIPTION:
-
-   Defines breakpoints necessary for the
-   container and grid modules.
-
-   Also defines reference breakpoints for
-   the text sizing module, although you
-   do not need to use all of them.
-
-/ ------------------------------------------ */
-/* DESCRIPTION:
-
-   Defines selectors, properties, and
-   values for text elements at each
-   breakpoint corresponding to those
-   in the breakpoint map.
-
-   Note that there does not need to be
-   a 1:1 relationship between the maps
-   although it is highly recommended and
-   thus the default in StraightJacket.
-
-/ ------------------------------------------ */
-/* ------------------------------------------------ */
-/* DESCRIPTION: -------------------------------------/
+/- DESCRIPTION: -------------------------------------/
 
    A lightweight and powerful framework designed
-   for maximum customizability. 
+   for maximum customizability.
 
    Straightjacket aims to substantiate complex css
    into a system of awesome features and functions
@@ -80,44 +25,16 @@
    all of the power where it belongs: in the
    hands of the developer.
 
-/ ------------------------------------------------- */
-/* VERSION: 0.2 ------------------------------------ /
-/- RELEASE: OCTOBER 21, 2016 ----------------------- /
-/- AUTHOR: NICK PATTERSON AT FIFTEEN FOUR ---------- /
+/ -------------------------------------------------- /
 
-/- PHANTASM: phantasmcs.net ------------------------ /
-/- 15FOUR: fifteenfour.com ------------------------- /
-/ ------------------------------------------------- */
-/* TABLE OF CONTENTS ------------------------------- /
-/-
-/- #0 Global Proportions --------------------------- /
-/- #1 Mixins --------------------------------------- /
-/- #2 Colors --------------------------------------- /
-/- #3 Structure ------------------------------------ /
-/- #4 Text ----------------------------------------- /
-/- #5 Buttons -- WORK IN PROGRESS ------------------ /
-/- #6 General Helpers ------------------------------ /
-/- #7 Popover Modals ------------------------------- /
-/-
-/ ------------------------------------------------- */
-/*  Global proportons ensure that margins, text
-	sizes, etc. adhere to a global standard.
+   VERSION: 0.2 ------------------------------------ /
+   RELEASE: OCTOBER 21, 2016 ----------------------- /
+   AUTHOR: NICK PATTERSON AT FIFTEEN FOUR ---------- /
 
-	These variables can be found in the
-	StraightJacket Configuration file.
+   PHANTASM: phantasmcs.net ------------------------ /
+   15FOUR: fifteenfour.com ------------------------- /
 
 / ------------------------------------------------- */
-/*  Global colors live inside of a map that
-	allows users to easily access them with the
-	simple color(color) function.
-
-	This map can be found in the StraightJacket
-	Configuration file.
-
-/ ------------------------------------------------- */
-/* TODO: Add button module */
-/* ------------------------------------------------ */
-/* ------------------------------------------------ */
 .grid {
   clear: both; }
 
@@ -579,17 +496,15 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
   visibility: hidden;
+  opacity: 0;
   transition: opacity 0.2s ease-out, visibility 0s 0.2s, z-index 0s 0.2s;
   background: rgba(0, 0, 0, 0.925); }
-  .modal--is-staged {
+  .modal--active {
     z-index: 10;
     visibility: visible;
+    opacity: 1;
     transition: opacity 0.2s ease-out, visibility 0s, z-index 0s; }
-
-  .modal--is-visible {
-    opacity: 1; }
 
   .modal__box {
     position: absolute;

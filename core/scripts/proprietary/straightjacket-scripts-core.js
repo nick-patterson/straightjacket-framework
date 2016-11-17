@@ -345,11 +345,11 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 
 	var self = this;
 
-	this.initializingElement = '';
-    this.closingElement = '';
+	this.trigger = '';
+    this.closer = '';
 
     this.currentModal = '';
-    this.currentInitializer = '';
+    this.currentTrigger = '';
     this.isActive = false;
 
     this.className = className;
@@ -360,15 +360,15 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 
     this.events = function() {
 
-    	// Clicking on initializer
-		self.initializingElement.listen('click', null, function(event) {
+    	// Clicking on trigger
+		self.trigger.listen('click', null, function(event) {
 			self.launch(this);
 		});
 
 		// Clicking on destroyer
 		PSJ('.modal__destroyer').listen('click', null, function(event) {
 			console.log('Destroy');
-			self.initializingElement.ignore('click');
+			self.trigger.ignore('click');
 		});
 
 		// Clicking outside of box but inside of modal
@@ -377,7 +377,7 @@ function PSJPopoverModals(className, onLaunch, onClose) {
         });
 
         // Clicking on close button
-        self.closingElement.listen('click', null, function(event) {
+        self.closer.listen('click', null, function(event) {
         	event.stopPropagation();
             self.closeModal();
         });
@@ -393,11 +393,11 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 
     this.init = function() {
 
-        // Define initializing element
-        self.initializingElement = PSJ('.' + self.className + '__initializer');
+        // Define triggering element
+        self.trigger = PSJ('.' + self.className + '__trigger');
 
         // Define closing element
-        self.closingElement = PSJ('.' + self.className + '__closer');
+        self.closer = PSJ('.' + self.className + '__closer');
 
         // Define PSJ modal object
         self.modalObject = PSJ('.' + self.className);
@@ -405,17 +405,17 @@ function PSJPopoverModals(className, onLaunch, onClose) {
         self.events();
     };
 
-    this.launch = function(initializer) {
+    this.launch = function(trigger) {
 
         // Update vars
-        self.currentModal = PSJ(initializer.dataset.target);
-        self.currentInitializer = initializer;
+        self.currentModal = PSJ(trigger.dataset.target);
+        self.currentTrigger = trigger;
         self.isActive = true;
 
         // Display modal on DOM
-        self.currentModal.addClass(self.className + '--is-staged ' + self.className + '--is-visible');
+        self.currentModal.addClass(self.className + '--active');
 
-        // Wire up ESC key listener
+        // Initialize ESC key listener
         PSJ(document).listen('keydown.modalESCKeydown', null, function(event) {
             if (event.keyCode &&  event.keyCode === 27) {
               self.closeModal();
@@ -427,7 +427,7 @@ function PSJPopoverModals(className, onLaunch, onClose) {
         	self.onLaunch.call();
         }
 
-        // Focus first tabbable element
+        // Focus first tabbable element in modal
         window.setTimeout(function() {
         	psjAccessibility.focusFirstTabbableElement(self.currentModal);
         }, 0);
@@ -439,7 +439,7 @@ function PSJPopoverModals(className, onLaunch, onClose) {
    		self.isActive = false;
 
    		// Hide modal on DOM
-        self.currentModal.removeClass(self.className + '--is-staged ' + self.className + '--is-visible');
+        self.currentModal.removeClass(self.className + '--active');
 
         // Remove ESC key listener
         PSJ(document).ignore('keydown.modalESCKeydown');
@@ -449,9 +449,9 @@ function PSJPopoverModals(className, onLaunch, onClose) {
         	self.onClose.call();
         }
 
-        // Return focus to initializing element
+        // Return focus to current trigger
         window.setTimeout(function() {
-        	self.currentInitializer.focus();
+        	self.currentTrigger.focus();
         }, 0);
     };
 }

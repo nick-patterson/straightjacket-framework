@@ -4,13 +4,13 @@
 // ------   STYLE CONFIGURATION   ------------------ /
 // ================================================= /
 
-/* DESCRIPTION: -------------------------------------/
-
-   This file sets the default configuration for
-   StraightJacket. All user configuration objects
-   and variables should be stored here.
-
-/ ------------------------------------------------- */
+// - DESCRIPTION: -----------------------------------/
+//
+//   This file sets the default configuration for
+//   StraightJacket. All user configuration objects
+//   and variables should be stored here.
+//
+// ------------------------------------------------- /
 
 
 
@@ -21,15 +21,15 @@
 // ================================================= /
 
 
-// ------   Bases   ------------------------- /
-
-/* DESCRIPTION:
-
-   Defines simple global proportions to
-   use when calculating consistent margins,
-   widths, text sizes, etc.
-
-/ ------------------------------------------ */
+// - Bases ---------------------------------- /
+//
+//   DESCRIPTION:
+//
+//   Defines simple global proportions to
+//   use when calculating consistent margins,
+//   widths, text sizes, etc.
+//
+// ------------------------------------------ /
 
 $base: 10px;
 $textBase: 16px;
@@ -41,19 +41,19 @@ $textBase: 16px;
 // ======   Colors   =============================== /
 // ================================================= /
 
-// ------   Color Map   --------------------- /
-
-/* DESCRIPTION:
-
-   Defines color values that can be easily
-   retrieved using the color() function.
-
-   Simply define a color with any valid
-   CSS value (or SASS value) and pass the
-   name of the key into the color() function
-   to reference it anywhere.
-
-/ ------------------------------------------ */
+// - Color Map ------------------------------ /
+//
+//   DESCRIPTION:
+//
+//   Defines color values that can be easily
+//   retrieved using the color() function.
+//
+//   Simply define a color with any valid
+//   CSS value (or SASS value) and pass the
+//   name of the key into the color() function
+//   to reference it anywhere.
+//
+// ------------------------------------------ /
 
 $colorMap: (
 	black: #000000,
@@ -73,18 +73,18 @@ $colorMap: (
 // ================================================= /
 
 
-// ------   Breakpoint Map   ---------------- /
-
-/* DESCRIPTION:
-
-   Defines breakpoints necessary for the
-   container and grid modules.
-
-   Also defines reference breakpoints for
-   the text sizing module, although you
-   do not need to use all of them.
-
-/ ------------------------------------------ */
+// - Breakpoint Map ------------------------- /
+//
+//   DESCRIPTION:
+//
+//   Defines breakpoints necessary for the
+//   container and grid modules.
+//
+//   Also defines reference breakpoints for
+//   the text sizing module, although you
+//   do not need to use all of them.
+//
+// ------------------------------------------ /
 
 $breakpointMap: (
 	xs: (
@@ -120,21 +120,21 @@ $breakpointMap: (
 // ======   Text   ================================= /
 // ================================================= /
 
-// ------   Text Map   ---------------- /
-
-/* DESCRIPTION:
-
-   Defines selectors, properties, and
-   values for text elements at each
-   breakpoint corresponding to those
-   in the breakpoint map.
-
-   Note that there does not need to be
-   a 1:1 relationship between the maps
-   although it is highly recommended and
-   thus the default in StraightJacket.
-
-/ ------------------------------------------ */
+// - Text Map ------------------------------- /
+//
+//   DESCRIPTION:
+//
+//   Defines selectors, properties, and
+//   values for text elements at each
+//   breakpoint corresponding to those
+//   in the breakpoint map.
+//
+//   Note that there does not need to be
+//   a 1:1 relationship between the maps
+//   although it is highly recommended and
+//   thus the default in StraightJacket.
+//
+// ------------------------------------------ /
 
 $textMap: (
 	default: (
@@ -295,9 +295,9 @@ $textMap: (
 
 
 
-/* ------------------------------------------------ */
+// ------------------------------------------------- /
 
 // Reference the StraightJacket core
 @import 'core/styles/straightjacket-style-core';
 
-/* ------------------------------------------------ */
+// ------------------------------------------------- /

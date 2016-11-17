@@ -1,15 +1,13 @@
-// ================================================= /
+/* ================================================= /
 // ======   PHANTASM STRAIGHTJACKET   ============== /
 // ================================================= /
-// ------   STYLE CORE   --------------------------- /
+// ------   RESPONSIVE SCSS FRAMEWORK   ------------ /
 // ================================================= /
 
-
-
-/* DESCRIPTION: -------------------------------------/
+/- DESCRIPTION: -------------------------------------/
 
    A lightweight and powerful framework designed
-   for maximum customizability. 
+   for maximum customizability.
 
    Straightjacket aims to substantiate complex css
    into a system of awesome features and functions
@@ -27,30 +25,45 @@
    all of the power where it belongs: in the
    hands of the developer.
 
+/ -------------------------------------------------- /
+
+   VERSION: 0.2 ------------------------------------ /
+   RELEASE: OCTOBER 21, 2016 ----------------------- /
+   AUTHOR: NICK PATTERSON AT FIFTEEN FOUR ---------- /
+
+   PHANTASM: phantasmcs.net ------------------------ /
+   15FOUR: fifteenfour.com ------------------------- /
+
 / ------------------------------------------------- */
 
 
-/* VERSION: 0.2 ------------------------------------ /
-/- RELEASE: OCTOBER 21, 2016 ----------------------- /
-/- AUTHOR: NICK PATTERSON AT FIFTEEN FOUR ---------- /
+// TABLE OF CONTENTS ------------------------------- /
+//
+//   #0 Global Proportions ------------------------- /
+//   #1 Mixins & Functionality --------------------- /
+//   #2 Colors ------------------------------------- /
+//   #3 Structure ---------------------------------- /
+//   #4 Text --------------------------------------- /
+//   #5 Buttons -- WORK IN PROGRESS ---------------- /
+//   #6 General Helpers ---------------------------- /
+//   #7 Popover Modals ----------------------------- /
+//   #8 Dropdowns ---------------------------------- /
+//   #9 Tooltips ----------------------------------- /
+//
+// ------------------------------------------------- */
 
-/- PHANTASM: phantasmcs.net ------------------------ /
-/- 15FOUR: fifteenfour.com ------------------------- /
-/ ------------------------------------------------- */
 
-
-/* TABLE OF CONTENTS ------------------------------- /
-/-
-/- #0 Global Proportions --------------------------- /
-/- #1 Mixins --------------------------------------- /
-/- #2 Colors --------------------------------------- /
-/- #3 Structure ------------------------------------ /
-/- #4 Text ----------------------------------------- /
-/- #5 Buttons -- WORK IN PROGRESS ------------------ /
-/- #6 General Helpers ------------------------------ /
-/- #7 Popover Modals ------------------------------- /
-/-
-/ ------------------------------------------------- */
+// TODOS ------------------------------------------- /
+//
+//   1. Add @content directives to all modules
+//
+//   2. Add 'renderAsMixin' option to all modules
+//      if even remotely possible, then document
+//      what is being rendered as mixins
+//
+//   3. Clean up comments accross whole system
+//
+// -------------------------------------------------- /
 
 
 
@@ -62,13 +75,13 @@
 
 // ------------------------------------------------- /
 
-/*  Global proportons ensure that margins, text
-	sizes, etc. adhere to a global standard.
-
-	These variables can be found in the
-	StraightJacket Configuration file.
-
-/ ------------------------------------------------- */
+//   Global proportons ensure that margins, text
+//	 sizes, etc. adhere to a global standard.
+//
+//	 These variables can be found in the
+//	 StraightJacket Configuration file.
+//
+// ------------------------------------------------- /
 
 
 
@@ -88,15 +101,15 @@
 // ================================================= /
 
 // ------------------------------------------------- /
-
-/*  Global colors live inside of a map that
-	allows users to easily access them with the
-	simple color(color) function.
-
-	This map can be found in the StraightJacket
-	Configuration file.
-
-/ ------------------------------------------------- */
+//
+//   Global colors live inside of a map that
+//	 allows users to easily access them with the
+//	 simple color(color) function.
+//
+//	 This map can be found in the StraightJacket
+//	 Configuration file.
+//
+// ------------------------------------------------- /
 
 
 
@@ -144,7 +157,7 @@
 // ======   #5 Buttons   =========================== /
 // ================================================= /
 
-/* TODO: Add button module */
+// TODO: Add button module
 
 
 
@@ -162,13 +175,31 @@
 
 
 // ================================================= /
-// ======   #6 Popover Modals   ==================== /
+// ======   #7 Popover Modals   ==================== /
 // ================================================= /
 
 
 // ------   Popover Modals Module   --------- /
 // ------------------------------------------ /
 @import 'modules/popover-modals';
+
+
+
+
+// ================================================= /
+// ======   #8 Dropdowns   ========================= /
+// ================================================= /
+
+// TODO: Add dropdown module
+
+
+
+
+// ================================================= /
+// ======   #9 Tooltips   ========================== /
+// ================================================= /
+
+// TODO: Add tooltip module
 
 
 

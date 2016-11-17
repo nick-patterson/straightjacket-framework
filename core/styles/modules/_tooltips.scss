@@ -1,0 +1,76 @@
+// ------   Tooltips Module   --------------- /
+// ------------------------------------------ /
+
+@mixin tooltips($config: ()) {
+
+	// ------   Default Configuration   ----- /
+
+	$config: map-merge((
+		class: 'tooltip',
+		opinionated: true
+	), $config);
+
+	$tooltipClass: #{map-get($config, class)};
+
+
+
+	// ------   Generated CSS   -------------- /
+
+
+	.#{$tooltipClass} {
+
+		position: absolute;
+		z-index: -999;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.2s ease-out, visibility 0s 0.2s, z-index 0s 0.2s;
+
+		@if map-get($config, opinionated) {
+			// Opinionated styles: shadows, background color, padding, triangle thing
+		}
+
+		@content;
+
+		@at-root {
+
+			&--sm {
+				width: 100px;
+			}
+			&--md {
+				width: 200px;
+			}
+			&--lg {
+				width: 300px;
+			}
+			&--full {
+				width: 100%;
+			}
+
+			&--align-top {
+
+			}
+			&--align-bottom {
+
+			}
+
+			&--align-left {
+
+			}
+			&--align-right {
+
+			}
+
+			&__trigger {
+				&:hover, &:focus {
+					.#{$tooltipClass} {
+						z-index: 10;
+						visibility: visible;
+						opacity: 1;
+						transition: opacity 0.2s ease-out, visibility 0s, z-index 0s;
+					}
+				}
+			}
+
+		}
+	}
+}
