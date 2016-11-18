@@ -77,7 +77,7 @@ var psjHelpers = {
 		return element.offsetWidth > 0 || element.offsetHeight > 0;
 	},
 
-	// Returns whether or not an element is both displayed and visible (visible defined as CSS viibility)
+	// Returns whether or not an element is both displayed and visible (visible defined as CSS visibility)
 	isVisible: function(element) {
 		var style = window.getComputedStyle(element);
 		return style.getPropertyValue('visibility') !== 'hidden' && psjHelpers.isDisplayed(element);
@@ -301,7 +301,6 @@ var psjAccessibility = {
 	allFocusOut: function(psjObject) {
 		psjObject.listen('focusout', null, function(event) {
 			var element = this;
-			event.stopPropagation();
 			window.setTimeout(function() {
 				var descendants = Array.prototype.slice.call(element.querySelectorAll('*'));
 				if (descendants && descendants.indexOf(psjHelpers.safeActiveElement()) === -1) {

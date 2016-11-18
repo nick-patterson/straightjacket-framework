@@ -12,9 +12,8 @@
    to support StraightJacket UI elements.
 
    These functions aim for great performance and
-   accessibility accross all modern browsers
-   (suck it, IE8), and integrate perfectly with
-   the mighty jQuery library.   
+   accessibility and integrate perfectly with
+   the mighty jQuery library.
 
 / ------------------------------------------------- */
 
@@ -42,7 +41,26 @@
 // ======   #0 Core Functions   ==================== /
 // ================================================= /
 
-var PSJ = {
+$.psj = {
+
+	helpers: {
+
+		// Returns whether or not an element is displayed (e.g. takes up space on the screen)
+		isDisplayed: function(element) {
+			return element.offsetWidth > 0 || element.offsetHeight > 0;
+		},
+
+		// Returns whether or not an element is visible (visible defined as CSS visibility)
+		isVisible: function(element) {
+			element = $(element);
+			var visibility = element.css( "visibility" );
+			while (visibility === "inherit") {
+				element = element.parent();
+				visibility = element.css("visibility");
+			}
+			return visibility !== "hidden";
+		}
+	}
 };
 
 
@@ -51,24 +69,37 @@ var PSJ = {
 // ================================================= /
 
 
-PSJ.accessibility = {
+$.psj.accessibility = {
 
-    childrenLoseFocus: function(elements) {
+    allFocusOut: function(elements) {
         elements.on('focusout', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-
             var element = $(this);
-
             window.setTimeout(function() {
                 if (!element.has(document.activeElement).length) {
-                    element.trigger('childrenLoseFocus');
+                    element.trigger('psjallfocusout');
                 }
             }, 0);
         });
     },
 
-    focusFirstElement: function(container) {
-        $(container.find('*:tabbable')[0]).focus();
-    }
+    tabbableElementSelectors: [
+		'a[href]:not([tabindex^="-"])',
+		'area[href]:not([tabindex^="-"])',
+		'input:not([disabled]):not([tabindex^="-"]):not([type="hidden"])',
+		'select:not([disabled]):not([tabindex^="-"])',
+		'textarea:not([disabled]):not([tabindex^="-"])',
+		'button:not([disabled]):not([tabindex^="-"])',
+		'iframe:not([tabindex^="-"])',
+		'[tabindex]:not([tabindex^="-"])',
+		'[contentEditable=true]:not([tabindex^="-"])',
+	],
+
+    // Focus first tabbable child of first element in a set FIX THIS IT ISNT WORKING
+	focusFirstTabbableElement: function(container) {
+		var tabbableElements = container.find($.psj.accessibility.tabbableElementSelectors.join(',')).filter(':visible').filter($.psj.helpers.isVisible);
+		if (tabbableElements.length) {
+			tabbableElements.focus();
+		}
+		return container;
+	}
 };

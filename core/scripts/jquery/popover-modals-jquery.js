@@ -6,98 +6,112 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 
 	var self = this;
 
-    this.current = '';
-    this.initializingElement = '';
-    this.closingElement = '';
-    this.currentInitializer = '';
+	this.trigger = '';
+    this.closer = '';
+
+    this.currentModal = '';
+    this.currentTrigger = '';
+    this.isActive = false;
 
     this.className = className;
-    this.classSelector = '.' + className;
+    this.modalObject = '';
+
     this.onlaunch = onLaunch;
     this.onClose = onClose;
 
     this.events = function() {
 
-    	// Clicking on initializer
-		self.initializingElement.on('click.psjModalInitialize', function(event) {
-			event.preventDefult();
+    	// Clicking on trigger
+		self.trigger.on('click', function(event) {
 			self.launch($(this));
 		});
 
-		// Clicking outside of modal box
-        $(self.classSelector).on('click.psjModalOutsideClick', function(event) {
-            if (!$(event.target).is('.modal__box *')) {
-                self.closeModal();
-            }
-        });
-
-        // Clicking on close button
-        self.closingElement.on('click.psjModalClose', null, function(event) {
-        	event.preventDefault();
+		// Clicking outside of box but inside of modal
+        self.modalObject.on('click', ':not(.' + self.className + '__box, .' + self.className + '__closer)', function(event) {
             self.closeModal();
         });
 
-        // Prevent tab focus from leaving modal
-        $(self.classSelector).on('childrenLoseFocus.psjModalChildrenLoseFocus', function(event) {
-            PSJ.accessibility.focusFirstElement(modal.current);
+        // Clicking on close button
+        self.closer.on('click', function(event) {
+        	event.stopPropagation();
+            self.closeModal();
         });
 
-        // Wire up synthetic focusout event
-        PSJ.accessibility.childrenLoseFocus(modal.Current);
+        // Prevent tabbing out of active modal
+        $.psj.accessibility.allFocusOut(self.modalObject);
+        self.modalObject.on('psjallfocusout', function(event) {
+        	if (self.isActive) {
+        		$.psj.accessibility.focusFirstTabbableElement(self.currentModal);
+        	}
+        });
     };
 
     this.init = function() {
 
-        // Define initializing element
-        self.initializingElement = PSJ(self.classSelector + '__initializer');
+        // Define triggering element
+        self.trigger = $('.' + self.className + '__trigger');
 
         // Define closing element
-        self.closingElement = PSJ(self.classSelector + '__closer');
+        self.closer = $('.' + self.className + '__closer');
+
+        // Define PSJ modal object
+        self.modalObject = $('.' + self.className);
 
         self.events();
     };
 
-    this.launch = function(initializer) {
+    this.launch = function(trigger) {
 
         // Update vars
-        self.current = $(initializer.data('target'));
-        self.currentInitializer = initializer;
+        self.currentModal = $(trigger.data('target'));
+        self.currentTrigger = trigger;
+        self.isActive = true;
 
+        // Display modal on DOM
+        self.currentModal.addClass(self.className + '--active');
 
-        // Display modal
-        self.current.addClass(self.className + '--is-staged ' + self.className + '--is-visible');
-
-        // Wire up ESC key listener
-        $(document).on('keydown.modalCloseKeydown', function(event) {
-            if ( event.keyCode &&  event.keyCode === 27 ) {
-                event.preventDefault();
-                modal.closeModal();
+        // Initialize ESC key listener
+        $(document).on('keydown.modalESCKeydown', function(event) {
+            if (event.keyCode &&  event.keyCode === 27) {
+              self.closeModal();
             }
         });
 
-        // Focus first element
-        PSJ.accessibility.focusFirstElement(modal.current);
-
-        // Execute specified onLaunch function
+        // Execute onLaunch function
         if (self.onLaunch && typeof self.onLaunch === 'function') {
         	self.onLaunch.call();
         }
+
+        // Focus first tabbable element in modal
+        window.setTimeout(function() {
+        	$.psj.accessibility.focusFirstTabbableElement(self.currentModal);
+        }, 0);
     };
 
    this.closeModal = function() {
 
-   		// Hide modal
-        modal.current.removeClass(self.className + '--is-staged ' + self.className + '--is-visible');
+   		// Update vars
+   		self.isActive = false;
+
+   		// Hide modal on DOM
+        self.currentModal.removeClass(self.className + '--active');
 
         // Remove ESC key listener
-        $(document).off('keydown.modalCloseKeydown');
+        $(document).off('keydown.modalESCKeydown');
 
-        // Restore focus to initializing element
-        modal.currentInitializer.focus();
-
-        // Execute specified onClose function
+        // Execute onClose function
         if (self.onClose && typeof self.onClose === 'function') {
         	self.onClose.call();
         }
+
+        // Return focus to current trigger
+        window.setTimeout(function() {
+        	self.currentTrigger.focus();
+        }, 0);
     };
 }
+
+$(window).on('load', function(event) {
+	var modal = new PSJPopoverModals('modal');
+	modal.init();
+});
