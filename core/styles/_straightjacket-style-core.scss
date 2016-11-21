@@ -63,7 +63,13 @@
 //
 //   3. Clean up comments accross whole system
 //
-//   4. Finish dropdown & tooltip modules
+//   4. Finish tooltip & dropdown modules
+//
+//   5. Separate out opinionated styles &
+//      opinionated animation
+//
+//   6. Add capability to skip rendering of
+//      certian modifiers (like tooltip alignments)
 //
 // -------------------------------------------------- /
 
@@ -201,8 +207,6 @@
 // ======   #9 Tooltips   ========================== /
 // ================================================= /
 
-// TODO: Add tooltip module
-
-
-
-
+// ------   Tooltips Module   --------------- /
+// ------------------------------------------ /
+@import 'modules/tooltips';

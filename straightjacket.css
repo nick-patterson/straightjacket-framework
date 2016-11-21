@@ -38,12 +38,12 @@
 .grid {
   clear: both; }
 
-.grid:after {
+.grid::after {
   content: "Expect Awesome // Create. Amazing.";
   visibility: hidden;
   display: block;
   text-align: center;
-  height: 0px;
+  height: 0;
   clear: both; }
 
 .grid__column {
@@ -54,12 +54,12 @@
 
 .grid__row {
   clear: both; }
-  .grid__row:after {
+  .grid__row::after {
     content: "Expect Awesome // Create. Amazing.";
     visibility: hidden;
     display: block;
     text-align: center;
-    height: 0px;
+    height: 0;
     clear: both; }
 
 .grid {
@@ -533,5 +533,73 @@ p {
       .modal__closer .closex line {
         stroke: white;
         stroke-width: 2; }
+
+.tooltip {
+  position: absolute;
+  z-index: -999;
+  pointer-events: none;
+  left: 50%;
+  bottom: 100%;
+  margin-bottom: 1.5em;
+  width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  background: red;
+  text-align: center;
+  padding: 1.5em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: translate(-50%, 1em);
+  transition: opacity 0.2s ease-out, visibility 0s 0.2s, z-index 0s 0.2s, transform 0.2s ease-out; }
+  .tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4px 6px 0;
+    border-color: red transparent transparent;
+    margin-left: -3px; }
+  .tooltip--active, .tooltip__trigger:hover .tooltip, .tooltip__trigger:focus .tooltip {
+    z-index: 10;
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, 0);
+    transition: opacity 0.2s ease-out, visibility 0s, z-index 0s, transform 0.2s ease-out; }
+
+  .tooltip--sm {
+    width: 100px; }
+
+  .tooltip--lg {
+    width: 300px; }
+
+  .tooltip--full {
+    width: 100%; }
+
+  .tooltip--align-left {
+    left: 0;
+    right: auto; }
+
+  .tooltip--align-right {
+    right: 0;
+    left: auto; }
+
+  .tooltip--left {
+    right: 100%;
+    margin-right: 1.5em; }
+
+  .tooltip--right {
+    left: 0;
+    margin-left: 1.5em; }
+
+  .tooltip--bottom {
+    top: 100%;
+    bottom: auto;
+    margin-top: 1.5em;
+    margin-bottom: 0; }
+
+  .tooltip__trigger {
+    position: relative; }
 
 /*# sourceMappingURL=straightjacket.css.map */
