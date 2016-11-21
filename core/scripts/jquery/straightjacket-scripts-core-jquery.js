@@ -46,12 +46,12 @@ $.psj = {
 	helpers: {
 
 		// Returns whether or not an element is displayed (e.g. takes up space on the screen)
-		isDisplayed: function(element) {
+		isDisplayed: function(index, element) {
 			return element.offsetWidth > 0 || element.offsetHeight > 0;
 		},
 
 		// Returns whether or not an element is visible (visible defined as CSS visibility)
-		isVisible: function(element) {
+		isVisible: function(index, element) {
 			element = $(element);
 			var visibility = element.css( "visibility" );
 			while (visibility === "inherit") {
@@ -98,7 +98,7 @@ $.psj.accessibility = {
 	focusFirstTabbableElement: function(container) {
 		var tabbableElements = container.find($.psj.accessibility.tabbableElementSelectors.join(',')).filter(':visible').filter($.psj.helpers.isVisible);
 		if (tabbableElements.length) {
-			tabbableElements.focus();
+			tabbableElements[0].focus();
 		}
 		return container;
 	}
