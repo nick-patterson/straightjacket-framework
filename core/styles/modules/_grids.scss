@@ -125,20 +125,23 @@
 
 			@each $breakpointLabel, $propMap in $breakpointMap {
 
-				@media (min-width: map-get($propMap, viewportWidth)) {
+				@if $breakpointLabel != default {
 
-					@for $i from 1 through $columns {
+					@media screen and (min-width: 500px) {
 
-						// Dynamc placeholder
+						@for $i from 1 through $columns {
 
-						%#{$gridClass}-column-#{ $i }-#{ $breakpointLabel } {
-							width: ((100 / $columns) * $i) * 1%;
-						}
+							// Dynamc placeholder
 
-						@for $c from 1 through $columns {
+							%#{$gridClass}-column-#{ $i }-#{ $breakpointLabel } {
+								width: ((100 / $columns) * $i) * 1%;
+							}
 
-							.#{ $gridClass }__column--#{ $i }.#{ $breakpointLabel }--#{ $c } {
-								@extend %#{$gridClass}-column-#{ $c }-#{ $breakpointLabel };
+							@for $c from 1 through $columns {
+
+								.#{ $gridClass }__column--#{ $i }.#{ $breakpointLabel }--#{ $c } {
+									@extend %#{$gridClass}-column-#{ $c }-#{ $breakpointLabel };
+								}
 							}
 						}
 					}

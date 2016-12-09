@@ -63,8 +63,8 @@
 		$x: 1 / $x;
 	}
 
-	$t: $x - 1;	
-	
+	$t: $x - 1;
+
 	$y: $t;
 
 	@for $i from 2 to round($x + 150) {
@@ -74,7 +74,7 @@
 
 		@else {
 			$y: $y - (pow($t,$i) / $i);
-		}		
+		}
 	}
 
 	@if abs($originalx) > 1 {

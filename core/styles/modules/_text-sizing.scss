@@ -1,3 +1,4 @@
+/* stylelint-disable all */
 // ------   Text Sizing Module   ------------ /
 // ------------------------------------------ /
 
@@ -7,62 +8,52 @@
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
-		class: '',
+		namespace: '',
 		breakpointMap: $breakpointMap,
-		textMap: $textMap
+		textMap: $textMap,
+		renderAsMixin: false,
+		renderAsExtendable: false
 	), $config);
+
 
 
 	// ------   Generated CSS   ------------- /
 
-	// Default
+	@each $element, $breakpointMap in map-get($config, textMap) {
 
-	@each $selector, $propMap in map-deep-get($config, textMap, default) {
+		@each $breakpoint, $propMap in $breakpointMap {
 
-		// Add a specific class selector to the selector in the text map if one is specified
-		$selector: if(map-get($config, class) == '', $selector, $selector + '.' + map-get($config, class));
-		
-		#{$selector} {
-			@each $prop, $value in $propMap {
-				#{$prop}: #{$value};
-			}
-		}
-	}
+			// Defaults
 
-	// Responsive
+			@if $breakpoint == default {
 
-	// Warn the user if the breakpoints in their respective breakpoint and text maps do not have a 1:1 relationship
-	@each $breakpoint, $breakpointPropMap in map-get($config, breakpointMap) {
-
-		$differentBreakpoints: false;
-
-		@if (not map-has-key(map-get($config, textMap), $breakpoint)) {
-			$differentBreakpoints: true;
-		}
-
-		@if ($differentBreakpoints) {
-			@warn 'You have breakpoints in your breakpoint map that do not exist in your text map or vice versa. Check to make sure this is what you want.';
-		}
-	}
-
-	@each $breakpoint, $breakpointPropMap in map-get($config, breakpointMap) {
-
-		@media screen and (max-width: map-get($breakpointPropMap, viewportWidth)) {
-
-			// Only print the CSS if the breakpoint exists
-			@if (map-has-key(map-get($config, textMap), $breakpoint)) {
-				@each $selector, $propMap in map-deep-get($config, textMap, $breakpoint) {
-
-					// Add a specific class selector to the selector in the text map if one is specified				
-					$selector: if(map-get($config, class) == '', $selector, $selector + '.' + map-get($config, class));
-			
-					#{$selector} {
-						@each $prop, $value in $propMap {
-							#{$prop}: #{$value};
-						}
+				#{$element} {
+					@each $prop, $value in $propMap {
+						#{$prop}: #{$value};
 					}
 				}
 			}
+
+			// Responsive
+
+			@else {
+
+				// Only print CSS if breakpoint exists in both the text map and the breakpoint map
+
+				@if map-has-key(map-get($config, breakpointMap), $breakpoint) {
+					@media screen and (min-width: map-deep-get($config, breakpointMap, $breakpoint, viewportWidth)) {
+						#{$element} {
+							@each $prop, $value in $propMap {
+								#{$prop}: #{$value};
+							}
+						}
+					}
+				}
+
+				@else {
+					@warn 'You have breakpoints in your breakpoint map that do not exist in your text map or vice versa. Check to make sure this is what you want.';
+				}
+			}
 		}
-	}	
+	}
 }

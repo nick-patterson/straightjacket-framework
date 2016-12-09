@@ -32,7 +32,7 @@
 // ------------------------------------------ /
 
 $base: 10px;
-$textBase: 16px;
+$textBase: 14px;
 
 
 
@@ -56,12 +56,12 @@ $textBase: 16px;
 // ------------------------------------------ /
 
 $colorMap: (
-	black: #000000,
+	black: #000,
 	pseudo-black: #222,
 	dark-gray: #5a5a5a,
 	mid-gray: #adadae,
 	light-gray: #d4d4d6,
-	white: #ffffff,
+	white: #fff,
 	pseudo-white: #f4f4f4
 );
 
@@ -87,25 +87,28 @@ $colorMap: (
 // ------------------------------------------ /
 
 $breakpointMap: (
+	default: (
+		containerWidth: 90%
+	),
 	xs: (
 		viewportWidth: 480px,
 		containerWidth: 90%
 	),
 	sm: (
 		viewportWidth: 680px,
-		containerWidth: 90%
+		containerWidth: 85%
 	),
 	md: (
 		viewportWidth: 768px,
-		containerWidth: 718px
+		containerWidth: 680px
 	),
 	lg: (
 		viewportWidth: 992px,
-		containerWidth: 960px
+		containerWidth: 940px
 	),
 	xl: (
 		viewportWidth: 1200px,
-		containerWidth: 1120px
+		containerWidth: 1080px
 	),
 	xxl: (
 		viewportWidth: 1600px,
@@ -137,160 +140,152 @@ $breakpointMap: (
 // ------------------------------------------ /
 
 $textMap: (
-	default: (
-		h1: (
+
+	// Heading 1 styles
+	h1: (
+		default: (
 			font-size: 2.125em,
 			line-height: 1.25em
 		),
-		h2: (
-			font-size: 1.3em,
-			line-height: 1.125em
-		),
-		h3: (
-			font-size: 1.75em,
-			line-height: 1.125em
-		),
-		h4: (
-			font-size: 1.25em,
-			line-height: 1.125em
-		),
-		p: (
-			font-size: 1em,
-			line-height: 1.475em
-		)
-	),
-	xs: (
-		h1: (
-			font-size: 2.6em,
-			line-height: 1.25em,
-		),
-		h2: (
-			font-size: 1.35em,
-			line-height: 1.15384614em
-		),
-		h3: (
-			font-size: 1.75em,
-			line-height: 1.13636364em
-		),
-		h4: (
-			font-size: 1.25em,
-			line-height: 1.11111111em
-		),
-		p: (
-			font-size: 1em,
-			line-height: 1.45em
-		)
-	),
-	sm: (
-		h1: (
+		xs: (
 			font-size: 2.6em,
 			line-height: 1.25em
 		),
-		h2: (
-			font-size: 1.35em,
-			line-height: 1.15384614em
+		sm: (
+			font-size: 2.6em,
+			line-height: 1.25em
 		),
-		h3: (
-			font-size: 1.75em,
-			line-height: 1.13636364em
-		),
-		h4: (
-			font-size: 1.25em,
-			line-height: 1.11111111em
-		),
-		p: (
-			font-size: 1em,
-			line-height: 1.45em
-		)
-	),
-	md: (
-		h1: (
+		md: (
 			font-size: 3em,
 			line-height: 1.25em
 		),
-		h2: (
-			font-size: 1.35em,
-			line-height: 1.25em
-		),
-		h3: (
-			font-size: 1.75em,
-			line-height: 1.25em
-		),
-		h4: (
-			font-size: 1.25em,
-			line-height: 1.11111111em
-		),
-		p: (
-			font-size: 1em,
-			line-height: 1.45em
-		)
-	),
-	lg: (
-		h1: (
+		lg: (
 			font-size: 3.25em,
 			line-height: 1.125em
 		),
-		h2: (
-			font-size: 1.55em,
-			line-height: 1.25em
-		),
-		h3: (
-			font-size: 2.2em,
-			line-height: 1.225em
-		),
-		h4: (
-			font-size: 1.25em,
-			line-height: 1.22222222em
-		),
-		p: (
-			font-size: 1em,
-			line-height: 1.45em
-		)
-	),
-	xl: (
-		h1: (
+		xl: (
 			font-size: 3.5em,
 			line-height: 1.05em
 		),
-		h2: (
-			font-size: 1.65em,
-			line-height: 1.25em
-		),
-		h3: (
-			font-size: 2.375em,
-			line-height: 1.225em
-		),
-		h4: (
-			font-size: 1.25em,
-			line-height: 1.22222222em
-		),
-		p: (
-			font-size: 1em,
-			line-height: 1.6em
-		)
-	),
-	xxl: (
-		h1: (
+		xxl: (
 			font-size: 3.65em,
 			line-height: 1.05em
 		),
-		h2: (
+	),
+
+	// Heading 2 styles
+	h2: (
+		default: (
+			font-size: 1.3em,
+			line-height: 1.125em
+		),
+		xs: (
+			font-size: 1.35em,
+			line-height: 1.15384614em
+		),
+		sm: (
+			font-size: 1.35em,
+			line-height: 1.15384614em
+		),
+		md: (
+			font-size: 1.35em,
+			line-height: 1.25em
+		),
+		lg: (
+			font-size: 1.55em,
+			line-height: 1.25em
+		),
+		xl: (
 			font-size: 1.65em,
 			line-height: 1.25em
 		),
-		h3: (
+		xxl: (
+			font-size: 1.65em,
+			line-height: 1.25em
+		),
+	),
+
+	// Heading 3 styles
+	h3: (
+		default: (
+			font-size: 1.75em,
+			line-height: 1.125em
+		),
+		xs: (
+			font-size: 1.75em,
+			line-height: 1.13636364em
+		),
+		sm: (
+			font-size: 1.75em,
+			line-height: 1.13636364em
+		),
+		md: (
+			font-size: 1.75em,
+			line-height: 1.25em
+		),
+		lg: (
+			font-size: 2.2em,
+			line-height: 1.225em
+		),
+		xl: (
 			font-size: 2.375em,
 			line-height: 1.225em
 		),
-		h4: (
+		xxl: (
+			font-size: 2.375em,
+			line-height: 1.225em
+		),
+	),
+
+	// Heading 4 styles
+	h4: (
+		default: (
+			font-size: 1.25em,
+			line-height: 1.125em
+		),
+		xs: (
+			font-size: 1.25em,
+			line-height: 1.11111111em
+		),
+		sm: (
+			font-size: 1.25em,
+			line-height: 1.11111111em
+		),
+		md: (
+			font-size: 1.25em,
+			line-height: 1.11111111em
+		),
+		lg: (
 			font-size: 1.25em,
 			line-height: 1.22222222em
 		),
-		p: (
-			font-size: 1em,
-			line-height: 1.6em
-		)
+		xl: (
+			font-size: 1.25em,
+			line-height: 1.22222222em
+		),
+		xxl: (
+			font-size: 1.25em,
+			line-height: 1.22222222em
+		),
 	),
+
+	// Body styles (be vewy vewy cereful)
+	body: (
+		default: (
+			font-size: $textBase,
+			line-height: 1.4em
+		),
+		sm: (
+			font-size: $textBase + 2,
+			line-height: 1.5em
+		),
+		xxl: (
+			font-size: $textBase + 4,
+			line-height: 1.6em
+		),
+	),
+
+
 );
 
 

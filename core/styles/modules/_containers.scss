@@ -1,3 +1,4 @@
+/* stylelint-disable all */
 // ------   Container Module   -------------- /
 // ------------------------------------------ /
 
@@ -7,16 +8,17 @@
 
 	$config: map-merge((
 			class: 'container',
-			defaultWidth: 90%, // Container width for mobile devices
+			breakpointMap: $breakpointMap,
 			padding: 0,
-			centered: true
+			centered: true,
+			renderAsMixin: false
 		), $config);
 
 
 	// Default container (for mobile devices & other tiny screens)
 
 	.#{ map-get($config, class) } {
-		width: map-get($config, defaultWidth);
+		width: map-deep-get($breakpointMap, default, containerWidth);
 		padding: map-get($config, padding);
 
 		@if map-get($config, centered) == true {
@@ -26,12 +28,16 @@
 
 	// Container for other screen sizes
 
-	@each $breakpointLabel, $propMap in $breakpointMap {
+	@each $breakpoint, $propMap in map-get($config, breakpointMap) {
 
-		@media (min-width: map-get($propMap, viewportWidth)) {
-			.#{ map-get($config, class) } {
-				width: map-get($propMap, containerWidth);
+		@if $breakpoint != default {
+
+			@media (min-width: map-get($propMap, viewportWidth)) {
+				.#{ map-get($config, class) } {
+					width: map-get($propMap, containerWidth);
+				}
 			}
+
 		}
 	};
 }
