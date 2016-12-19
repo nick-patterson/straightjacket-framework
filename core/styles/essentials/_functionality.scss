@@ -3,13 +3,32 @@
 // ================================================= /
 
 
+// ------   Registering Modules   -------------------- /
+
+@function register-module($moduleName, $moduleNamespace) {
+	$PSJModuleRegistry: append(map-get($PSJModuleRegistry, $moduleName), $moduleNamespace) !global;
+	@return null;
+}
+
+// ------   Retrieve from Nested Map    ------------ /
+
+@function map-deep-get($map, $keys...) {
+
+	@each $key in $keys {
+		$map: map-get($map, $key);
+	}
+
+	@return $map;
+}
+
+
 // ------   Exponential Functions   ---------------- /
 // Supports only integers as exponents for now
 
-@function pow($b, $x){
+@function pow($b, $x) {
 
 	@if type_of($b) != number or type_of($x) != number or not unitless($b) or not unitless($x) {
-		@warn 'both arguments must be unitless numbers.';
+		@warn 'Both arguments must be unitless numbers.';
 		@return $b;
 	}
 
@@ -49,11 +68,12 @@
 
 
 // ------   Natural Logrithmic Functions   --------- /
+// Who in the hell thought it would ever come to needing Taylor series expansion in sass!?
 
 @function ln($x) {
 
 	@if type_of($x) != number or not unitless($x) {
-		@warn 'argument must be a unitless number';
+		@warn 'Argument must be a unitless number';
 		@return $b;
 	}
 
@@ -69,11 +89,11 @@
 
 	@for $i from 2 to round($x + 150) {
 		@if $i % 2 != 0 {
-			$y: $y + (pow($t,$i) / $i);
+			$y: $y + (pow($t, $i) / $i);
 		}
 
 		@else {
-			$y: $y - (pow($t,$i) / $i);
+			$y: $y - (pow($t, $i) / $i);
 		}
 	}
 
@@ -91,61 +111,58 @@
 
 @function roundDecimal($number, $places: 0, $mode: round) {
 
-    $n: 1;
+	$n: 1;
 
-    // $number must be a number
-    @if type-of($number) != number {
-        @warn '#{ $number } must be a number';
-        @return $number;
-    }
+	// $number must be a number
+	@if type-of($number) != number {
+		@warn '#{ $number } must be a number';
+		@return $number;
+	}
 
-    // $places must be a unitless number
-    @if type-of($places) != number or not unitless($places) {
-        @warn '#{ $places } must be a unitless number';
-        @return $number;
-    }
+	// $places must be a unitless number
+	@if type-of($places) != number or not unitless($places) {
+		@warn '#{ $places } must be a unitless number';
+		@return $number;
+	}
 
-    @for $i from 1 through $places {
-        $n: $n * 10;
-    }
+	@for $i from 1 through $places {
+		$n: $n * 10;
+	}
 
-    @if $mode == round {
-        @return round($number * $n) / $n;
-    }
+	@if $mode == round {
+		@return round($number * $n) / $n;
+	}
 
-    @else if $mode == ceil {
-        @return ceil($number * $n) / $n;
-    }
+	@else if $mode == ceil {
+		@return ceil($number * $n) / $n;
+	}
 
-    @else if $mode == floor {
-        @return floor($number * $n) / $n;
-    }
+	@else if $mode == floor {
+		@return floor($number * $n) / $n;
+	}
 
-    @else {
-        @warn '#{ $mode } is not a recognized mode of rounding.';
-        @return $number;
-    }
+	@else {
+		@warn '#{ $mode } is not a recognized mode of rounding.';
+		@return $number;
+	}
 }
 
 
 // ------   Retrieving Colors   -------------------- /
 
-@function color($color){
+@function color($color) {
 	@if map-has-key($colorMap, $color) {
-		@return map-get($colorMap, $color);
+
+		@if map-has-key(map-get($colorMap, $color), value) {
+			@return map-deep-get($colorMap, $color, value);
+		}
+
+		@else {
+			@warn '#{ $color } does not have a value assigned to it in your color map';
+		}
 	}
 
 	@else {
 		@warn '#{ $color } is not defined in your color map';
 	}
-}
-
-
-// ------   Retrieve from Nested Map    ------------ /
-
-@function map-deep-get($map, $keys...) {
-    @each $key in $keys {
-        $map: map-get($map, $key);
-    }
-    @return $map;
 }

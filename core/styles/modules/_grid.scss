@@ -2,8 +2,8 @@
 // ------------------------------------------ /
 
 
+@mixin PSJGrid($config: ()) {
 
-@mixin grid($config: ()) {
 
 	// ------   Default Configuration   ----- /
 
@@ -19,9 +19,7 @@
 	$columns: map-get($config, columns);
 
 
-
-	// ------   Dynamic Placeholders   ------- /
-
+	// ------   Dynamic Placeholders   ------ /
 
 	// Grid placeholders
 
@@ -69,12 +67,12 @@
 	}
 
 
-
-	// ------   Generated CSS   -------------- /
+	// ------   Generated CSS   ------------- /
 
 
 	.#{$gridClass} {
 		margin-left: map-get($config, gutter) * -1;
+
 		@extend %#{$gridClass}_grid;
 
 		@if (map-get($config,type) == inline) {
@@ -127,7 +125,7 @@
 
 				@if $breakpointLabel != default {
 
-					@media screen and (min-width: 500px) {
+					@media screen and (min-width: map-get($propMap, viewportWidth)) {
 
 						@for $i from 1 through $columns {
 

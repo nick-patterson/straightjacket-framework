@@ -2,10 +2,10 @@
 
 module.exports = {
 	"rules": {
-		"at-rule-empty-line-before": [ "always", {
+		/*"at-rule-empty-line-before": [ "always", {
 			except: [ "blockless-group", "first-nested" ],
 			ignore: ["after-comment"],
-		} ],
+		} ],*/
 		"at-rule-name-case": "lower",
 		"at-rule-name-space-after": "always-single-line",
 		"at-rule-semicolon-newline-after": "always",
@@ -32,23 +32,23 @@ module.exports = {
 		"declaration-block-semicolon-space-before": "never",
 		"declaration-block-single-line-max-declarations": 1,
 		"declaration-block-trailing-semicolon": "always",
-		"declaration-colon-newline-after": "always-multi-line",
+		//"declaration-colon-newline-after": "always-multi-line",
 		"declaration-colon-space-after": "always-single-line",
 		"declaration-colon-space-before": "never",
 		"function-calc-no-unspaced-operator": true,
-		"function-comma-newline-after": "always-multi-line",
+		//"function-comma-newline-after": "always-multi-line",
 		"function-comma-space-after": "always-single-line",
 		"function-comma-space-before": "never",
 		"function-linear-gradient-no-nonstandard-direction": true,
 		"function-max-empty-lines": 0,
 		"function-name-case": "lower",
-		"function-parentheses-newline-inside": "always-multi-line",
+		//"function-parentheses-newline-inside": "always-multi-line",
 		"function-parentheses-space-inside": "never-single-line",
 		"function-whitespace-after": "always",
 		"indentation": "tab",
 		"keyframe-declaration-no-important": true,
 		"length-zero-no-unit": true,
-		"max-empty-lines": 1,
+		"max-empty-lines": 6,
 		"media-feature-colon-space-after": "always",
 		"media-feature-colon-space-before": "never",
 		"media-feature-range-operator-space-after": "always",

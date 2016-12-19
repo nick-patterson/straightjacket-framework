@@ -1,0 +1,70 @@
+// ------   Container Module   -------------- /
+// ------------------------------------------ /
+
+
+@mixin PSJContainer($config: ()) {
+
+
+	// ------   Default Configuration   ----- /
+
+	$config: map-merge((
+		class: 'container',
+		breakpointMap: $breakpointMap,
+		padding: 0,
+		centered: true,
+		renderAsCSS: true,
+		renderAsExtendable: false,
+	), $config);
+
+	$registration: register-module(container, map-get($config, class));
+
+
+	// ------   Master Placeholder   -------- /
+
+	%psj-module-placeholder__container {
+
+		// Default container (for mobile devices & other tiny screens)
+
+		width: map-deep-get($breakpointMap, default, containerWidth);
+		padding: map-get($config, padding);
+
+		@if map-get($config, centered) == true {
+			margin: 0 auto;
+		}
+
+		// User-generated declarations
+
+		@content;
+
+		// Container for other screen sizes
+
+		@each $breakpoint, $propMap in map-get($config, breakpointMap) {
+
+			@if $breakpoint != default {
+
+				@media (min-width: map-get($propMap, viewportWidth)) {
+					width: map-get($propMap, containerWidth);
+				}
+			}
+		}
+	}
+
+
+	// ------   Generated CSS   ------------- /
+
+	// Rendered
+
+	@if (map-get($config, renderAsCSS)) {
+		.#{ map-get($config, class) } {
+			@extend %psj-module-placeholder__container;
+		}
+	}
+
+	// Extendable
+
+	@if (map-get($config, renderAsExtendable)) {
+		%#{ map-get($config, class) } {
+			@extend %psj-module-placeholder__container;
+		}
+	}
+}

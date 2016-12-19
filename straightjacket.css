@@ -27,7 +27,7 @@
 
 / -------------------------------------------------- /
 
-   VERSION: 0.2 ------------------------------------ /
+   VERSION: 1.0 ------------------------------------ /
    RELEASE: OCTOBER 21, 2016 ----------------------- /
    AUTHOR: NICK PATTERSON AT FIFTEEN FOUR ---------- /
 
@@ -35,31 +35,29 @@
    15FOUR: fifteenfour.com ------------------------- /
 
 / ------------------------------------------------- */
-/* stylelint-disable all */
-/* stylelint-disable all */
 .container {
   width: 90%;
   padding: 0;
   margin: 0 auto; }
+  @media (min-width: 480px) {
+    .container {
+      width: 90%; } }
+  @media (min-width: 680px) {
+    .container {
+      width: 85%; } }
+  @media (min-width: 768px) {
+    .container {
+      width: 680px; } }
+  @media (min-width: 992px) {
+    .container {
+      width: 940px; } }
+  @media (min-width: 1200px) {
+    .container {
+      width: 1080px; } }
+  @media (min-width: 1600px) {
+    .container {
+      width: 1400px; } }
 
-@media (min-width: 480px) {
-  .container {
-    width: 90%; } }
-@media (min-width: 680px) {
-  .container {
-    width: 85%; } }
-@media (min-width: 768px) {
-  .container {
-    width: 680px; } }
-@media (min-width: 992px) {
-  .container {
-    width: 940px; } }
-@media (min-width: 1200px) {
-  .container {
-    width: 1080px; } }
-@media (min-width: 1600px) {
-  .container {
-    width: 1400px; } }
 .grid {
   clear: both; }
 
@@ -125,7 +123,7 @@
   .grid__column--12 {
     width: 100%; }
 
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 480px) {
     .grid__column--1.xs--1, .grid__column--2.xs--1, .grid__column--3.xs--1, .grid__column--4.xs--1, .grid__column--5.xs--1, .grid__column--6.xs--1, .grid__column--7.xs--1, .grid__column--8.xs--1, .grid__column--9.xs--1, .grid__column--10.xs--1, .grid__column--11.xs--1, .grid__column--12.xs--1 {
       width: 8.33333%; }
 
@@ -161,7 +159,7 @@
 
     .grid__column--1.xs--12, .grid__column--2.xs--12, .grid__column--3.xs--12, .grid__column--4.xs--12, .grid__column--5.xs--12, .grid__column--6.xs--12, .grid__column--7.xs--12, .grid__column--8.xs--12, .grid__column--9.xs--12, .grid__column--10.xs--12, .grid__column--11.xs--12, .grid__column--12.xs--12 {
       width: 100%; } }
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 680px) {
     .grid__column--1.sm--1, .grid__column--2.sm--1, .grid__column--3.sm--1, .grid__column--4.sm--1, .grid__column--5.sm--1, .grid__column--6.sm--1, .grid__column--7.sm--1, .grid__column--8.sm--1, .grid__column--9.sm--1, .grid__column--10.sm--1, .grid__column--11.sm--1, .grid__column--12.sm--1 {
       width: 8.33333%; }
 
@@ -197,7 +195,7 @@
 
     .grid__column--1.sm--12, .grid__column--2.sm--12, .grid__column--3.sm--12, .grid__column--4.sm--12, .grid__column--5.sm--12, .grid__column--6.sm--12, .grid__column--7.sm--12, .grid__column--8.sm--12, .grid__column--9.sm--12, .grid__column--10.sm--12, .grid__column--11.sm--12, .grid__column--12.sm--12 {
       width: 100%; } }
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 768px) {
     .grid__column--1.md--1, .grid__column--2.md--1, .grid__column--3.md--1, .grid__column--4.md--1, .grid__column--5.md--1, .grid__column--6.md--1, .grid__column--7.md--1, .grid__column--8.md--1, .grid__column--9.md--1, .grid__column--10.md--1, .grid__column--11.md--1, .grid__column--12.md--1 {
       width: 8.33333%; }
 
@@ -233,7 +231,7 @@
 
     .grid__column--1.md--12, .grid__column--2.md--12, .grid__column--3.md--12, .grid__column--4.md--12, .grid__column--5.md--12, .grid__column--6.md--12, .grid__column--7.md--12, .grid__column--8.md--12, .grid__column--9.md--12, .grid__column--10.md--12, .grid__column--11.md--12, .grid__column--12.md--12 {
       width: 100%; } }
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 992px) {
     .grid__column--1.lg--1, .grid__column--2.lg--1, .grid__column--3.lg--1, .grid__column--4.lg--1, .grid__column--5.lg--1, .grid__column--6.lg--1, .grid__column--7.lg--1, .grid__column--8.lg--1, .grid__column--9.lg--1, .grid__column--10.lg--1, .grid__column--11.lg--1, .grid__column--12.lg--1 {
       width: 8.33333%; }
 
@@ -269,7 +267,7 @@
 
     .grid__column--1.lg--12, .grid__column--2.lg--12, .grid__column--3.lg--12, .grid__column--4.lg--12, .grid__column--5.lg--12, .grid__column--6.lg--12, .grid__column--7.lg--12, .grid__column--8.lg--12, .grid__column--9.lg--12, .grid__column--10.lg--12, .grid__column--11.lg--12, .grid__column--12.lg--12 {
       width: 100%; } }
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 1200px) {
     .grid__column--1.xl--1, .grid__column--2.xl--1, .grid__column--3.xl--1, .grid__column--4.xl--1, .grid__column--5.xl--1, .grid__column--6.xl--1, .grid__column--7.xl--1, .grid__column--8.xl--1, .grid__column--9.xl--1, .grid__column--10.xl--1, .grid__column--11.xl--1, .grid__column--12.xl--1 {
       width: 8.33333%; }
 
@@ -305,7 +303,7 @@
 
     .grid__column--1.xl--12, .grid__column--2.xl--12, .grid__column--3.xl--12, .grid__column--4.xl--12, .grid__column--5.xl--12, .grid__column--6.xl--12, .grid__column--7.xl--12, .grid__column--8.xl--12, .grid__column--9.xl--12, .grid__column--10.xl--12, .grid__column--11.xl--12, .grid__column--12.xl--12 {
       width: 100%; } }
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 1600px) {
     .grid__column--1.xxl--1, .grid__column--2.xxl--1, .grid__column--3.xxl--1, .grid__column--4.xxl--1, .grid__column--5.xxl--1, .grid__column--6.xxl--1, .grid__column--7.xxl--1, .grid__column--8.xxl--1, .grid__column--9.xxl--1, .grid__column--10.xxl--1, .grid__column--11.xxl--1, .grid__column--12.xxl--1 {
       width: 8.33333%; }
 

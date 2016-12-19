@@ -2,11 +2,11 @@
 // ------------------------------------------ /
 
 
-@mixin general-helpers() {
+@mixin psjGeneralHelpers() {
 
 	// Box Model Helpers
 
-	$helperIncrement: .5;
+	$helperIncrement: 0.5;
 	$helperNumber: 10;
 
 	$helpers: (
@@ -19,7 +19,7 @@
 			right,
 			bottom,
 			left
-		)		
+		)
 	);
 
 	@each $helperType in map-get($helpers, types) {

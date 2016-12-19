@@ -56,13 +56,34 @@ $textBase: 14px;
 // ------------------------------------------ /
 
 $colorMap: (
-	black: #000,
-	pseudo-black: #222,
-	dark-gray: #5a5a5a,
-	mid-gray: #adadae,
-	light-gray: #d4d4d6,
-	white: #fff,
-	pseudo-white: #f4f4f4
+	black: (
+		classModifier: 'black',
+		value: #000
+	),
+	pseudoBlack: (
+		classModifier: 'pseudo-black',
+		value: #222
+	),
+	darkGray: (
+		classModifier: 'dark-gray',
+		value: #5a5a5a
+	),
+	midGray: (
+		classModifier: 'mid-gray',
+		value: #adadae
+	),
+	lightGray: (
+		classModifier: 'light-gray',
+		value: #d4d4d6
+	),
+	white: (
+		classModifier: 'white',
+		value: #fff
+	),
+	pseudoWhite: (
+		classModifier: 'pseudo-white',
+		value: #f4f4f4
+	)
 );
 
 
