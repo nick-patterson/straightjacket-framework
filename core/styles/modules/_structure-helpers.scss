@@ -4,62 +4,66 @@
 
 @mixin PSJStructureHelpers() {
 
+	// ------   Registration   ------- /
 
-	// ------   Placeholders   ------- /
+	$registration: register-module(structureHelpers, #{&});
 
-	%psj_floatLeft {
-		float: left;
-	}
+	@at-root {
 
-	%psj_floatRight {
-		float: right;
-	}
+		// ------   Placeholders   ------- /
 
-	%psj_clearLeft {
-		clear: left;
-	}
+		%psj_floatLeft {
+			float: left;
+		}
 
-	%psj_clearRight {
-		clear: right;
-	}
+		%psj_floatRight {
+			float: right;
+		}
 
-	%psj_clearBoth {
-		clear: both;
-	}
+		%psj_clearLeft {
+			clear: left;
+		}
 
-	%psj_centered {
-		float: none;
-		margin-left: auto;
-		margin-right: auto;
-	}
+		%psj_clearRight {
+			clear: right;
+		}
 
+		%psj_clearBoth {
+			clear: both;
+		}
 
+		%psj_centered {
+			float: none;
+			margin-left: auto;
+			margin-right: auto;
+		}
 
-	// ------   Float Helpers   ---- /
+		// ------   Float Helpers   ---- /
 
-	.float-left {
-		@extend %psj_floatLeft;
-	}
+		&--float-left {
+			@extend %psj_floatLeft;
+		}
 
-	.float-right {
-		@extend %psj_floatRight;
-	}
+		&--float-right {
+			@extend %psj_floatRight;
+		}
 
-	.clear-left {
-		@extend %psj_clearLeft;
-	}
+		&--clear-left {
+			@extend %psj_clearLeft;
+		}
 
-	.clear-right {
-		@extend %psj_clearRight;
-	}
+		&--clear-right {
+			@extend %psj_clearRight;
+		}
 
-	.clear-both {
-		@extend %psj_clearBoth;
-	}
+		&--clear-both {
+			@extend %psj_clearBoth;
+		}
 
-	// Center (centers block elements within their respective parent elements)
+		// Center (centers block elements within their respective parent elements)
 
-	.centered {
-		@extend %psj_centered;
+		&--centered {
+			@extend %psj_centered;
+		}
 	}
 }

@@ -2,82 +2,68 @@
 // ------------------------------------------ /
 
 
-@mixin PSJPopoverModals($config: ()) {
+@mixin PSJPopoverModal($config: ()) {
+
+	// ------   Registration   -------------- /
+
+	$registration: register-module(popoverModal, #{&});
 
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
-		class: 'modal',
 		opinionated: true
 	), $config);
-
-	$modalClass: #{map-get($config, class)};
-
 
 
 	// ------   Generated CSS   -------------- /
 
+	position: fixed;
+	z-index: -999;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.2s ease-out, visibility 0s 0.2s, z-index 0s 0.2s;
 
-	.#{$modalClass} {
+	// Basic visual styling
 
-		position: fixed;
-		z-index: -999;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		visibility: hidden;
-		opacity: 0;
-		transition: opacity 0.2s ease-out, visibility 0s 0.2s, z-index 0s 0.2s;
+	@if map-get($config, opinionated) {
+		background: rgba(0, 0, 0, 0.925);
+	}
 
-		// Basic visual styling
-		@if map-get($config, opinionated) {
-			background: rgba(0, 0, 0, 0.925);
+	// User-generated styling
+
+	@content;
+
+	@at-root {
+
+		// Modal while active
+
+		&--active {
+			z-index: 10;
+			visibility: visible;
+			opacity: 1;
+			transition: opacity 0.2s ease-out, visibility 0s, z-index 0s;
 		}
 
-		@at-root {
+		// Box
 
-			&--active {
-				z-index: 10;
-				visibility: visible;
-				opacity: 1;
-				transition: opacity 0.2s ease-out, visibility 0s, z-index 0s;
-			}
+		&__box {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 80%;
+			height: 80%;
+			max-width: 1535px;
+			max-height: 865px;
+			overflow: hidden;
+			transform: translate(-50%, -50%) scale(0.97);
+			transition: transform 0.2s ease-out;
 
-			&__box {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				width: 80%;
-				height: 80%;
-				max-width: 1535px;
-				max-height: 865px;
-				overflow: hidden;
-				transform: translate(-50%, -50%) scale(0.97);
-				transition: transform 0.2s ease-out;
-
-				.is-visible & {
-					transform: translate(-50%, -50%) scale(1);
-				}
-			}
-
-			&__closer {
-				width: 20px;
-				height: 20px;
-				position: absolute;
-				right: 25px;
-				top: 25px;
-				cursor: pointer;
-
-				.closex {
-					width: 100%;
-					height: 100%;
-
-					line {
-						stroke: white;
-						stroke-width: 2;
-					}
-				}
+			.is-visible & {
+				transform: translate(-50%, -50%) scale(1);
 			}
 		}
 	}

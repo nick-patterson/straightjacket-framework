@@ -4,43 +4,48 @@
 
 @mixin PSJTextHelpers() {
 
-	.text {
-		@at-root {
+	// ------   Registration   -------------- /
 
-			// Uppercase: Transforms text to uppercase
+	$registration: register-module(textHelpers, #{&});
 
-			&--uppercase {
-				text-transform: uppercase;
-			}
 
-			// Lowercase: Transforms text to lowercase
+	// ------   Generated CSS   ------------- /
 
-			&--lowercase {
-				text-transform: lowercase;
-			}
+	@at-root {
 
-			// Capitalize: Transforms the first letter of each word to uppercase
+		// Uppercase: Transforms text to uppercase
 
-			&--caitalize {
-				text-transform: capitalize;
-			}
+		&--uppercase {
+			text-transform: uppercase;
+		}
 
-			// Center Aligned Text: Aligns text to the center of the containing element
+		// Lowercase: Transforms text to lowercase
 
-			&--align-center {
-				text-align: center;
-			}
+		&--lowercase {
+			text-transform: lowercase;
+		}
 
-			// Right Aligned Text: Aligns text to the right of the containing element
+		// Capitalize: Transforms the first letter of each word to uppercase
 
-			&--align-right {
-				text-align: right;
-			}
+		&--caitalize {
+			text-transform: capitalize;
+		}
 
-			@each $color, $hex in $colorMap {
-				&--#{ '' + $color } {
-					color: $hex;
-				}
+		// Center Aligned Text: Aligns text to the center of the containing element
+
+		&--align-center {
+			text-align: center;
+		}
+
+		// Right Aligned Text: Aligns text to the right of the containing element
+
+		&--align-right {
+			text-align: right;
+		}
+
+		@each $color, $propMap in $colorMap {
+			&--#{ map-get($propMap, classModifier) } {
+				color: map-get($propMap, value);
 			}
 		}
 	}

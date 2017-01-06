@@ -5,119 +5,119 @@
 @mixin PSJGrid($config: ()) {
 
 
+	// ------   Registration   -------------- /
+
+	$registration: register-module(grid, #{&});
+
+
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
-		class: 'grid',
+		class: '',
 		columns: 12,
 		gutter: $base * 4,
-		type: 'block',
+		type: 'block'
 	), $config);
 
-	$gridClass: #{map-get($config, class)};
-
+	$id: unique-id();
 	$columns: map-get($config, columns);
-
-
-	// ------   Dynamic Placeholders   ------ /
-
-	// Grid placeholders
-
-	%#{$gridClass}_grid {
-		clear: both;
-	}
-	%#{$gridClass}_blockGrid {
-		&::after {
-			content: "Expect Awesome // Create. Amazing.";
-			visibility: hidden;
-			display: block;
-			text-align: center;
-			height: 0;
-			clear: both;
-		}
-	}
-
-	// Column placeholders
-
-	%#{$gridClass}_column {
-		padding-left: map-get($config, gutter);
-	}
-	%#{$gridClass}_floatColumn {
-		float: left;
-	}
-	%#{$gridClass}_inlineColumn {
-		display: inline-block;
-		font-size: $textBase * 1;
-		vertical-align: top;
-	}
-
-	// Row placeholders
-
-	%#{$gridClass}_row {
-		clear: both;
-
-		&::after {
-			content: "Expect Awesome // Create. Amazing.";
-			visibility: hidden;
-			display: block;
-			text-align: center;
-			height: 0;
-			clear: both;
-		}
-	}
 
 
 	// ------   Generated CSS   ------------- /
 
+	@at-root {
 
-	.#{$gridClass} {
-		margin-left: map-get($config, gutter) * -1;
+		// Main grid
 
-		@extend %#{$gridClass}_grid;
-
-		@if (map-get($config,type) == inline) {
-			@extend %#{$gridClass}_inlineGrid;
+		%#{$id}_grid {
+			clear: both;
 		}
 
-		@else {
-			@extend %#{$gridClass}_blockGrid;
+		%#{$id}_blockGrid {
+			&::after {
+				content: "Expect Awesome // Create. Amazing.";
+				visibility: hidden;
+				display: block;
+				text-align: center;
+				height: 0;
+				clear: both;
+			}
 		}
 
-		@at-root {
+		& {
+			margin-left: map-get($config, gutter) * -1;
 
+			@extend %#{$id}_grid;
 
-			// Rows
-
-			.#{ $gridClass }__row {
-				@extend %#{$gridClass}_row;
+			@if (map-get($config,type) == inline) {
+				@extend %#{$id}_inlineGrid;
 			}
 
-
-			// All columns
-
-			.#{ $gridClass }__column {
-				@extend %#{$gridClass}_column;
+			@else {
+				@extend %#{$id}_blockGrid;
 			}
 
+			// User-generated styling
 
-			// Default Columns (used for mobile devices & other tiny screens)
+			@content;
+		}
+
+
+		// Rows
+
+		%#{$id}_row {
+			clear: both;
+
+			&::after {
+				content: "Expect Awesome // Create. Amazing.";
+				visibility: hidden;
+				display: block;
+				text-align: center;
+				height: 0;
+				clear: both;
+			}
+		}
+
+		&__row {
+			@extend %#{$id}_row;
+		}
+
+
+		// Columns
+
+		%#{$id}_column {
+			padding-left: map-get($config, gutter);
+		}
+		%#{$id}_floatColumn {
+			float: left;
+		}
+		%#{$id}_inlineColumn {
+			display: inline-block;
+			font-size: $textBase * 1;
+			vertical-align: top;
+		}
+
+		&__column {
+
+			@extend %#{$id}_column;
+
+			// Default columns (used for mobile devices & other tiny screens)
 
 			@for $i from 1 through $columns {
 
-				.#{ $gridClass }__column--#{ $i } {
+				&--#{ $i } {
 
 					width: ((100 / $columns) * $i) * 1%;
 
 					@if (map-get($config, type) == inline) {
-						@extend %#{$gridClass}_inlineColumn;
+						@extend %#{$id}_inlineColumn;
 					}
 
 					@else {
-						@extend %#{$gridClass}_floatColumn;
+						@extend %#{$id}_floatColumn;
 					}
 				}
 			}
-
 
 			// Columns for other screen sizes
 
@@ -131,14 +131,14 @@
 
 							// Dynamc placeholder
 
-							%#{$gridClass}-column-#{ $i }-#{ $breakpointLabel } {
+							%#{$id}-column-#{ $i }-#{ $breakpointLabel } {
 								width: ((100 / $columns) * $i) * 1%;
 							}
 
 							@for $c from 1 through $columns {
 
-								.#{ $gridClass }__column--#{ $i }.#{ $breakpointLabel }--#{ $c } {
-									@extend %#{$gridClass}-column-#{ $c }-#{ $breakpointLabel };
+								&--#{ $i }.#{ $breakpointLabel }--#{ $c } {
+									@extend %#{$id}-column-#{ $c }-#{ $breakpointLabel };
 								}
 							}
 						}
@@ -146,52 +146,55 @@
 				}
 			}
 
-
 			// Pushes
 
 			@for $i from 1 through ($columns - 1) {
 
 				// Dynamc placeholder
 
-				%#{$gridClass}-column-#{ $i }-push-#{ $i } {
+				%#{$id}-column-#{ $i }-push-#{ $i } {
 					margin-left: ((100 / $columns) * $i) * 1%;
 				}
 
 				@for $c from 1 through ($columns - 1) {
 
-					.#{ $gridClass }__column--#{ $c }.#{ push }--#{ $i } {
-						@extend %#{$gridClass}-column-#{ $i }-push-#{ $i };
+					&--#{ $c }.#{ push }--#{ $i } {
+						@extend %#{$id}-column-#{ $i }-push-#{ $i };
 					}
 				}
 			}
 
+			// Helpers (Linked with structure helpers)
 
-			// Helpers /* MAY OR MAY NOT USE */
+			@if (length(map-get($PSJModuleRegistry, structureHelpers))) {
 
-			@for $i from 1 through $columns {
+				$helperBlock: nth(map-get($PSJModuleRegistry, structureHelpers), 1);
 
-				.#{ $gridClass }__column--#{ $i }.float-left {
-					//@extend %psj_floatLeft;
-				}
+				@for $i from 1 through $columns {
 
-				.#{ $gridClass }__column--#{ $i }.float-right {
-					//@extend %psj_floatRight;
-				}
+					&--#{ $i + $helperBlock }--float-left {
+						@extend %psj_floatLeft;
+					}
 
-				.#{ $gridClass }__column--#{ $i }.clear-left {
-					//@extend %psj_clearLeft;
-				}
+					&--#{ $i + $helperBlock }--float-right {
+						@extend %psj_floatRight;
+					}
 
-				.#{ $gridClass }__column--#{ $i }.clear-right {
-					//@extend %psj_clearRight;
-				}
+					&--#{ $i + $helperBlock }--clear-left {
+						@extend %psj_clearLeft;
+					}
 
-				.#{ $gridClass }__column--#{ $i }.clear-both {
-					//@extend %psj_clearBoth;
-				}
+					&--#{ $i + $helperBlock }--clear-right {
+						@extend %psj_clearRight;
+					}
 
-				.#{ $gridClass }__column--#{ $i }.centered {
-					//@extend %psj_centered;
+					&--#{ $i + $helperBlock }--clear-both {
+						@extend %psj_clearBoth;
+					}
+
+					&--#{ $i + $helperBlock }--centered {
+						@extend %psj_centered;
+					}
 				}
 			}
 		}

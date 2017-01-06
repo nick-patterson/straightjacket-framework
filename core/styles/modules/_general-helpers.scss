@@ -2,9 +2,17 @@
 // ------------------------------------------ /
 
 
-@mixin psjGeneralHelpers() {
+@mixin PSJGeneralHelpers() {
 
-	// Box Model Helpers
+
+	// ------   Registration   -------------- /
+
+	$registration: register-module(generalHelpers, #{&});
+
+
+	// ------   Calculations   -------------- /
+
+	// Box model helpers
 
 	$helperIncrement: 0.5;
 	$helperNumber: 10;
@@ -22,43 +30,45 @@
 		)
 	);
 
-	@each $helperType in map-get($helpers, types) {
-		@each $helperDirection in map-get($helpers, directions) {
-			$helperAmount: 0;
-			@for $i from 1 through $helperNumber {
-				$helperAmount: $helperAmount + $helperIncrement;
-				.#{ $helperType }-#{ $helperDirection }-#{ $i } {
-					#{ $helperType }-#{ $helperDirection }: $helperAmount + em;
+	// ------   Generated CSS   ------------- /
+
+	@at-root {
+
+		// Box model helpers
+
+		@each $helperType in map-get($helpers, types) {
+			@each $helperDirection in map-get($helpers, directions) {
+				$helperAmount: 0;
+				@for $i from 1 through $helperNumber {
+					$helperAmount: $helperAmount + $helperIncrement;
+					&__#{ $helperType }-#{ $helperDirection }--#{ $i } {
+						#{ $helperType }-#{ $helperDirection }: $helperAmount + em;
+					}
 				}
 			}
 		}
-	}
 
-	// Display Helpers
+		// Display helpers
 
-	.display {
+		&--invisible {
+			visibility: hidden;
+			opacity: 0;
+		}
 
-		@at-root {
-			&--invisible {
-				visibility: hidden;
-				opacity: 0;
-			}
+		&--hidden {
+			display: none;
+		}
 
-			&--hidden {
-				display: none;
-			}
+		&--inline {
+			display: inline;
+		}
 
-			&--inline {
-				display: inline;
-			}
+		&--block {
+			display: block;
+		}
 
-			&--block {
-				display: block;
-			}
-
-			&--inline-block {
-				display: inline-block;
-			}
+		&--inline-block {
+			display: inline-block;
 		}
 	}
 }

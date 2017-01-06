@@ -5,66 +5,60 @@
 @mixin PSJContainer($config: ()) {
 
 
-	// ------   Default Configuration   ----- /
-
-	$config: map-merge((
-		class: 'container',
-		breakpointMap: $breakpointMap,
-		padding: 0,
-		centered: true,
-		renderAsCSS: true,
-		renderAsExtendable: false,
-	), $config);
+	// ------   Registration   -------------- /
 
 	$registration: register-module(container, map-get($config, class));
 
 
-	// ------   Master Placeholder   -------- /
+	// ------   Default Configuration   ----- /
 
-	%psj-module-placeholder__container {
+	$config: map-merge((
+		breakpointMap: $breakpointMap,
+		padding: 0,
+		centered: true
+	), $config);
 
-		// Default container (for mobile devices & other tiny screens)
-
-		width: map-deep-get($breakpointMap, default, containerWidth);
-		padding: map-get($config, padding);
-
-		@if map-get($config, centered) == true {
-			margin: 0 auto;
-		}
-
-		// User-generated declarations
-
-		@content;
-
-		// Container for other screen sizes
-
-		@each $breakpoint, $propMap in map-get($config, breakpointMap) {
-
-			@if $breakpoint != default {
-
-				@media (min-width: map-get($propMap, viewportWidth)) {
-					width: map-get($propMap, containerWidth);
-				}
-			}
-		}
-	}
+	$id: unique-id();
 
 
 	// ------   Generated CSS   ------------- /
 
-	// Rendered
+	@at-root {
 
-	@if (map-get($config, renderAsCSS)) {
-		.#{ map-get($config, class) } {
-			@extend %psj-module-placeholder__container;
+		// Placeholder
+
+		%#{$id}-container {
+
+			// Default container (for mobile devices & other tiny screens)
+
+			width: map-deep-get($breakpointMap, default, containerWidth);
+			padding: map-get($config, padding);
+
+			@if map-get($config, centered) == true {
+				margin: 0 auto;
+			}
+
+			// User-generated styling
+
+			@content;
+
+			// Container for other screen sizes
+
+			@each $breakpoint, $propMap in map-get($config, breakpointMap) {
+
+				@if $breakpoint != default {
+
+					@media (min-width: map-get($propMap, viewportWidth)) {
+						width: map-get($propMap, containerWidth);
+					}
+				}
+			}
 		}
-	}
 
-	// Extendable
+		// Rendered
 
-	@if (map-get($config, renderAsExtendable)) {
-		%#{ map-get($config, class) } {
-			@extend %psj-module-placeholder__container;
+		& {
+			@extend %#{$id}-container;
 		}
 	}
 }

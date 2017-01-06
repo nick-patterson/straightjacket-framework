@@ -6,8 +6,14 @@
 // ------   Registering Modules   -------------------- /
 
 @function register-module($moduleName, $moduleNamespace) {
-	$PSJModuleRegistry: append(map-get($PSJModuleRegistry, $moduleName), $moduleNamespace) !global;
-	@return null;
+
+	$newRegistry: map-merge(
+		$PSJModuleRegistry,
+		($moduleName: append(map-get($PSJModuleRegistry, $moduleName), $moduleNamespace))
+	);
+
+	$PSJModuleRegistry: $newRegistry !global;
+	@return $PSJModuleRegistry;
 }
 
 // ------   Retrieve from Nested Map    ------------ /

@@ -22,16 +22,32 @@
 
 // ------------------------------------------------- /
 
+.u {
+	@include PSJGeneralHelpers();
+}
 
+.container {
+	@include PSJContainer($config: ());
+}
 
+.s {
+	@include PSJStructureHelpers();
+}
 
+.grid {
+	@include PSJGrid($config: (gutter: 20px));
+}
 
-@include PSJContainer($config: ());
-@include PSJGrid($config: (gutter: 20px));
-//@include PSJStructureHelpers();
 @include PSJTextSizing($config: ());
-//@include PSJTextHelpers();
-//@include PSJGeneralHelpers();
-//@include PSJPopoverModal();
-//@include PSJTooltip();
 
+.text {
+	@include PSJTextHelpers();
+}
+
+.modal {
+	@include PSJPopoverModal();
+}
+
+.tooltip {
+	@include PSJTooltip();
+}

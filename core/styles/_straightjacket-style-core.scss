@@ -92,9 +92,15 @@
 // ------------------------------------------------- /
 
 $PSJModuleRegistry: (
+	generalHelpers: (),
+	structureHelpers: (),
 	container: (),
-	grid: ()
-);
+	grid: (),
+	textSizing: (),
+	texthelpers: (),
+	popoverModal: (),
+	tooltip: ()
+) !global;
 
 
 
