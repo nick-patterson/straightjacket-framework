@@ -94,16 +94,29 @@ var psjHelpers = {
 		return psjHelpers.stripAndCollapse(element.getAttribute && element.getAttribute('class') || '');
 	},
 
+	// Transform iterable object to array
+	toArray: function(obj) {
+		return Array.prototype.slice.call(obj || []);
+	},
+
 	// Iterates over a nodeList or array
 	each: function(obj, callback) {
-
-		for (var i = 0; i < obj.length ; i++) {
-			if (callback.call(obj[i], i, obj[i]) === false) {
+		for (var i = 0; i < obj.length; i++) {
+			if (callback.call(obj[i], obj[i], i, obj) === false) {
 				break;
 			}
 		}
-
 		return obj;
+	},
+
+	// Operators
+	operators: {
+		'!==': function(a, b) {
+			return a !== b;
+		},
+		'===': function(a, b) {
+			return a === b;
+		}
 	},
 
 	// Parses an eventAtts string into an object containing a type and namespace
@@ -121,6 +134,11 @@ var psjHelpers = {
 		}
 		catch ( err ) {
 		}
+	},
+
+	// Gets bubble / capture path of event
+	getEventPath: function(event) {
+		return event.path || event.composedPath() || false;
 	}
 };
 
@@ -131,29 +149,28 @@ var psjHelpers = {
 
 var psjEvents = {};
 
-function PSJEvent(elements, attsString, filterString, handler) {
+function PSJEvent(psjObject, attsString, filterString, handler, flags) {
 	var self = this;
 
-	this.elements = elements;
+	this.psjObject = psjObject;
 
 	// Assign type and namespace
 	var eventAttsObject = psjHelpers.parseEventAttsString(attsString);
 	this.type = eventAttsObject.type;
 	this.nameSpace = eventAttsObject.nameSpace;
 
-	this.filter = filterString ? PSJ(filterString) : null;
+	this.filter = filterString ? this.psjObject.descendants().filter(filterString) : null;
+
+	self.flags = flags || [];
+
 	this.handler = function(event) {
 
 		// If delegation is enabled, start filter logic --- figure out better way to do this... maybe conditional handler functions?
 		if (self.filter) {
-			for (var i = 0; i < self.filter.elements.length; i++) {
-				if (Array.prototype.slice.call(self.filter.elements[i].querySelector('*')).indexOf(event.target) !== -1) {
-					return handler.apply(event.target, [event]);
-				}
-			}
+			return psjHelpers.operators[self.flags.indexOf('useExclude') === -1 ? '!==' : '==='](psjHelpers.toArray(psjHelpers.getEventPath(event)).indexOf(self.filter.elements[0]), -1) ? handler.apply(event.currentTarget, [event]) : false;
 		}
 		else {
-			handler.apply(event.currentTarget, [event]);
+			return handler.apply(event.currentTarget, [event]);
 		}
 	};
 }
@@ -161,8 +178,7 @@ function PSJEvent(elements, attsString, filterString, handler) {
 PSJEvent.prototype = {
 	register: function() {
 		var self = this;
-		psjHelpers.each(this.elements, function(index, element) {
-
+		psjHelpers.each(this.psjObject.elements, function(element, index) {
 			if (!psjEvents[element]) {
 				psjEvents[element] = [];
 				psjEvents[element].push(self);
@@ -170,7 +186,6 @@ PSJEvent.prototype = {
 			else if (!psjEvents[element].indexOf(self)) {
 				psjEvents[element].push(self);
 			}
-
 			element.addEventListener(self.type, self.handler);
 		});
 	}
@@ -189,7 +204,10 @@ function PSJObject(selector, name) {
 	switch (typeof selector) {
 		case 'string':
 			var nodeList = document.querySelectorAll(selector);
-			this.elements = nodeList.length ? nodeList : [];
+			this.elements = psjHelpers.toArray(nodeList);
+			break;
+		case 'object':
+			this.elements = Array.isArray(selector) ? selector : [selector];
 			break;
 		default:
 			this.elements = [selector];
@@ -204,6 +222,27 @@ function PSJ(selector, name) {
 PSJObject.prototype = {
 
 	constructor: PSJ,
+
+	// ----- Element Set Manipulation
+
+	filter: function(selector) {
+		var newSet = PSJ(selector).elements;
+		return PSJ(this.elements.filter(function(element, array) {
+			return newSet.indexOf(element) !== -1;
+		}));
+	},
+	descendants: function() {
+		var self = this;
+		return PSJ(Array.prototype.concat.apply([],
+			self.elements.map(
+				function(element) {
+					return psjHelpers.toArray(element.querySelectorAll('*'));
+				}
+			)
+		));
+	},
+
+	// ----- DOM Referencing
 
 	// Check to see if element has a certain class
 	hasClass: function(selector) {
@@ -223,6 +262,8 @@ PSJObject.prototype = {
 		return false;
 	},
 
+	// ----- DOM Manipulation
+
 	// Adding classes if they don't exist
 	addClass: function(classList) {
 		function addTheClassIfNeeded(element, classToAdd) {
@@ -232,15 +273,14 @@ PSJObject.prototype = {
 			}
 		}
 		if (!this.hasClass(classList)) {
-			psjHelpers.each(this.elements, function(index, element) {
-				psjHelpers.each(psjHelpers.stripAndCollapse(classList).split(' '), function(index, className) {
+			psjHelpers.each(this.elements, function(element, index) {
+				psjHelpers.each(psjHelpers.stripAndCollapse(classList).split(' '), function(className, index) {
 					addTheClassIfNeeded(element, className);
 				});
 			});
 		}
 		return this;
 	},
-
 	// Removing classes if they exist
 	removeClass: function(classList) {
 		function removeTheClassIfNeeded(element, classToRemove) {
@@ -250,35 +290,14 @@ PSJObject.prototype = {
 			}
 		}
 		if (this.hasClass(classList)) {
-			psjHelpers.each(this.elements, function(index, element) {
-				psjHelpers.each(psjHelpers.stripAndCollapse(classList).split(' '), function(index, className) {
+			psjHelpers.each(this.elements, function(element, index) {
+				psjHelpers.each(psjHelpers.stripAndCollapse(classList).split(' '), function(className, index) {
 					removeTheClassIfNeeded(element, className);
 				});
 			});
 		}
 		return this;
 	},
-
-	// Attaches events
-	listen: function(eventAttsString, filterString, handler) {
-		new PSJEvent(this.elements, eventAttsString, filterString, handler).register();
-		return this;
-	},
-
-	// Removes events
-	ignore: function(eventAttsString) {
-		var eventAttsObject = psjHelpers.parseEventAttsString(eventAttsString);
-		psjHelpers.each(this.elements, function(elementIndex, element) {
-			psjHelpers.each(psjEvents[element], function(eventIndex, eventObject) {
-				if (eventObject.type === eventAttsObject.type && (eventObject.nameSpace === eventAttsObject.nameSpace || eventAttsObject.nameSpace === null)) {
-					element.removeEventListener(eventAttsObject.type, eventObject.handler);
-					psjEvents[element].splice(eventIndex, 1);
-				}
-			});
-		});
-		return this;
-	},
-
 	// Focuses first element in array
 	focus: function() {
 		var firstElement = this.elements[0];
@@ -286,6 +305,27 @@ PSJObject.prototype = {
 			firstElement.focus();
 		}
 		return self;
+	},
+
+	// ----- Event Handling
+
+	// Attaches events
+	listen: function(eventAttsString, filterString, handler, flags) {
+		new PSJEvent(this, eventAttsString, filterString, handler, flags).register();
+		return this;
+	},
+	// Removes events
+	ignore: function(eventAttsString) {
+		var eventAttsObject = psjHelpers.parseEventAttsString(eventAttsString);
+		psjHelpers.each(this.elements, function(element, elementIndex) {
+			psjHelpers.each(psjEvents[element], function(eventObject, eventIndex) {
+				if (eventObject.type === eventAttsObject.type && (eventObject.nameSpace === eventAttsObject.nameSpace || eventAttsObject.nameSpace === null)) {
+					element.removeEventListener(eventAttsObject.type, eventObject.handler);
+					psjEvents[element].splice(eventIndex, 1);
+				}
+			});
+		});
+		return this;
 	}
 };
 
@@ -302,7 +342,7 @@ var psjAccessibility = {
 		psjObject.listen('focusout', null, function(event) {
 			var element = this;
 			window.setTimeout(function() {
-				var descendants = Array.prototype.slice.call(element.querySelectorAll('*'));
+				var descendants = psjHelpers.toArray(element.querySelectorAll('*'));
 				if (descendants && descendants.indexOf(psjHelpers.safeActiveElement()) === -1) {
 					return element.dispatchEvent(new Event('psjallfocusout'));
 				}
@@ -324,7 +364,7 @@ var psjAccessibility = {
 
 	// Focus first tabbable child of first element in a set
 	focusFirstTabbableElement: function(psjObject) {
-		var tabbableElements = Array.prototype.slice.call(psjObject.elements[0].querySelectorAll(psjAccessibility.tabbableElementSelectors.join(','))).filter(psjHelpers.isVisible);
+		var tabbableElements = psjHelpers.toArray(psjObject.elements[0].querySelectorAll(psjAccessibility.tabbableElementSelectors.join(','))).filter(psjHelpers.isVisible);
 		if (tabbableElements.length) {
 			tabbableElements[0].focus();
 		}
@@ -371,9 +411,9 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 		});
 
 		// Clicking outside of box but inside of modal
-        self.modalObject.listen('click', null, function(event) {
-            //self.closeModal();
-        });
+        self.modalObject.listen('click', '.modal__box', function(event) {
+        	console.log('DELEGATED');
+        }, ['useExclude']);
 
         // Clicking on close button
         self.closer.listen('click', null, function(event) {
@@ -402,6 +442,8 @@ function PSJPopoverModals(className, onLaunch, onClose) {
         self.modalObject = PSJ('.' + self.className);
 
         self.events();
+
+        console.log('INIT POPOVER MODAL');
     };
 
     this.launch = function(trigger) {
