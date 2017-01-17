@@ -27,8 +27,10 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 		});
 
 		// Clicking outside of box but inside of modal
-        self.modalObject.on('click', ':not(.' + self.className + '__box, .' + self.className + '__closer)', function(event) {
-            self.closeModal();
+        self.modalObject.on('click', function(event) {
+        	if (!$('.' + self.className + '__box').has(event.target)) {
+        		self.closeModal();
+        	}
         });
 
         // Clicking on close button
@@ -79,7 +81,7 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 
         // Execute onLaunch function
         if (self.onLaunch && typeof self.onLaunch === 'function') {
-        	self.onLaunch.call();
+        	self.onLaunch.call(self.currentModal, self.currentModal);
         }
 
         // Focus first tabbable element in modal
@@ -101,7 +103,7 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 
         // Execute onClose function
         if (self.onClose && typeof self.onClose === 'function') {
-        	self.onClose.call();
+        	self.onClose.call(self.currentModal, self.currentModal);
         }
 
         // Return focus to current trigger

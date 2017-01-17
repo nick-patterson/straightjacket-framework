@@ -49,9 +49,7 @@
           being removed on ignore function
           by way of space-separated attsStrings
 
-    2: Fix the damn outsideClick function
-
-    3: Add conditional for psjallfocusout to
+    2: Add conditional for psjallfocusout to
        account for when the modal contains
        the last element on the page (as to not
        reroute focus to browser UI)
@@ -414,7 +412,7 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 		// Clicking outside of box but inside of modal
         self.modalObject.listen('click', function(event) {
         	self.closeModal();
-        }, '.modal__box', ['useExclude']);
+        }, '.' + self.className + '__box', ['useExclude']);
 
         // Clicking on close button
         self.closer.listen('click', function(event) {
