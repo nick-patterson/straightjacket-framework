@@ -1,14 +1,16 @@
-// Rem sizes with pixel fallback
+// ================================================= /
+// ======   Straightjacket Mixins   ================ /
+// ================================================= /
 
-@mixin font-size($size: 1){
+
+// Rem sizes with pixel fallback
+@mixin font-size($size: 1) {
 	font-size: $size * $textBase;
 	font-size: $size * 1rem;
 }
 
-
 // Ultimate rem fallback for any kind of spacing
-
-@mixin spacing($type,$side,$size: 1){
+@mixin spacing($type,$side,$size: 1) {
 	@if $type == "line-height" or $type == "letter-spacing" {
 		#{$type}: $size * $textBase;
 		#{$type}: $size * 1rem;
@@ -16,5 +18,16 @@
 	@else {
 		#{$type}-#{$side}: $size * $textBase;
 		#{$type}-#{$side}: $size * 1rem;
+	}
+}
+
+// Clearfix
+@mixin clearfix() {
+	&::after {
+		content: '';
+		display: block;
+		visibility: hidden;
+		clear: both;
+		height: 0;
 	}
 }

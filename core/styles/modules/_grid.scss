@@ -15,13 +15,17 @@
 	$config: map-merge((
 		class: '',
 		columns: 12,
+		restrictColumns: false,
 		gutter: $base * 4,
-		type: 'block'
+		type: 'block',
+		includePushes: true,
+		restrictPushes: false
 	), $config);
 
 	$id: unique-id();
 	$columns: map-get($config, columns);
-
+	$restrictedColumns: map-get($config, restrictColumns);
+	$restrictedPushes: map-get($config, restrictedPushes);
 
 	// ------   Generated CSS   ------------- /
 
@@ -34,14 +38,7 @@
 		}
 
 		%#{$id}_blockGrid {
-			&::after {
-				content: "Expect Awesome // Create. Amazing.";
-				visibility: hidden;
-				display: block;
-				text-align: center;
-				height: 0;
-				clear: both;
-			}
+			@include clearfix();
 		}
 
 		& {
@@ -68,14 +65,7 @@
 		%#{$id}_row {
 			clear: both;
 
-			&::after {
-				content: "Expect Awesome // Create. Amazing.";
-				visibility: hidden;
-				display: block;
-				text-align: center;
-				height: 0;
-				clear: both;
-			}
+			@include clearfix();
 		}
 
 		&__row {
@@ -129,10 +119,11 @@
 
 						@for $i from 1 through $columns {
 
-							// Dynamc placeholder
-
-							%#{$id}-column-#{ $i }-#{ $breakpointLabel } {
-								width: ((100 / $columns) * $i) * 1%;
+							@at-root {
+								// Dynamc placeholder
+								%#{$id}-column-#{ $i }-#{ $breakpointLabel } {
+									width: ((100 / $columns) * $i) * 1%;
+								}
 							}
 
 							@for $c from 1 through $columns {
@@ -148,18 +139,22 @@
 
 			// Pushes
 
-			@for $i from 1 through ($columns - 1) {
+			@if map-get($config, includePushes) {
 
-				// Dynamc placeholder
+				@for $i from 1 through ($columns - 1) {
 
-				%#{$id}-column-#{ $i }-push-#{ $i } {
-					margin-left: ((100 / $columns) * $i) * 1%;
-				}
+					@at-root {
+						// Dynamc placeholder
+						%#{$id}-column-#{ $i }-push-#{ $i } {
+							margin-left: ((100 / $columns) * $i) * 1%;
+						}
+					}
 
-				@for $c from 1 through ($columns - 1) {
+					@for $c from 1 through ($columns - 1) {
 
-					&--#{ $c }.#{ push }--#{ $i } {
-						@extend %#{$id}-column-#{ $i }-push-#{ $i };
+						&--#{ $c }.#{ push }--#{ $i } {
+							@extend %#{$id}-column-#{ $i }-push-#{ $i };
+						}
 					}
 				}
 			}
