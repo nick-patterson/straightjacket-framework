@@ -147,9 +147,10 @@ var psjHelpers = {
 // ------   Event Handling   ---------------- /
 // ------------------------------------------ /
 
+// TODO: Find better way to organize events in global queue — DOM elements cannot be used as unique object keys
 var psjEvents = {};
 
-function PSJEvent(psjObject, attsString, filterString, handler, flags) {
+function PSJEvent(psjObject, attsString, handler, filterString, flags) {
 	var self = this;
 
 	this.psjObject = psjObject;
@@ -160,7 +161,6 @@ function PSJEvent(psjObject, attsString, filterString, handler, flags) {
 	this.nameSpace = eventAttsObject.nameSpace;
 
 	this.filter = filterString ? this.psjObject.descendants().filter(filterString) : null;
-
 	self.flags = flags || [];
 
 	this.handler = function(event) {
@@ -231,12 +231,13 @@ PSJObject.prototype = {
 			return newSet.indexOf(element) !== -1;
 		}));
 	},
-	descendants: function() {
+	descendants: function(queryString) {
 		var self = this;
+		queryString = queryString || '*';
 		return PSJ(Array.prototype.concat.apply([],
 			self.elements.map(
 				function(element) {
-					return psjHelpers.toArray(element.querySelectorAll('*'));
+					return psjHelpers.toArray(element.querySelectorAll(queryString));
 				}
 			)
 		));
@@ -310,8 +311,8 @@ PSJObject.prototype = {
 	// ----- Event Handling
 
 	// Attaches events
-	listen: function(eventAttsString, filterString, handler, flags) {
-		new PSJEvent(this, eventAttsString, filterString, handler, flags).register();
+	listen: function(eventAttsString, handler, filterString, flags) {
+		new PSJEvent(this, eventAttsString, handler, filterString, flags).register();
 		return this;
 	},
 	// Removes events
@@ -339,7 +340,7 @@ PSJObject.prototype = {
 var psjAccessibility = {
 
 	allFocusOut: function(psjObject) {
-		psjObject.listen('focusout', null, function(event) {
+		psjObject.listen('focusout', function(event) {
 			var element = this;
 			window.setTimeout(function() {
 				var descendants = psjHelpers.toArray(element.querySelectorAll('*'));
@@ -394,36 +395,36 @@ function PSJPopoverModals(className, onLaunch, onClose) {
     this.className = className;
     this.modalObject = '';
 
-    this.onlaunch = onLaunch;
+    this.onLaunch = onLaunch;
     this.onClose = onClose;
 
     this.events = function() {
 
     	// Clicking on trigger
-		self.trigger.listen('click', null, function(event) {
+		self.trigger.listen('click', function(event) {
 			self.launch(this);
 		});
 
 		// Clicking on destroyer
-		PSJ('.modal__destroyer').listen('click', null, function(event) {
-			console.log('Destroy');
-			self.trigger.ignore('click');
+		PSJ('.modal__destroyer').listen('click', function(event) {
+			console.log('Popover Modals instnace destroyed');
+			// TODO: Ignore all event listeners associated with modal
 		});
 
 		// Clicking outside of box but inside of modal
-        self.modalObject.listen('click', '.modal__box', function(event) {
-        	console.log('DELEGATED');
-        }, ['useExclude']);
+        self.modalObject.listen('click', function(event) {
+        	self.closeModal();
+        }, '.modal__box', ['useExclude']);
 
         // Clicking on close button
-        self.closer.listen('click', null, function(event) {
+        self.closer.listen('click', function(event) {
         	event.stopPropagation();
             self.closeModal();
         });
 
         // Prevent tabbing out of active modal
         psjAccessibility.allFocusOut(self.modalObject);
-        self.modalObject.listen('psjallfocusout', null, function(event) {
+        self.modalObject.listen('psjallfocusout', function(event) {
         	if (self.isActive) {
         		psjAccessibility.focusFirstTabbableElement(self.currentModal);
         	}
@@ -441,9 +442,8 @@ function PSJPopoverModals(className, onLaunch, onClose) {
         // Define PSJ modal object
         self.modalObject = PSJ('.' + self.className);
 
+        // Listen for all events
         self.events();
-
-        console.log('INIT POPOVER MODAL');
     };
 
     this.launch = function(trigger) {
@@ -457,7 +457,7 @@ function PSJPopoverModals(className, onLaunch, onClose) {
         self.currentModal.addClass(self.className + '--active');
 
         // Initialize ESC key listener
-        PSJ(document).listen('keydown.modalESCKeydown', null, function(event) {
+        PSJ(document).listen('keydown.modalESCKeydown', function(event) {
             if (event.keyCode &&  event.keyCode === 27) {
               self.closeModal();
             }
@@ -465,7 +465,7 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 
         // Execute onLaunch function
         if (self.onLaunch && typeof self.onLaunch === 'function') {
-        	self.onLaunch.call();
+        	self.onLaunch.call(self.currentModal, self.currentModal);
         }
 
         // Focus first tabbable element in modal
@@ -487,7 +487,7 @@ function PSJPopoverModals(className, onLaunch, onClose) {
 
         // Execute onClose function
         if (self.onClose && typeof self.onClose === 'function') {
-        	self.onClose.call();
+        	self.onClose.call(self.currentModal, self.currentModal);
         }
 
         // Return focus to current trigger
@@ -497,8 +497,16 @@ function PSJPopoverModals(className, onLaunch, onClose) {
     };
 }
 
-PSJ(window).listen('load', null, function(event) {
-	var psjPopoverModals = new PSJPopoverModals('modal');
+function onLaunch(modal) {
+	console.log('LAUNCH');
+}
+
+function onClose(modal) {
+	console.log('CLOSE');
+}
+
+PSJ(window).listen('load', function(event) {
+	var psjPopoverModals = new PSJPopoverModals('modal', onLaunch, onClose);
 	psjPopoverModals.init();
 });
 
