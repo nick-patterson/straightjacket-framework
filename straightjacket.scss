@@ -35,7 +35,7 @@
 }
 
 .grid {
-	@include PSJGrid($config: (gutter: 20px, includePushes: false));
+	@include PSJGrid($config: (gutter: 20px));
 }
 
 @include PSJTextSizing($config: ());

@@ -16,7 +16,7 @@ function PSJPopoverModals(className, onLaunch, onClose) {
     this.className = className;
     this.modalObject = '';
 
-    this.onlaunch = onLaunch;
+    this.onLaunch = onLaunch;
     this.onClose = onClose;
 
     this.events = function() {
@@ -79,15 +79,15 @@ function PSJPopoverModals(className, onLaunch, onClose) {
             }
         });
 
-        // Execute onLaunch function
-        if (self.onLaunch && typeof self.onLaunch === 'function') {
-        	self.onLaunch.call(self.currentModal, self.currentModal);
-        }
-
         // Focus first tabbable element in modal
         window.setTimeout(function() {
         	$.psj.accessibility.focusFirstTabbableElement(self.currentModal);
         }, 0);
+
+        // Execute onLaunch function
+        if (self.onLaunch && typeof self.onLaunch === 'function') {
+        	self.onLaunch.call(self.currentModal, self.currentModal);
+        }
     };
 
    this.closeModal = function() {
@@ -101,15 +101,15 @@ function PSJPopoverModals(className, onLaunch, onClose) {
         // Remove ESC key listener
         $(document).off('keydown.modalESCKeydown');
 
-        // Execute onClose function
-        if (self.onClose && typeof self.onClose === 'function') {
-        	self.onClose.call(self.currentModal, self.currentModal);
-        }
-
         // Return focus to current trigger
         window.setTimeout(function() {
         	self.currentTrigger.focus();
         }, 0);
+
+        // Execute onClose function
+        if (self.onClose && typeof self.onClose === 'function') {
+        	self.onClose.call(self.currentModal, self.currentModal);
+        }
     };
 }
 

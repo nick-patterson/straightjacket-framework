@@ -18,7 +18,6 @@
 		restrictColumns: false,
 		gutter: $base * 4,
 		type: 'block',
-		includePushes: true,
 		restrictPushes: false
 	), $config);
 
@@ -93,43 +92,61 @@
 
 			// Default columns (used for mobile devices & other tiny screens)
 
-			@for $i from 1 through $columns {
+			$restrictColumns: map-get($config, restrictColumns);
 
-				&--#{ $i } {
+			// Only run loops if configured correctly
+			@if $restrictColumns == false or type-of($restrictColumns) == 'list' {
 
-					width: ((100 / $columns) * $i) * 1%;
+				@for $i from 1 through $columns {
 
-					@if (map-get($config, type) == inline) {
-						@extend %#{$id}_inlineColumn;
-					}
+					// Only output CSS if index is in restrictedColumns list
+					@if $restrictColumns == false or index($restrictColumns, $i) {
 
-					@else {
-						@extend %#{$id}_floatColumn;
-					}
-				}
-			}
+						&--#{ $i } {
 
-			// Columns for other screen sizes
+							width: ((100 / $columns) * $i) * 1%;
 
-			@each $breakpointLabel, $propMap in $breakpointMap {
-
-				@if $breakpointLabel != default {
-
-					@media screen and (min-width: map-get($propMap, viewportWidth)) {
-
-						@for $i from 1 through $columns {
-
-							@at-root {
-								// Dynamc placeholder
-								%#{$id}-column-#{ $i }-#{ $breakpointLabel } {
-									width: ((100 / $columns) * $i) * 1%;
-								}
+							@if (map-get($config, type) == inline) {
+								@extend %#{$id}_inlineColumn;
 							}
 
-							@for $c from 1 through $columns {
+							@else {
+								@extend %#{$id}_floatColumn;
+							}
+						}
+					}
+				}
 
-								&--#{ $i }.#{ $breakpointLabel }--#{ $c } {
-									@extend %#{$id}-column-#{ $c }-#{ $breakpointLabel };
+				// Columns for other screen sizes
+
+				@each $breakpointLabel, $propMap in $breakpointMap {
+
+					@if $breakpointLabel != default {
+
+						@media screen and (min-width: map-get($propMap, viewportWidth)) {
+
+							@for $i from 1 through $columns {
+
+								// Only allocate placeholder if index is in restrictColumns list
+								@if $restrictColumns == false or index($restrictColumns, $i) {
+
+									@at-root {
+										// Dynamc placeholder
+										%#{$id}-column-#{ $i }-#{ $breakpointLabel } {
+											width: ((100 / $columns) * $i) * 1%;
+										}
+									}
+
+									@for $c from 1 through $columns {
+
+										// Only output CSS if both indicies is in restrictedColumns list
+										@if $restrictColumns == false or index($restrictColumns, $c) {
+
+											&--#{ $i }.#{ $breakpointLabel }--#{ $c } {
+												@extend %#{$id}-column-#{ $c }-#{ $breakpointLabel };
+											}
+										}
+									}
 								}
 							}
 						}
@@ -139,21 +156,28 @@
 
 			// Pushes
 
-			@if map-get($config, includePushes) {
+			$restrictPushes: map-get($config, restrictPushes);
+
+			// Only run loop if configured correctly
+			@if $restrictPushes == false or type-of($restrictPushes) == 'list' {
 
 				@for $i from 1 through ($columns - 1) {
 
-					@at-root {
-						// Dynamc placeholder
-						%#{$id}-column-#{ $i }-push-#{ $i } {
-							margin-left: ((100 / $columns) * $i) * 1%;
+					// Only output CSS if index is in restrictedPushes list
+					@if $restrictPushes == false or index($restrictPushes, $i) {
+
+						@at-root {
+							// Dynamc placeholder
+							%#{$id}-column-#{ $i }-push-#{ $i } {
+								margin-left: ((100 / $columns) * $i) * 1%;
+							}
 						}
-					}
 
-					@for $c from 1 through ($columns - 1) {
+						@for $c from 1 through ($columns - 1) {
 
-						&--#{ $c }.#{ push }--#{ $i } {
-							@extend %#{$id}-column-#{ $i }-push-#{ $i };
+							&--#{ $c }.#{ push }--#{ $i } {
+								@extend %#{$id}-column-#{ $i }-push-#{ $i };
+							}
 						}
 					}
 				}
