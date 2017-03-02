@@ -54,6 +54,16 @@
        the last element on the page (as to not
        reroute focus to browser UI)
 
+    3: Add polyfill to compose event bubble path
+       for browsers that do not support it
+
+    4: Check to see if a wrapper for dispatching
+       events is needed
+
+    5: Make double super duper sure that the
+       jQuery versions of these functions
+       act identically to the proprietary
+
 / ------------------------------------------------- */
 
 
