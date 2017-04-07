@@ -13,7 +13,6 @@
 	// ------   Calculations   -------------- /
 
 	// Box model helpers
-
 	$helperIncrement: 0.5;
 	$helperNumber: 10;
 
@@ -35,7 +34,6 @@
 	@at-root {
 
 		// Box model helpers
-
 		@each $helperType in map-get($helpers, types) {
 			@each $helperDirection in map-get($helpers, directions) {
 				$helperAmount: 0;
@@ -49,7 +47,6 @@
 		}
 
 		// Display helpers
-
 		&--invisible {
 			visibility: hidden;
 			opacity: 0;

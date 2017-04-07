@@ -14,36 +14,31 @@
 	@at-root {
 
 		// Uppercase: Transforms text to uppercase
-
 		&--uppercase {
 			text-transform: uppercase;
 		}
 
 		// Lowercase: Transforms text to lowercase
-
 		&--lowercase {
 			text-transform: lowercase;
 		}
 
 		// Capitalize: Transforms the first letter of each word to uppercase
-
 		&--caitalize {
 			text-transform: capitalize;
 		}
 
 		// Center Aligned Text: Aligns text to the center of the containing element
-
 		&--align-center {
 			text-align: center;
 		}
 
 		// Right Aligned Text: Aligns text to the right of the containing element
-
 		&--align-right {
 			text-align: right;
 		}
 
-		@each $color, $propMap in $colorMap {
+		@each $color, $propMap in $PSJ_colorMap {
 			&--#{ map-get($propMap, classModifier) } {
 				color: map-get($propMap, value);
 			}

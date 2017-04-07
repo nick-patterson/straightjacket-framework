@@ -13,7 +13,7 @@
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
-		breakpointMap: $breakpointMap,
+		breakpointMap: $PSJ_breakpointMap,
 		padding: 0,
 		centered: true
 	), $config);
@@ -26,12 +26,10 @@
 	@at-root {
 
 		// Placeholder
-
 		%#{$id}-container {
 
 			// Default container (for mobile devices & other tiny screens)
-
-			width: map-deep-get($breakpointMap, default, containerWidth);
+			width: map-deep-get($config, breakpointMap, default, containerWidth);
 			padding: map-get($config, padding);
 
 			@if map-get($config, centered) == true {
@@ -39,11 +37,9 @@
 			}
 
 			// User-generated styling
-
 			@content;
 
 			// Container for other screen sizes
-
 			@each $breakpoint, $propMap in map-get($config, breakpointMap) {
 
 				@if $breakpoint != default {
@@ -56,7 +52,6 @@
 		}
 
 		// Rendered
-
 		& {
 			@extend %#{$id}-container;
 		}

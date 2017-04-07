@@ -559,130 +559,129 @@
 .grid__column--1.push--11, .grid__column--2.push--11, .grid__column--3.push--11, .grid__column--4.push--11, .grid__column--5.push--11, .grid__column--6.push--11, .grid__column--7.push--11, .grid__column--8.push--11, .grid__column--9.push--11, .grid__column--10.push--11, .grid__column--11.push--11 {
   margin-left: 91.66667%; }
 
-h1 {
+.text--heading-1, h1 {
   font-size: 2.125em;
-  line-height: 1.25em; }
+  line-height: 1.25; }
+  @media screen and (min-width: 480px) {
+    .text--heading-1, h1 {
+      font-size: 2.6em;
+      line-height: 1.25; } }
+  @media screen and (min-width: 680px) {
+    .text--heading-1, h1 {
+      font-size: 2.6em;
+      line-height: 1.25; } }
+  @media screen and (min-width: 768px) {
+    .text--heading-1, h1 {
+      font-size: 3em;
+      line-height: 1.25; } }
+  @media screen and (min-width: 1024px) {
+    .text--heading-1, h1 {
+      font-size: 3.25em;
+      line-height: 1.125; } }
+  @media screen and (min-width: 1200px) {
+    .text--heading-1, h1 {
+      font-size: 3.5em;
+      line-height: 1.05; } }
+  @media screen and (min-width: 1600px) {
+    .text--heading-1, h1 {
+      font-size: 3.65em;
+      line-height: 1.05; } }
 
-@media screen and (min-width: 480px) {
-  h1 {
-    font-size: 2.6em;
-    line-height: 1.25em; } }
-@media screen and (min-width: 680px) {
-  h1 {
-    font-size: 2.6em;
-    line-height: 1.25em; } }
-@media screen and (min-width: 768px) {
-  h1 {
-    font-size: 3em;
-    line-height: 1.25em; } }
-@media screen and (min-width: 1024px) {
-  h1 {
-    font-size: 3.25em;
-    line-height: 1.125em; } }
-@media screen and (min-width: 1200px) {
-  h1 {
-    font-size: 3.5em;
-    line-height: 1.05em; } }
-@media screen and (min-width: 1600px) {
-  h1 {
-    font-size: 3.65em;
-    line-height: 1.05em; } }
-h2 {
+.text--heading-2, h2 {
   font-size: 1.3em;
-  line-height: 1.125em; }
+  line-height: 1.125; }
+  @media screen and (min-width: 480px) {
+    .text--heading-2, h2 {
+      font-size: 1.35em;
+      line-height: 1.15385; } }
+  @media screen and (min-width: 680px) {
+    .text--heading-2, h2 {
+      font-size: 1.35em;
+      line-height: 1.15385; } }
+  @media screen and (min-width: 768px) {
+    .text--heading-2, h2 {
+      font-size: 1.35em;
+      line-height: 1.25; } }
+  @media screen and (min-width: 1024px) {
+    .text--heading-2, h2 {
+      font-size: 1.55em;
+      line-height: 1.25; } }
+  @media screen and (min-width: 1200px) {
+    .text--heading-2, h2 {
+      font-size: 1.65em;
+      line-height: 1.25; } }
+  @media screen and (min-width: 1600px) {
+    .text--heading-2, h2 {
+      font-size: 1.65em;
+      line-height: 1.25; } }
 
-@media screen and (min-width: 480px) {
-  h2 {
-    font-size: 1.35em;
-    line-height: 1.15385em; } }
-@media screen and (min-width: 680px) {
-  h2 {
-    font-size: 1.35em;
-    line-height: 1.15385em; } }
-@media screen and (min-width: 768px) {
-  h2 {
-    font-size: 1.35em;
-    line-height: 1.25em; } }
-@media screen and (min-width: 1024px) {
-  h2 {
-    font-size: 1.55em;
-    line-height: 1.25em; } }
-@media screen and (min-width: 1200px) {
-  h2 {
-    font-size: 1.65em;
-    line-height: 1.25em; } }
-@media screen and (min-width: 1600px) {
-  h2 {
-    font-size: 1.65em;
-    line-height: 1.25em; } }
-h3 {
+.text--heading-3, h3 {
   font-size: 1.75em;
-  line-height: 1.125em; }
+  line-height: 1.125; }
+  @media screen and (min-width: 480px) {
+    .text--heading-3, h3 {
+      font-size: 1.75em;
+      line-height: 1.13636; } }
+  @media screen and (min-width: 680px) {
+    .text--heading-3, h3 {
+      font-size: 1.75em;
+      line-height: 1.13636; } }
+  @media screen and (min-width: 768px) {
+    .text--heading-3, h3 {
+      font-size: 1.75em;
+      line-height: 1.25; } }
+  @media screen and (min-width: 1024px) {
+    .text--heading-3, h3 {
+      font-size: 2.2em;
+      line-height: 1.225; } }
+  @media screen and (min-width: 1200px) {
+    .text--heading-3, h3 {
+      font-size: 2.375em;
+      line-height: 1.225; } }
+  @media screen and (min-width: 1600px) {
+    .text--heading-3, h3 {
+      font-size: 2.375em;
+      line-height: 1.225; } }
 
-@media screen and (min-width: 480px) {
-  h3 {
-    font-size: 1.75em;
-    line-height: 1.13636em; } }
-@media screen and (min-width: 680px) {
-  h3 {
-    font-size: 1.75em;
-    line-height: 1.13636em; } }
-@media screen and (min-width: 768px) {
-  h3 {
-    font-size: 1.75em;
-    line-height: 1.25em; } }
-@media screen and (min-width: 1024px) {
-  h3 {
-    font-size: 2.2em;
-    line-height: 1.225em; } }
-@media screen and (min-width: 1200px) {
-  h3 {
-    font-size: 2.375em;
-    line-height: 1.225em; } }
-@media screen and (min-width: 1600px) {
-  h3 {
-    font-size: 2.375em;
-    line-height: 1.225em; } }
-h4 {
+.text--heading-4, h4 {
   font-size: 1.25em;
-  line-height: 1.125em; }
+  line-height: 1.125; }
+  @media screen and (min-width: 480px) {
+    .text--heading-4, h4 {
+      font-size: 1.25em;
+      line-height: 1.11111; } }
+  @media screen and (min-width: 680px) {
+    .text--heading-4, h4 {
+      font-size: 1.25em;
+      line-height: 1.11111; } }
+  @media screen and (min-width: 768px) {
+    .text--heading-4, h4 {
+      font-size: 1.25em;
+      line-height: 1.11111; } }
+  @media screen and (min-width: 1024px) {
+    .text--heading-4, h4 {
+      font-size: 1.25em;
+      line-height: 1.22222; } }
+  @media screen and (min-width: 1200px) {
+    .text--heading-4, h4 {
+      font-size: 1.25em;
+      line-height: 1.22222; } }
+  @media screen and (min-width: 1600px) {
+    .text--heading-4, h4 {
+      font-size: 1.25em;
+      line-height: 1.22222; } }
 
-@media screen and (min-width: 480px) {
-  h4 {
-    font-size: 1.25em;
-    line-height: 1.11111em; } }
-@media screen and (min-width: 680px) {
-  h4 {
-    font-size: 1.25em;
-    line-height: 1.11111em; } }
-@media screen and (min-width: 768px) {
-  h4 {
-    font-size: 1.25em;
-    line-height: 1.11111em; } }
-@media screen and (min-width: 1024px) {
-  h4 {
-    font-size: 1.25em;
-    line-height: 1.22222em; } }
-@media screen and (min-width: 1200px) {
-  h4 {
-    font-size: 1.25em;
-    line-height: 1.22222em; } }
-@media screen and (min-width: 1600px) {
-  h4 {
-    font-size: 1.25em;
-    line-height: 1.22222em; } }
-body {
+.text--body, body {
   font-size: 14px;
-  line-height: 1.4em; }
-
-@media screen and (min-width: 680px) {
-  body {
-    font-size: 16px;
-    line-height: 1.5em; } }
-@media screen and (min-width: 1600px) {
-  body {
-    font-size: 18px;
-    line-height: 1.6em; } }
+  line-height: 1.4; }
+  @media screen and (min-width: 680px) {
+    .text--body, body {
+      font-size: 16px;
+      line-height: 1.5; } }
+  @media screen and (min-width: 1600px) {
+    .text--body, body {
+      font-size: 18px;
+      line-height: 1.6; } }
 .text--uppercase {
   text-transform: uppercase; }
 

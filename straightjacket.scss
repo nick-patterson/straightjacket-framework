@@ -38,9 +38,8 @@
 	@include PSJGrid($config: (gutter: 20px));
 }
 
-@include PSJTextSizing($config: ());
-
 .text {
+	@include PSJTextSizing($config: ());
 	@include PSJTextHelpers();
 }
 

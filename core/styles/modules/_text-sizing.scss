@@ -8,8 +8,8 @@
 
 	$config: map-merge((
 		namespace: '',
-		breakpointMap: $breakpointMap,
-		textMap: $textMap,
+		breakpointMap: $PSJ_breakpointMap,
+		textMap: $PSJ_textMap,
 		renderAsMixin: false,
 		renderAsExtendable: false
 	), $config);
@@ -18,39 +18,45 @@
 
 	// ------   Generated CSS   ------------- /
 
-	@each $element, $breakpointMap in map-get($config, textMap) {
+	@at-root {
 
-		@each $breakpoint, $propMap in $breakpointMap {
+		@each $element, $propMap in map-get($config, textMap) {
 
-			// Defaults
+			// Get default element for size treatment
+			$defaultElement: map-get($propMap, defaultElement);
 
-			@if $breakpoint == default {
+			// Construct selector
+			$selector: &--#{$element + if( $defaultElement, ' ,' + $defaultElement, '' )};
 
-				#{$element} {
-					@each $prop, $value in $propMap {
-						#{$prop}: #{$value};
-					}
-				}
-			}
+			// Rendered
+			#{$selector} {
 
-			// Responsive
+				@each $breakpoint, $cssPropMap in map-get($propMap, breakpoints) {
 
-			@else {
+					// Defaults
+					@if $breakpoint == default {
 
-				// Only print CSS if breakpoint exists in both the text map and the breakpoint map
-
-				@if map-has-key(map-get($config, breakpointMap), $breakpoint) {
-					@media screen and (min-width: map-deep-get($config, breakpointMap, $breakpoint, viewportWidth)) {
-						#{$element} {
-							@each $prop, $value in $propMap {
-								#{$prop}: #{$value};
-							}
+						@each $cssProp, $cssValue in $cssPropMap {
+							#{$cssProp}: #{$cssValue};
 						}
 					}
-				}
 
-				@else {
-					@warn 'You have breakpoints in your breakpoint map that do not exist in your text map or vice versa. Check to make sure this is what you want.';
+					// Responsive
+					@else {
+
+						// Only print CSS if breakpoint exists in both the text map and the breakpoint map
+						@if map-has-key(map-get($config, breakpointMap), $breakpoint) {
+							@media screen and (min-width: map-deep-get($config, breakpointMap, $breakpoint, viewportWidth)) {
+								@each $cssProp, $cssValue in $cssPropMap {
+									#{$cssProp}: #{$cssValue};
+								}
+							}
+						}
+
+						@else {
+							@warn 'You have breakpoints in your breakpoint map that do not exist in your text map or vice versa. Check to make sure this is what you want.';
+						}
+					}
 				}
 			}
 		}

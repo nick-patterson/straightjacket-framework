@@ -13,10 +13,10 @@
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
-		class: '',
+		breakpointMap: $PSJ_breakpointMap,
 		columns: 12,
 		restrictColumns: false,
-		gutter: $base * 4,
+		gutter: $PSJ_base * 4,
 		type: 'block',
 		restrictPushes: false
 	), $config);
@@ -31,7 +31,6 @@
 	@at-root {
 
 		// Main grid
-
 		%#{$id}_grid {
 			clear: both;
 		}
@@ -54,19 +53,16 @@
 			}
 
 			// User-generated styling
-
 			@content;
 		}
 
 
 		// Rows
-
 		%#{$id}_row {
 			clear: both;
 
 			@include clearfix();
 		}
-
 		&__row {
 			@extend %#{$id}_row;
 		}
@@ -82,7 +78,7 @@
 		}
 		%#{$id}_inlineColumn {
 			display: inline-block;
-			font-size: $textBase * 1;
+			font-size: $PSJ_textBase * 1;
 			vertical-align: top;
 		}
 
@@ -91,7 +87,6 @@
 			@extend %#{$id}_column;
 
 			// Default columns (used for mobile devices & other tiny screens)
-
 			$restrictColumns: map-get($config, restrictColumns);
 
 			// Only run loops if configured correctly
@@ -118,8 +113,7 @@
 				}
 
 				// Columns for other screen sizes
-
-				@each $breakpointLabel, $propMap in $breakpointMap {
+				@each $breakpointLabel, $propMap in map-get($config, breakpointMap) {
 
 					@if $breakpointLabel != default {
 
@@ -131,6 +125,7 @@
 								@if $restrictColumns == false or index($restrictColumns, $i) {
 
 									@at-root {
+
 										// Dynamc placeholder
 										%#{$id}-column-#{ $i }-#{ $breakpointLabel } {
 											width: ((100 / $columns) * $i) * 1%;
@@ -155,7 +150,6 @@
 			}
 
 			// Pushes
-
 			$restrictPushes: map-get($config, restrictPushes);
 
 			// Only run loop if configured correctly
@@ -167,6 +161,7 @@
 					@if $restrictPushes == false or index($restrictPushes, $i) {
 
 						@at-root {
+
 							// Dynamc placeholder
 							%#{$id}-column-#{ $i }-push-#{ $i } {
 								margin-left: ((100 / $columns) * $i) * 1%;
@@ -184,35 +179,38 @@
 			}
 
 			// Helpers (Linked with structure helpers)
-
 			@if (length(map-get($PSJModuleRegistry, structureHelpers))) {
 
 				$helperBlock: nth(map-get($PSJModuleRegistry, structureHelpers), 1);
 
 				@for $i from 1 through $columns {
 
-					&--#{ $i + $helperBlock }--float-left {
-						@extend %psj_floatLeft;
-					}
+					// Only output CSS if index is in restrictedColumns list
+					@if $restrictColumns == false or index($restrictColumns, $i) {
 
-					&--#{ $i + $helperBlock }--float-right {
-						@extend %psj_floatRight;
-					}
+						&--#{ $i + $helperBlock }--float-left {
+							@extend %psj_floatLeft;
+						}
 
-					&--#{ $i + $helperBlock }--clear-left {
-						@extend %psj_clearLeft;
-					}
+						&--#{ $i + $helperBlock }--float-right {
+							@extend %psj_floatRight;
+						}
 
-					&--#{ $i + $helperBlock }--clear-right {
-						@extend %psj_clearRight;
-					}
+						&--#{ $i + $helperBlock }--clear-left {
+							@extend %psj_clearLeft;
+						}
 
-					&--#{ $i + $helperBlock }--clear-both {
-						@extend %psj_clearBoth;
-					}
+						&--#{ $i + $helperBlock }--clear-right {
+							@extend %psj_clearRight;
+						}
 
-					&--#{ $i + $helperBlock }--centered {
-						@extend %psj_centered;
+						&--#{ $i + $helperBlock }--clear-both {
+							@extend %psj_clearBoth;
+						}
+
+						&--#{ $i + $helperBlock }--centered {
+							@extend %psj_centered;
+						}
 					}
 				}
 			}
