@@ -15,13 +15,13 @@
 
 	@if type-of($props) == list {
 		@each $prop in $props {
-			#{$prop}: strip-unit($rem) * map-get($textBase, $breakpoint);
+			#{$prop}: strip-unit($rem) * map-get($PSJ_textBase, $breakpoint);
 			#{$prop}: strip-unit($rem) * 1rem;
 		}
 	}
 
 	@else {
-		#{$props}: strip-unit($rem) * map-get($textBase, $breakpoint);
+		#{$props}: strip-unit($rem) * map-get($PSJ_textBase, $breakpoint);
 		#{$props}: strip-unit($rem) * 1rem;
 	}
 }
@@ -167,10 +167,10 @@
 // ------   Retrieving Colors   -------------------- /
 
 @function color($color) {
-	@if map-has-key($colorMap, $color) {
+	@if map-has-key($PSJ_colorMap, $color) {
 
-		@if map-has-key(map-get($colorMap, $color), value) {
-			@return map-deep-get($colorMap, $color, value);
+		@if map-has-key(map-get($PSJ_colorMap, $color), value) {
+			@return map-deep-get($PSJ_colorMap, $color, value);
 		}
 
 		@else {
