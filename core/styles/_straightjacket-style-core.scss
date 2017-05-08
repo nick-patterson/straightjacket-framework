@@ -111,8 +111,10 @@ $PSJModuleRegistry: (
 // ======   #2 Mixins & Functionality   ============ /
 // ================================================= /
 
-@import 'essentials/functionality';
-@import 'essentials/mixins';
+@import 'essentials/functionality/internal';
+@import 'essentials/functionality/public';
+
+@import 'essentials/mixins/public';
 
 
 

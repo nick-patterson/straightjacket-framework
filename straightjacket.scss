@@ -22,7 +22,7 @@
 
 // ------------------------------------------------- /
 
-.u {
+/* .u {
 	@include PSJGeneralHelpers();
 }
 
@@ -49,4 +49,19 @@
 
 .tooltip {
 	@include PSJTooltip();
+}
+ */
+
+.grid,
+.odd-grid {
+
+	@at-root {
+		&__row,
+		&__column {
+
+			.loop--job-posting & {
+				margin-bottom: 2em;
+			}
+		}
+	}
 }

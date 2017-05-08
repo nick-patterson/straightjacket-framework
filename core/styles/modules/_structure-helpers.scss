@@ -6,7 +6,7 @@
 
 	// ------   Registration   ------- /
 
-	$registration: register-module(structureHelpers, #{&});
+	$registration: psj-register-module(structureHelpers, #{&});
 
 	@at-root {
 

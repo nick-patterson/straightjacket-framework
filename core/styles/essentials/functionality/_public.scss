@@ -1,19 +1,29 @@
 // ================================================= /
-// ======   Straightjacket Funtions   ============== /
+// ======   Public Functions   ===================== /
 // ================================================= /
 
 
-// ------   Registering Modules   ------------------ /
+// ------   Strip Units    ------------------------- /
 
-@function register-module($moduleName, $moduleNamespace) {
+@function strip-unit($quantity) {
+	@return $quantity / ($quantity * 0 + 1);
+}
 
-	$newRegistry: map-merge(
-		$PSJModuleRegistry,
-		($moduleName: append(map-get($PSJModuleRegistry, $moduleName), $moduleNamespace))
-	);
+// ------   Calculate Rem Based on textBase    ----- /
 
-	$PSJModuleRegistry: $newRegistry !global;
-	@return $PSJModuleRegistry;
+@mixin rem($props, $rem: 1rem, $breakpoint: lg) {
+
+	@if type-of($props) == list {
+		@each $prop in $props {
+			#{$prop}: strip-unit($rem) * map-get($textBase, $breakpoint);
+			#{$prop}: strip-unit($rem) * 1rem;
+		}
+	}
+
+	@else {
+		#{$props}: strip-unit($rem) * map-get($textBase, $breakpoint);
+		#{$props}: strip-unit($rem) * 1rem;
+	}
 }
 
 // ------   Retrieve from Nested Map    ------------ /
@@ -115,7 +125,7 @@
 
 // ------   Rounding Decimals   -------------------- /
 
-@function roundDecimal($number, $places: 0, $mode: round) {
+@function round-decimal($number, $places: 0, $mode: round) {
 
 	$n: 1;
 

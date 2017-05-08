@@ -1,0 +1,17 @@
+// ================================================= /
+// ======   Internal Functions   =================== /
+// ================================================= /
+
+
+// ------   Registering Modules   ------------------ /
+
+@function psj-register-module($moduleName, $moduleNamespace) {
+
+	$newRegistry: map-merge(
+		$PSJModuleRegistry,
+		($moduleName: append(map-get($PSJModuleRegistry, $moduleName), $moduleNamespace))
+	);
+
+	$PSJModuleRegistry: $newRegistry !global;
+	@return $PSJModuleRegistry;
+}

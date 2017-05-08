@@ -10,7 +10,6 @@
 		namespace: '',
 		breakpointMap: $PSJ_breakpointMap,
 		textMap: $PSJ_textMap,
-		renderAsMixin: false,
 		renderAsExtendable: false
 	), $config);
 
@@ -26,7 +25,7 @@
 			$defaultElement: map-get($propMap, defaultElement);
 
 			// Construct selector
-			$selector: &--#{$element + if( $defaultElement, ' ,' + $defaultElement, '' )};
+			$selector: &--#{$element + if($defaultElement, ' ,' + $defaultElement, '')};
 
 			// Rendered
 			#{$selector} {
@@ -37,7 +36,14 @@
 					@if $breakpoint == default {
 
 						@each $cssProp, $cssValue in $cssPropMap {
-							#{$cssProp}: #{$cssValue};
+
+							// Render with rem fallback
+							@if type-of($cssValue) == number and unit($cssValue) == rem {
+								@include rem($cssProp, $cssValue, default);
+							}
+							@else {
+								#{$cssProp}: #{$cssValue};
+							}
 						}
 					}
 
@@ -46,9 +52,18 @@
 
 						// Only print CSS if breakpoint exists in both the text map and the breakpoint map
 						@if map-has-key(map-get($config, breakpointMap), $breakpoint) {
+
 							@media screen and (min-width: map-deep-get($config, breakpointMap, $breakpoint, viewportWidth)) {
+
 								@each $cssProp, $cssValue in $cssPropMap {
-									#{$cssProp}: #{$cssValue};
+
+									// Render with rem fallback
+									@if type-of($cssValue) == number and unit($cssValue) == rem {
+										@include rem($cssProp, $cssValue, default);
+									}
+									@else {
+										#{$cssProp}: #{$cssValue};
+									}
 								}
 							}
 						}

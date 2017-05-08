@@ -7,7 +7,7 @@
 
 	// ------   Registration   -------------- /
 
-	$registration: register-module(container, map-get($config, class));
+	$registration: psj-register-module(container, map-get($config, class));
 
 
 	// ------   Default Configuration   ----- /

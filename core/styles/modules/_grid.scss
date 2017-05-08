@@ -7,7 +7,7 @@
 
 	// ------   Registration   -------------- /
 
-	$registration: register-module(grid, #{&});
+	$registration: psj-register-module(grid, #{&});
 
 
 	// ------   Default Configuration   ----- /
@@ -44,8 +44,8 @@
 
 			@extend %#{$id}_grid;
 
-			@if (map-get($config,type) == inline) {
-				@extend %#{$id}_inlineGrid;
+			@if (map-get($config,type) == flex) {
+				// Flexbox grid
 			}
 
 			@else {
@@ -76,11 +76,6 @@
 		%#{$id}_floatColumn {
 			float: left;
 		}
-		%#{$id}_inlineColumn {
-			display: inline-block;
-			font-size: $PSJ_textBase * 1;
-			vertical-align: top;
-		}
 
 		&__column {
 
@@ -101,8 +96,8 @@
 
 							width: ((100 / $columns) * $i) * 1%;
 
-							@if (map-get($config, type) == inline) {
-								@extend %#{$id}_inlineColumn;
+							@if (map-get($config, type) == flex) {
+								// Flexbox grid column
 							}
 
 							@else {

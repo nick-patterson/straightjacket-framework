@@ -1,0 +1,15 @@
+// ================================================= /
+// ======   Public Mixins   ======================== /
+// ================================================= /
+
+
+// Clearfix
+@mixin clearfix() {
+	&::after {
+		content: '';
+		display: block;
+		visibility: hidden;
+		clear: both;
+		height: 0;
+	}
+}
