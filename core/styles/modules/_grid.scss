@@ -18,7 +18,8 @@
 		restrictColumns: false,
 		gutter: $PSJ_base * 4,
 		type: 'block',
-		restrictPushes: false
+		restrictPushes: false,
+		justify: false
 	), $config);
 
 	$id: unique-id();
@@ -37,6 +38,10 @@
 
 		%#{$id}_blockGrid {
 			@include clearfix();
+		}
+
+		%#{$id}_flexGrid {
+			display: flex;
 		}
 
 		& {
