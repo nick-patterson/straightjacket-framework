@@ -25,7 +25,7 @@ module.exports = {
 		} ],
 		"declaration-bang-space-after": "never",
 		"declaration-bang-space-before": "always",
-		"declaration-block-no-ignored-properties": true,
+		//"declaration-block-no-ignored-properties": true,
 		"declaration-block-no-shorthand-property-overrides": true,
 		"declaration-block-semicolon-newline-after": "always-multi-line",
 		"declaration-block-semicolon-space-after": "always-single-line",
@@ -63,9 +63,9 @@ module.exports = {
 		"number-leading-zero": "always",
 		"number-no-trailing-zeros": true,
 		"property-case": "lower",
-		"rule-non-nested-empty-line-before": [ "always-multi-line", {
+		/*"rule-non-nested-empty-line-before": [ "always-multi-line", {
 			ignore: ["after-comment"],
-		} ],
+		} ],*/
 		"selector-attribute-brackets-space-inside": "never",
 		"selector-attribute-operator-space-after": "never",
 		"selector-attribute-operator-space-before": "never",

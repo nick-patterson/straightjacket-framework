@@ -49,7 +49,7 @@ $PSJ_textBase: (
 // ======   Colors   =============================== /
 // ================================================= /
 
-// - Color Map ------------------------------ /
+// - Color Map ------------------------------------- /
 //
 //   DESCRIPTION:
 //
@@ -61,7 +61,7 @@ $PSJ_textBase: (
 //   name of the key into the color() function
 //   to reference it anywhere.
 //
-// ------------------------------------------ /
+// ------------------------------------------------- /
 
 $PSJ_colorMap: (
 	black: (
@@ -102,7 +102,7 @@ $PSJ_colorMap: (
 // ================================================= /
 
 
-// - Breakpoint Map ------------------------- /
+// - Breakpoint Map -------------------------------- /
 //
 //   DESCRIPTION:
 //
@@ -113,7 +113,7 @@ $PSJ_colorMap: (
 //   the text sizing module, although you
 //   do not need to use all of them.
 //
-// ------------------------------------------ /
+// ------------------------------------------------- /
 
 $PSJ_breakpointMap: (
 	default: (
@@ -141,7 +141,15 @@ $PSJ_breakpointMap: (
 	),
 	xxl: (
 		viewportWidth: 1600px,
-		containerWidth: 1400px
+		containerWidth: 1280px
+	),
+	xxxl: (
+		viewportWidth: 1920px,
+		containerWidth: 1344px
+	),
+	longBoi: (
+		viewportWidth: 3000px,
+		containerWidth: 1440px
 	)
 );
 
@@ -152,7 +160,7 @@ $PSJ_breakpointMap: (
 // ======   Text   ================================= /
 // ================================================= /
 
-// - Text Map ------------------------------- /
+// - Text Map -------------------------------------- /
 //
 //   DESCRIPTION:
 //
@@ -162,11 +170,14 @@ $PSJ_breakpointMap: (
 //   in the breakpoint map.
 //
 //   Note that there does not need to be
-//   a 1:1 relationship between the maps
-//   although it is highly recommended and
-//   thus the default in StraightJacket.
+//   a 1:1 relationship between the maps.
 //
-// ------------------------------------------ /
+//   The StraightJacket defaults intentionally
+//   do not target very large viewport sizes –
+//   depending on your particular text, though,
+//   you might want to change that :D.
+//
+// ------------------------------------------------- /
 
 $PSJ_textMap: (
 
