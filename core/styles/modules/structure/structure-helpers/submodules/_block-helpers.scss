@@ -1,16 +1,19 @@
-// ------   Structure Helpers Module   ------ /
+// ------   Block Helpers Submodule   ------- /
 // ------------------------------------------ /
 
 
-@mixin PSJStructureHelpers() {
+@mixin PSJBlockHelpers() {
 
-	// ------   Registration   ------- /
+	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(structureHelpers, #{&});
+	$registration: psj-register-module(blockHelpers, #{&}, ());
+
+
+	// ------   Generated CSS   ------------- /
 
 	@at-root {
 
-		// ------   Placeholders   ------- /
+		// ------   Placeholders   ---------- /
 
 		%psj_floatLeft {
 			float: left;
@@ -38,7 +41,7 @@
 			margin-right: auto;
 		}
 
-		// ------   Float Helpers   ---- /
+		// ------   Float Helpers   --------- /
 
 		&--float-left {
 			@extend %psj_floatLeft;

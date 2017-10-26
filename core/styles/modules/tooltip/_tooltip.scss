@@ -4,12 +4,6 @@
 
 @mixin PSJTooltip($config: ()) {
 
-
-	// ------   Registration   -------------- /
-
-	$registration: psj-register-module(tooltip, #{&});
-
-
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
@@ -19,6 +13,11 @@
 
 	$id: unique-id();
 	$parent: &;
+
+
+	// ------   Registration   -------------- /
+
+	$registration: psj-register-module(tooltip, #{&}, $config);
 
 
 	// ------   Generated CSS   -------------- /

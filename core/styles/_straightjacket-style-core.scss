@@ -25,6 +25,10 @@
    all of the power where it belongs: in the
    hands of the developer.
 
+   Normalizing styles have been helped along thanks to
+   Nicolas Gallagher and Jonathan Neal
+   http://necolas.github.com/normalize.css/
+
 / -------------------------------------------------- /
 
    VERSION: 1.0 ------------------------------------ /
@@ -40,23 +44,26 @@
 // TABLE OF CONTENTS ------------------------------- /
 //
 //   #0 Global Module Registration ----------------- /
-//   #1 Global Proportions ------------------------- /
+//
+//   #1 Normalization ------------------------------ /
 //   #2 Mixins & Functionality --------------------- /
-//   #3 Colors ------------------------------------- /
-//   #4 Structure ---------------------------------- /
-//   #5 Text --------------------------------------- /
-//   #6 Buttons -- WORK IN PROGRESS ---------------- /
-//   #7 General Helpers ---------------------------- /
+//   #3 General ------------------------------------ /
+//   #4 Colors ------------------------------------- /
+//   #5 Structure ---------------------------------- /
+//   #6 Text --------------------------------------- /
+//   #7 Buttons -- WORK IN PROGRESS ---------------- /
 //   #8 Popover Modals ----------------------------- /
 //   #9 Dropdowns ---------------------------------- /
 //   #10 Tooltips ---------------------------------- /
 //
-// ------------------------------------------------- */
+// ------------------------------------------------ */
 
 
 // TODOS ------------------------------------------- /
 //
-//   1. Implement flexBox grid mode
+//   1. Finish flexBox grid mode
+//   2. Add mobile breakpoints to helper modules
+//   3. TEST. TEST. TEST.
 //
 // -------------------------------------------------- /
 
@@ -77,32 +84,39 @@
 // ------------------------------------------------- /
 
 $PSJModuleRegistry: (
-	generalHelpers: (),
-	structureHelpers: (),
+
+	displayHelpers: (),
+
 	container: (),
 	grid: (),
+	structureHelpers: (),
+	blockHelpers: (),
+	flexHelpers: (),
+
 	textSizing: (),
 	texthelpers: (),
+
 	popoverModal: (),
+
 	tooltip: ()
+
 ) !global;
 
 
 
 
 // ================================================= /
-// ======   #1 Global Proportions   ================ /
+// ======   #1 Normalization   ===================== /
 // ================================================= /
 
 // ------------------------------------------------- /
-
-//   Global proportons ensure that margins, text
-//	 sizes, etc. adhere to a global standard.
 //
-//	 These variables can be found in the
-//	 StraightJacket Configuration file.
+//   This one is pretty self explanatory.
+//   CSS Normalization is good.
 //
 // ------------------------------------------------- /
+
+@import 'modules/normalization/normalization';
 
 
 
@@ -120,7 +134,27 @@ $PSJModuleRegistry: (
 
 
 // ================================================= /
-// ======   #3 Colors   ============================ /
+// ======   #3 General  ============================ /
+// ================================================= /
+
+// ------------------------------------------------- /
+//
+//   General variables and declarations are here
+//
+//   Global variables can be found in the
+//	 StraightJacket Configuration file.
+//
+// ------------------------------------------------- /
+
+// ------   Display Helpers Module   -------- /
+// ------------------------------------------ /
+@import 'modules/general/display-helpers/display-helpers';
+
+
+
+
+// ================================================= /
+// ======   #4 Colors   ============================ /
 // ================================================= /
 
 // ------------------------------------------------- /
@@ -138,61 +172,53 @@ $PSJModuleRegistry: (
 
 
 // ================================================= /
-// ======   #4 Structure   ========================= /
+// ======   #5 Structure   ========================= /
 // ================================================= /
 
 
 // ------   Container Module   -------------- /
 // ------------------------------------------ /
-@import 'modules/container';
+@import 'modules/structure/container/container';
 
 
 // ------   Grid Module   ------------------- /
 // ------------------------------------------ /
-@import 'modules/grid';
-
+@import 'modules/structure/grid/grid';
 
 // ------   Structure Helpers Module   ------ /
 // ------------------------------------------ /
-@import 'modules/structure-helpers';
+@import 'modules/structure/structure-helpers/structure-helpers';
+
+// Block helpers submodule
+@import 'modules/structure/structure-helpers/submodules/block-helpers';
+
+// Flex helpers submodule
+@import 'modules/structure/structure-helpers/submodules/flex-helpers';
 
 
 
 
 // ================================================= /
-// ======   #5 Text   ============================== /
+// ======   #6 Text   ============================== /
 // ================================================= /
 
 
 // ------   Text Sizing Module   ------------ /
 // ------------------------------------------ /
-@import 'modules/text-sizing';
-
+@import 'modules/text/text-sizing/text-sizing';
 
 // ------   Text Helpers Module   ----------- /
 // ------------------------------------------ /
-@import 'modules/text-helpers';
+@import 'modules/text/text-helpers/text-helpers';
 
 
 
 
 // ================================================= /
-// ======   #6 Buttons   =========================== /
+// ======   #7 Buttons   =========================== /
 // ================================================= /
 
 // TODO: Add button module
-
-
-
-
-// ================================================= /
-// ======   #7 General Helpers   =================== /
-// ================================================= /
-
-
-// ------   General Helpers Module   -------- /
-// ------------------------------------------ /
-@import 'modules/general-helpers';
 
 
 
@@ -204,7 +230,7 @@ $PSJModuleRegistry: (
 
 // ------   Popover Modals Module   --------- /
 // ------------------------------------------ /
-@import 'modules/popover-modal';
+@import 'modules/popover-modal/popover-modal';
 
 
 
@@ -219,9 +245,9 @@ $PSJModuleRegistry: (
 
 
 // ================================================= /
-// ======   #10 Tooltips   ========================== /
+// ======   #10 Tooltips   ========================= /
 // ================================================= /
 
 // ------   Tooltips Module   --------------- /
 // ------------------------------------------ /
-@import 'modules/tooltip';
+@import 'modules/tooltip/tooltip';

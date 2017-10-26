@@ -1,0 +1,16 @@
+// ------   Flex Helpers Submodule   -------- /
+// ------------------------------------------ /
+
+
+@mixin PSJFlexHelpers() {
+
+	// ------   Registration   -------------- /
+
+	$registration: psj-register-module(flexHelpers, #{&}, ());
+
+
+	// ------   Generated CSS   ------------- /
+
+	@at-root {
+	}
+}

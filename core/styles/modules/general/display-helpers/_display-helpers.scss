@@ -1,0 +1,43 @@
+// ------   Display Helpers   --------------- /
+// ------------------------------------------ /
+
+
+@mixin PSJDisplayHelpers() {
+
+
+	// ------   Registration   -------------- /
+
+	$registration: psj-register-module(displayHelpers, #{&}, ());
+
+
+	// ------   Generated CSS   ------------- /
+
+	@at-root {
+
+		// Display helpers
+		&--invisible {
+			visibility: hidden;
+			opacity: 0;
+		}
+
+		&--hidden {
+			display: none;
+		}
+
+		&--inline {
+			display: inline;
+		}
+
+		&--block {
+			display: block;
+		}
+
+		&--inline-block {
+			display: inline-block;
+		}
+
+		&--flex {
+			display: flex;
+		}
+	}
+}

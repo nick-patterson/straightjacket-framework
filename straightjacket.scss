@@ -22,23 +22,22 @@
 
 // ------------------------------------------------- /
 
+@include PSJNormalization();
+
 /* .u {
-	@include PSJGeneralHelpers();
+	@include PSJDisplayHelpers();
+	@include PSJStructureHelpers();
 }
 
 .container {
 	@include PSJContainer($config: ());
 }
 
-.s {
-	@include PSJStructureHelpers();
-}
-
 .grid {
 	@include PSJGrid($config: (gutter: 20px));
 }
 
-.text {
+ .text {
 	@include PSJTextSizing($config: ());
 	@include PSJTextHelpers();
 }
@@ -49,5 +48,4 @@
 
 .tooltip {
 	@include PSJTooltip();
-}
- */
+} */

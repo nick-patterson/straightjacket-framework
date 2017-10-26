@@ -5,13 +5,39 @@
 
 // ------   Registering Modules   ------------------ /
 
-@function psj-register-module($moduleName, $moduleNamespace) {
+@function psj-register-module($moduleName, $moduleNamespace, $moduleConfig: () ) {
 
-	$newRegistry: map-merge(
-		$PSJModuleRegistry,
-		($moduleName: append(map-get($PSJModuleRegistry, $moduleName), $moduleNamespace))
+	// Construct a new entry
+	$newEntry: (
+		namespace: $moduleNamespace,
+		config: $moduleConfig
 	);
 
+	// Construct a new registry from the old
+	$newRegistry: map-merge(
+		$PSJModuleRegistry,
+		($moduleName: append(map-get($PSJModuleRegistry, $moduleName), $newEntry))
+	);
+
+	// Assign the new registry as the global
 	$PSJModuleRegistry: $newRegistry !global;
 	@return $PSJModuleRegistry;
+}
+
+
+// ------   Checking Module Registration   --------- /
+
+@function psj-is-module-registered($moduleName) {
+	@return length(map-get($PSJModuleRegistry, $moduleName)) > 0;
+}
+
+
+// ------   Getting Module Props   ----------------- /
+
+@function psj-get-module-instance($moduleName, $index: 1) {
+	@return nth(map-get($PSJModuleRegistry, $moduleName), $index);
+}
+
+@function psj-get-module-namespace($moduleName, $index: 1) {
+	@return map-get(psj-get-module-instance($moduleName, $index), namespace);
 }

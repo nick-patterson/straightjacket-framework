@@ -4,15 +4,16 @@
 
 @mixin PSJPopoverModal($config: ()) {
 
-	// ------   Registration   -------------- /
-
-	$registration: psj-register-module(popoverModal, #{&});
-
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
 		opinionated: true
 	), $config);
+
+
+	// ------   Registration   -------------- /
+
+	$registration: psj-register-module(popoverModal, #{&}, $config);
 
 
 	// ------   Generated CSS   -------------- /

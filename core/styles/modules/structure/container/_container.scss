@@ -4,12 +4,6 @@
 
 @mixin PSJContainer($config: ()) {
 
-
-	// ------   Registration   -------------- /
-
-	$registration: psj-register-module(container, map-get($config, class));
-
-
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
@@ -19,6 +13,11 @@
 	), $config);
 
 	$id: unique-id();
+
+
+	// ------   Registration   -------------- /
+
+	$registration: psj-register-module(container, #{&}, $config);
 
 
 	// ------   Generated CSS   ------------- /

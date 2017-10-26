@@ -1,0 +1,34 @@
+// ------   Structure Helpers Module   ------ /
+// ------------------------------------------ /
+
+
+@mixin PSJStructureHelpers($config: ()) {
+
+	// ------   Default Configuration   ----- /
+
+	$config: map-merge((
+		includeBlockHelpers: true,
+		includeFlexHelpers: true
+	), $config);
+
+
+	// ------   Registration   -------------- /
+
+	$registration: psj-register-module(structureHelpers, #{&}, $config);
+
+
+	// ------   Generated CSS   ------------- /
+
+	@at-root {
+
+		// Include block helpers if instructed
+		@if (map-get($config, includeBlockHelpers)) {
+			@include PSJBlockHelpers();
+		}
+
+		// Include flex helpers if instructed
+		@if (map-get($config, includeFlexHelpers)) {
+			@include PSJFlexHelpers();
+		}
+	}
+}

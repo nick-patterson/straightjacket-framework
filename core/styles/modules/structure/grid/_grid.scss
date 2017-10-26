@@ -4,12 +4,6 @@
 
 @mixin PSJGrid($config: ()) {
 
-
-	// ------   Registration   -------------- /
-
-	$registration: psj-register-module(grid, #{&});
-
-
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
@@ -19,13 +13,19 @@
 		gutter: $PSJ_base * 4,
 		type: 'block',
 		restrictPushes: false,
-		justify: false
+		includeHelpers: true
 	), $config);
 
 	$id: unique-id();
 	$columns: map-get($config, columns);
 	$restrictedColumns: map-get($config, restrictColumns);
 	$restrictedPushes: map-get($config, restrictedPushes);
+
+
+	// ------   Registration   -------------- /
+
+	$registration: psj-register-module(grid, #{&}, $config);
+
 
 	// ------   Generated CSS   ------------- /
 
@@ -35,13 +35,12 @@
 		%#{$id}_grid {
 			clear: both;
 		}
-
 		%#{$id}_blockGrid {
 			@include clearfix();
 		}
-
 		%#{$id}_flexGrid {
 			display: flex;
+			flex-wrap: wrap;
 		}
 
 		& {
@@ -50,7 +49,7 @@
 			@extend %#{$id}_grid;
 
 			@if (map-get($config,type) == flex) {
-				// Flexbox grid
+				@extend %#{$id}_flexGrid;
 			}
 
 			@else {
@@ -59,6 +58,13 @@
 
 			// User-generated styling
 			@content;
+		}
+
+		// Main grid helpers
+		@if map-get($config, includeHelpers) and psj-is-module-registered( flexhelpers ) and map-get($config, type) == 'flex' {
+			&--justify-right {
+				justify-content: right;
+			}
 		}
 
 
@@ -74,17 +80,26 @@
 
 
 		// Columns
-
 		%#{$id}_column {
 			padding-left: map-get($config, gutter);
 		}
 		%#{$id}_floatColumn {
 			float: left;
 		}
+		%#{$id}_flexColumn {
+		}
 
 		&__column {
 
 			@extend %#{$id}_column;
+
+			@if (map-get($config, type) == flex) {
+				@extend %#{$id}_flexColumn;
+			}
+
+			@else {
+				@extend %#{$id}_floatColumn;
+			}
 
 			// Default columns (used for mobile devices & other tiny screens)
 			$restrictColumns: map-get($config, restrictColumns);
@@ -98,16 +113,7 @@
 					@if $restrictColumns == false or index($restrictColumns, $i) {
 
 						&--#{ $i } {
-
 							width: ((100 / $columns) * $i) * 1%;
-
-							@if (map-get($config, type) == flex) {
-								// Flexbox grid column
-							}
-
-							@else {
-								@extend %#{$id}_floatColumn;
-							}
 						}
 					}
 				}
@@ -137,7 +143,7 @@
 										// Only output CSS if both indicies is in restrictedColumns list
 										@if $restrictColumns == false or index($restrictColumns, $c) {
 
-											&--#{ $i }.#{ $breakpointLabel }--#{ $c } {
+											&--#{ $c + \@ + $breakpointLabel } {
 												@extend %#{$id}-column-#{ $c }-#{ $breakpointLabel };
 											}
 										}
@@ -178,10 +184,12 @@
 				}
 			}
 
-			// Helpers (Linked with structure helpers)
-			@if (length(map-get($PSJModuleRegistry, structureHelpers))) {
+			// Column Helpers
 
-				$helperBlock: nth(map-get($PSJModuleRegistry, structureHelpers), 1);
+			// Block helpers (linked with stricture helpers module)
+			@if map-get($config, includeHelpers) and map-get($config, type) != 'flex' and psj-is-module-registered( blockHelpers ) {
+
+				$helperBlock: psj-get-module-namespace(blockHelpers, 1);
 
 				@for $i from 1 through $columns {
 
@@ -194,18 +202,6 @@
 
 						&--#{ $i + $helperBlock }--float-right {
 							@extend %psj_floatRight;
-						}
-
-						&--#{ $i + $helperBlock }--clear-left {
-							@extend %psj_clearLeft;
-						}
-
-						&--#{ $i + $helperBlock }--clear-right {
-							@extend %psj_clearRight;
-						}
-
-						&--#{ $i + $helperBlock }--clear-both {
-							@extend %psj_clearBoth;
 						}
 
 						&--#{ $i + $helperBlock }--centered {
