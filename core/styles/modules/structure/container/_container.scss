@@ -2,13 +2,13 @@
 // ------------------------------------------ /
 
 
-@mixin PSJContainer($config: ()) {
+@mixin PSJ_container($config: ()) {
 
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
-		breakpointMap: $PSJ_breakpointMap,
-		padding: 0,
+		breakpoint-map: $PSJ_breakpoint-map,
+		container-map: $PSJ_container-map,
 		centered: true
 	), $config);
 
@@ -17,42 +17,30 @@
 
 	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(container, #{&}, $config);
+	$registration: PSJ_register-module(container, #{&}, $config);
 
 
 	// ------   Generated CSS   ------------- /
 
-	@at-root {
+	// Default container (for mobile devices & other tiny screens)
+	width: PSJ_map-deep-get($config, container-map, default);
 
-		// Placeholder
-		%#{$id}-container {
+	// Center container if instructed
+	@if map-get($config, centered) == true {
+		margin: 0 auto;
+	}
 
-			// Default container (for mobile devices & other tiny screens)
-			width: map-deep-get($config, breakpointMap, default, containerWidth);
-			padding: map-get($config, padding);
+	// User-generated styling
+	@content;
 
-			@if map-get($config, centered) == true {
-				margin: 0 auto;
+	// Container for other screen sizes
+	@each $breakpoint, $prop-map in map-get($config, breakpoint-map) {
+
+		@if $breakpoint != default {
+
+			@media (min-width: map-get($prop-map, viewport-width)) {
+				width: PSJ_map-deep-get($config, container-map, $breakpoint);
 			}
-
-			// User-generated styling
-			@content;
-
-			// Container for other screen sizes
-			@each $breakpoint, $propMap in map-get($config, breakpointMap) {
-
-				@if $breakpoint != default {
-
-					@media (min-width: map-get($propMap, viewportWidth)) {
-						width: map-get($propMap, containerWidth);
-					}
-				}
-			}
-		}
-
-		// Rendered
-		& {
-			@extend %#{$id}-container;
 		}
 	}
 }

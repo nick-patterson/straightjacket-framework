@@ -2,7 +2,7 @@
 // ------------------------------------------ /
 
 
-@mixin PSJTooltip($config: ()) {
+@mixin PSJ_tooltip($config: ()) {
 
 	// ------   Default Configuration   ----- /
 
@@ -17,7 +17,7 @@
 
 	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(tooltip, #{&}, $config);
+	$registration: PSJ_register-module(tooltip, #{&}, $config);
 
 
 	// ------   Generated CSS   -------------- /

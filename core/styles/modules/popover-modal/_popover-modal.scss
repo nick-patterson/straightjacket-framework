@@ -2,7 +2,7 @@
 // ------------------------------------------ /
 
 
-@mixin PSJPopoverModal($config: ()) {
+@mixin PSJ_popover-modal($config: ()) {
 
 	// ------   Default Configuration   ----- /
 
@@ -13,7 +13,7 @@
 
 	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(popoverModal, #{&}, $config);
+	$registration: PSJ_register-module(popover-modal, #{&}, $config);
 
 
 	// ------   Generated CSS   -------------- /

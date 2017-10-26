@@ -2,11 +2,11 @@
 // ------------------------------------------ /
 
 
-@mixin PSJTextHelpers() {
+@mixin PSJ_text-helpers() {
 
 	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(textHelpers, #{&}, ());
+	$registration: PSJ_register-module(text-helpers, #{&}, ());
 
 
 	// ------   Generated CSS   ------------- /
@@ -38,9 +38,9 @@
 			text-align: right;
 		}
 
-		@each $color, $propMap in $PSJ_colorMap {
-			&--#{ map-get($propMap, classModifier) } {
-				color: map-get($propMap, value);
+		@each $color, $prop-map in $PSJ_color-map {
+			&--#{ map-get($prop-map, classModifier) } {
+				color: map-get($prop-map, value);
 			}
 		}
 	}

@@ -438,30 +438,70 @@ template {
 */
 [hidden] {
   display: none; }
-/* .u {
-	@include PSJDisplayHelpers();
-	@include PSJStructureHelpers();
-}
-
 .container {
-	@include PSJContainer($config: ());
-}
+  width: 90%;
+  margin: 0 auto; }
+  @media (min-width: 480px) {
+    .container {
+      width: 90%; } }
+  @media (min-width: 680px) {
+    .container {
+      width: 85%; } }
+  @media (min-width: 768px) {
+    .container {
+      width: 680px; } }
+  @media (min-width: 1024px) {
+    .container {
+      width: 940px; } }
+  @media (min-width: 1200px) {
+    .container {
+      width: 1080px; } }
+  @media (min-width: 1600px) {
+    .container {
+      width: 1280px; } }
+  @media (min-width: 1920px) {
+    .container {
+      width: 1344px; } }
+  @media (min-width: 3000px) {
+    .container {
+      width: 1440px; } }
 
-.grid {
-	@include PSJGrid($config: (gutter: 20px));
-}
+.u--invisible {
+  visibility: hidden;
+  opacity: 0; }
 
- .text {
-	@include PSJTextSizing($config: ());
-	@include PSJTextHelpers();
-}
+.u--hidden {
+  display: none; }
 
-.modal {
-	@include PSJPopoverModal();
-}
+.u--inline {
+  display: inline; }
 
-.tooltip {
-	@include PSJTooltip();
-} */
+.u--block {
+  display: block; }
+
+.u--inline-block {
+  display: inline-block; }
+
+.u--flex {
+  display: flex; }
+.u--float-left {
+  float: left; }
+
+.u--float-right {
+  float: right; }
+
+.u--clear-left {
+  clear: left; }
+
+.u--clear-right {
+  clear: right; }
+
+.u--clear-both {
+  clear: both; }
+
+.u--centered {
+  float: none;
+  margin-left: auto;
+  margin-right: auto; }
 
 /*# sourceMappingURL=straightjacket.css.map */

@@ -32,7 +32,7 @@
 // ------------------------------------------ /
 
 $PSJ_base: 10px;
-$PSJ_textBase: (
+$PSJ_text-base: (
 	default: 14px,
 	xs: 14px,
 	sm: 16px,
@@ -54,44 +54,23 @@ $PSJ_textBase: (
 //   DESCRIPTION:
 //
 //   Defines color values that can be easily
-//   retrieved using the color() function.
+//   retrieved using the PSJ_color() function.
 //
 //   Simply define a color with any valid
 //   CSS value (or SASS value) and pass the
-//   name of the key into the color() function
+//   name of the key into the PSJ_color() function
 //   to reference it anywhere.
 //
 // ------------------------------------------------- /
 
-$PSJ_colorMap: (
-	black: (
-		classModifier: 'black',
-		value: #000
-	),
-	pseudoBlack: (
-		classModifier: 'pseudo-black',
-		value: #222
-	),
-	darkGray: (
-		classModifier: 'dark-gray',
-		value: #5a5a5a
-	),
-	midGray: (
-		classModifier: 'mid-gray',
-		value: #adadae
-	),
-	lightGray: (
-		classModifier: 'light-gray',
-		value: #d4d4d6
-	),
-	white: (
-		classModifier: 'white',
-		value: #fff
-	),
-	pseudoWhite: (
-		classModifier: 'pseudo-white',
-		value: #f4f4f4
-	)
+$PSJ_color-map: (
+	black: #000,
+	pseudo-black: #222,
+	dark-gray: #5a5a5a,
+	mid-gray: #adadae,
+	light-gray: #d4d4d6,
+	pseudo-white: #f4f4f4,
+	white: #fff
 );
 
 
@@ -115,42 +94,54 @@ $PSJ_colorMap: (
 //
 // ------------------------------------------------- /
 
-$PSJ_breakpointMap: (
+$PSJ_breakpoint-map: (
 	default: (
-		containerWidth: 90%
+		container-width: 90%
 	),
 	xs: (
-		viewportWidth: 480px,
-		containerWidth: 90%
+		viewport-width: 480px,
+		container-width: 90%
 	),
 	sm: (
-		viewportWidth: 680px,
-		containerWidth: 85%
+		viewport-width: 680px,
+		container-width: 85%
 	),
 	md: (
-		viewportWidth: 768px,
-		containerWidth: 680px
+		viewport-width: 768px,
+		container-width: 680px
 	),
 	lg: (
-		viewportWidth: 1024px,
-		containerWidth: 940px
+		viewport-width: 1024px,
+		container-width: 940px
 	),
 	xl: (
-		viewportWidth: 1200px,
-		containerWidth: 1080px
+		viewport-width: 1200px,
+		container-width: 1080px
 	),
 	xxl: (
-		viewportWidth: 1600px,
-		containerWidth: 1280px
+		viewport-width: 1600px,
+		container-width: 1280px
 	),
 	xxxl: (
-		viewportWidth: 1920px,
-		containerWidth: 1344px
+		viewport-width: 1920px,
+		container-width: 1344px
 	),
-	longBoi: (
-		viewportWidth: 3000px,
-		containerWidth: 1440px
+	longboi: (
+		viewport-width: 3000px,
+		container-width: 1440px
 	)
+);
+
+$PSJ_container-map: (
+	default: 90%,
+	xs: 90%,
+	sm: 85%,
+	md: 680px,
+	lg: 940px,
+	xl: 1080px,
+	xxl: 1280px,
+	xxxl: 1344px,
+	longboi: 1440px
 );
 
 
@@ -179,15 +170,15 @@ $PSJ_breakpointMap: (
 //
 // ------------------------------------------------- /
 
-$PSJ_fontMap: (
+$PSJ_font-map: (
 
 );
 
-$PSJ_textMap: (
+$PSJ_text-map: (
 
 	// Heading 1 styles
 	'heading-1': (
-		defaultElement: h1,
+		default-element: h1,
 		breakpoints: (
 			default: (
 				font-size: 2.125rem,
@@ -222,7 +213,7 @@ $PSJ_textMap: (
 
 	// Heading 2 styles
 	'heading-2': (
-		defaultElement: h2,
+		default-element: h2,
 		breakpoints: (
 			default: (
 				font-size: 1.3rem,
@@ -257,7 +248,7 @@ $PSJ_textMap: (
 
 	// Heading 3 styles
 	'heading-3': (
-		defaultElement: h3,
+		default-element: h3,
 		breakpoints: (
 			default: (
 				font-size: 1.75rem,
@@ -292,7 +283,7 @@ $PSJ_textMap: (
 
 	// Heading 4 styles
 	'heading-4': (
-		defaultElement: h4,
+		default-element: h4,
 		breakpoints: (
 			default: (
 				font-size: 1.25rem,
@@ -327,18 +318,18 @@ $PSJ_textMap: (
 
 	// Body styles (be vewy vewy cereful)
 	'body': (
-		defaultElement: html,
+		default-element: html,
 		breakpoints: (
 			default: (
-				font-size: map-get($PSJ_textBase, default),
+				font-size: map-get($PSJ_text-base, default),
 				line-height: 1.4
 			),
 			sm: (
-				font-size: map-get($PSJ_textBase, sm),
+				font-size: map-get($PSJ_text-base, sm),
 				line-height: 1.5
 			),
 			xxl: (
-				font-size: map-get($PSJ_textBase, xxl),
+				font-size: map-get($PSJ_text-base, xxl),
 				line-height: 1.6
 			)
 		)

@@ -2,11 +2,11 @@
 // ------------------------------------------ /
 
 
-@mixin PSJBlockHelpers() {
+@mixin PSJ_block-helpers() {
 
 	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(blockHelpers, #{&}, ());
+	$registration: PSJ_register-module(block-helpers, #{&}, ());
 
 
 	// ------   Generated CSS   ------------- /
@@ -15,27 +15,27 @@
 
 		// ------   Placeholders   ---------- /
 
-		%psj_floatLeft {
+		%PSJ_float-left {
 			float: left;
 		}
 
-		%psj_floatRight {
+		%PSJ_float-right {
 			float: right;
 		}
 
-		%psj_clearLeft {
+		%PSJ_clear-left {
 			clear: left;
 		}
 
-		%psj_clearRight {
+		%PSJ_clear-right {
 			clear: right;
 		}
 
-		%psj_clearBoth {
+		%PSJ_clear-both {
 			clear: both;
 		}
 
-		%psj_centered {
+		%PSJ_centered {
 			float: none;
 			margin-left: auto;
 			margin-right: auto;
@@ -44,29 +44,29 @@
 		// ------   Float Helpers   --------- /
 
 		&--float-left {
-			@extend %psj_floatLeft;
+			@extend %PSJ_float-left;
 		}
 
 		&--float-right {
-			@extend %psj_floatRight;
+			@extend %PSJ_float-right;
 		}
 
 		&--clear-left {
-			@extend %psj_clearLeft;
+			@extend %PSJ_clear-left;
 		}
 
 		&--clear-right {
-			@extend %psj_clearRight;
+			@extend %PSJ_clear-right;
 		}
 
 		&--clear-both {
-			@extend %psj_clearBoth;
+			@extend %PSJ_clear-both;
 		}
 
 		// Center (centers block elements within their respective parent elements)
 
 		&--centered {
-			@extend %psj_centered;
+			@extend %PSJ_centered;
 		}
 	}
 }

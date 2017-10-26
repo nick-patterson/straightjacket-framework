@@ -22,30 +22,13 @@
 
 // ------------------------------------------------- /
 
-@include PSJNormalization();
-
-/* .u {
-	@include PSJDisplayHelpers();
-	@include PSJStructureHelpers();
-}
+@include PSJ_normalization();
 
 .container {
-	@include PSJContainer($config: ());
+	@include PSJ_container();
 }
 
-.grid {
-	@include PSJGrid($config: (gutter: 20px));
+.u {
+	@include PSJ_display-helpers();
+	@include PSJ_structure-helpers();
 }
-
- .text {
-	@include PSJTextSizing($config: ());
-	@include PSJTextHelpers();
-}
-
-.modal {
-	@include PSJPopoverModal();
-}
-
-.tooltip {
-	@include PSJTooltip();
-} */

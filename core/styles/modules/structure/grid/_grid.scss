@@ -2,29 +2,29 @@
 // ------------------------------------------ /
 
 
-@mixin PSJGrid($config: ()) {
+@mixin PSJ_grid($config: ()) {
 
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
-		breakpointMap: $PSJ_breakpointMap,
+		breakpoint-map: $PSJ_breakpoint-map,
 		columns: 12,
-		restrictColumns: false,
+		restrict-columns: false,
 		gutter: $PSJ_base * 4,
 		type: 'block',
-		restrictPushes: false,
-		includeHelpers: true
+		restrict-pushes: false,
+		include-helpers: true
 	), $config);
 
 	$id: unique-id();
 	$columns: map-get($config, columns);
-	$restrictedColumns: map-get($config, restrictColumns);
-	$restrictedPushes: map-get($config, restrictedPushes);
+	$restricted-columns: map-get($config, restrict-columns);
+	$restrict-pushes: map-get($config, restrict-pushes);
 
 
 	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(grid, #{&}, $config);
+	$registration: PSJ_register-module(grid, #{&}, $config);
 
 
 	// ------   Generated CSS   ------------- /
@@ -35,10 +35,10 @@
 		%#{$id}_grid {
 			clear: both;
 		}
-		%#{$id}_blockGrid {
-			@include clearfix();
+		%#{$id}_block-grid {
+			@include PSJ_clearfix();
 		}
-		%#{$id}_flexGrid {
+		%#{$id}_flex-grid {
 			display: flex;
 			flex-wrap: wrap;
 		}
@@ -49,11 +49,11 @@
 			@extend %#{$id}_grid;
 
 			@if (map-get($config,type) == flex) {
-				@extend %#{$id}_flexGrid;
+				@extend %#{$id}_flex-grid;
 			}
 
 			@else {
-				@extend %#{$id}_blockGrid;
+				@extend %#{$id}_block-grid;
 			}
 
 			// User-generated styling
@@ -61,7 +61,7 @@
 		}
 
 		// Main grid helpers
-		@if map-get($config, includeHelpers) and psj-is-module-registered( flexhelpers ) and map-get($config, type) == 'flex' {
+		@if map-get($config, include-helpers) and PSJ_is-module-registered( flex-helpers ) and map-get($config, type) == 'flex' {
 			&--justify-right {
 				justify-content: right;
 			}
@@ -72,7 +72,7 @@
 		%#{$id}_row {
 			clear: both;
 
-			@include clearfix();
+			@include PSJ_clearfix();
 		}
 		&__row {
 			@extend %#{$id}_row;
@@ -83,10 +83,10 @@
 		%#{$id}_column {
 			padding-left: map-get($config, gutter);
 		}
-		%#{$id}_floatColumn {
+		%#{$id}_float-column {
 			float: left;
 		}
-		%#{$id}_flexColumn {
+		%#{$id}_flex-column {
 		}
 
 		&__column {
@@ -94,23 +94,23 @@
 			@extend %#{$id}_column;
 
 			@if (map-get($config, type) == flex) {
-				@extend %#{$id}_flexColumn;
+				@extend %#{$id}_flex-column;
 			}
 
 			@else {
-				@extend %#{$id}_floatColumn;
+				@extend %#{$id}_float-column;
 			}
 
 			// Default columns (used for mobile devices & other tiny screens)
-			$restrictColumns: map-get($config, restrictColumns);
+			$restrict-columns: map-get($config, restrict-columns);
 
 			// Only run loops if configured correctly
-			@if $restrictColumns == false or type-of($restrictColumns) == 'list' {
+			@if $restrict-columns == false or type-of($restrict-columns) == 'list' {
 
 				@for $i from 1 through $columns {
 
 					// Only output CSS if index is in restrictedColumns list
-					@if $restrictColumns == false or index($restrictColumns, $i) {
+					@if $restrict-columns == false or index($restrict-columns, $i) {
 
 						&--#{ $i } {
 							width: ((100 / $columns) * $i) * 1%;
@@ -119,21 +119,21 @@
 				}
 
 				// Columns for other screen sizes
-				@each $breakpointLabel, $propMap in map-get($config, breakpointMap) {
+				@each $breakpoint-label, $prop-map in map-get($config, $PSJ_breakpoint-map) {
 
-					@if $breakpointLabel != default {
+					@if $breakpoint-label != default {
 
-						@media screen and (min-width: map-get($propMap, viewportWidth)) {
+						@media screen and (min-width: map-get($prop-map, viewportWidth)) {
 
 							@for $i from 1 through $columns {
 
-								// Only allocate placeholder if index is in restrictColumns list
-								@if $restrictColumns == false or index($restrictColumns, $i) {
+								// Only allocate placeholder if index is in restrict-columns list
+								@if $restrict-columns == false or index($restrict-columns, $i) {
 
 									@at-root {
 
 										// Dynamc placeholder
-										%#{$id}-column-#{ $i }-#{ $breakpointLabel } {
+										%#{$id}-column-#{ $i }-#{ $breakpoint-label } {
 											width: ((100 / $columns) * $i) * 1%;
 										}
 									}
@@ -141,10 +141,10 @@
 									@for $c from 1 through $columns {
 
 										// Only output CSS if both indicies is in restrictedColumns list
-										@if $restrictColumns == false or index($restrictColumns, $c) {
+										@if $restrict-columns == false or index($restrict-columns, $c) {
 
-											&--#{ $c + \@ + $breakpointLabel } {
-												@extend %#{$id}-column-#{ $c }-#{ $breakpointLabel };
+											&--#{ $c + \@ + $breakpoint-label } {
+												@extend %#{$id}-column-#{ $c }-#{ $breakpoint-label };
 											}
 										}
 									}
@@ -156,15 +156,14 @@
 			}
 
 			// Pushes
-			$restrictPushes: map-get($config, restrictPushes);
 
 			// Only run loop if configured correctly
-			@if $restrictPushes == false or type-of($restrictPushes) == 'list' {
+			@if $restrict-pushes == false or type-of($restrict-pushes) == 'list' {
 
 				@for $i from 1 through ($columns - 1) {
 
 					// Only output CSS if index is in restrictedPushes list
-					@if $restrictPushes == false or index($restrictPushes, $i) {
+					@if $restrict-pushes == false or index($restrict-pushes, $i) {
 
 						@at-root {
 
@@ -187,24 +186,24 @@
 			// Column Helpers
 
 			// Block helpers (linked with stricture helpers module)
-			@if map-get($config, includeHelpers) and map-get($config, type) != 'flex' and psj-is-module-registered( blockHelpers ) {
+			@if map-get($config, include-helpers) and map-get($config, type) != 'flex' and PSJ_is-module-registered( block-helpers ) {
 
-				$helperBlock: psj-get-module-namespace(blockHelpers, 1);
+				$helper-block: psj-get-module-namespace(block-helpers, 1);
 
 				@for $i from 1 through $columns {
 
 					// Only output CSS if index is in restrictedColumns list
-					@if $restrictColumns == false or index($restrictColumns, $i) {
+					@if $restrict-columns == false or index($restrict-columns, $i) {
 
-						&--#{ $i + $helperBlock }--float-left {
+						&--#{ $i + $helper-block }--float-left {
 							@extend %psj_floatLeft;
 						}
 
-						&--#{ $i + $helperBlock }--float-right {
+						&--#{ $i + $helper-block }--float-right {
 							@extend %psj_floatRight;
 						}
 
-						&--#{ $i + $helperBlock }--centered {
+						&--#{ $i + $helper-block }--centered {
 							@extend %psj_centered;
 						}
 					}

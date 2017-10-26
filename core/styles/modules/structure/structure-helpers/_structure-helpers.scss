@@ -2,19 +2,19 @@
 // ------------------------------------------ /
 
 
-@mixin PSJStructureHelpers($config: ()) {
+@mixin PSJ_structure-helpers($config: ()) {
 
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
-		includeBlockHelpers: true,
-		includeFlexHelpers: true
+		include-block-helpers: true,
+		include-flex-helpers: true
 	), $config);
 
 
 	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(structureHelpers, #{&}, $config);
+	$registration: PSJ_register-module(structure-helpers, #{&}, $config);
 
 
 	// ------   Generated CSS   ------------- /
@@ -22,13 +22,13 @@
 	@at-root {
 
 		// Include block helpers if instructed
-		@if (map-get($config, includeBlockHelpers)) {
-			@include PSJBlockHelpers();
+		@if (map-get($config, include-block-helpers)) {
+			@include PSJ_block-helpers();
 		}
 
 		// Include flex helpers if instructed
-		@if (map-get($config, includeFlexHelpers)) {
-			@include PSJFlexHelpers();
+		@if (map-get($config, include-flex-helpers)) {
+			@include PSJ_flex-helpers();
 		}
 	}
 }

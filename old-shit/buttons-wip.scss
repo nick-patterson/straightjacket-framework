@@ -10,8 +10,8 @@
 	$config: map-merge((
 		prefix: '',
 		padding: 1em 2em,
-		textColor: color(secondary),
-		background: color(primary),
+		textColor: PSJ_color(secondary),
+		background: PSJ_color(primary),
 		hover: $psj_default,
 		override: $psj_default,
 	), $config);
@@ -34,8 +34,8 @@
 	$config: map-merge((
 		prefix: '',
 		padding: 1em 2em,
-		textColor: color(secondary),
-		background: color(primary),
+		textColor: PSJ_color(secondary),
+		background: PSJ_color(primary),
 		hover: $psj_default,
 		override: $psj_default,
 		arrowColor: $psj_default,
@@ -97,7 +97,7 @@
 	$config: map-merge((
 		prefix: '',
 		padding: 1em 2em,
-		textColor: color(secondary),
+		textColor: PSJ_color(secondary),
 		background: none,
 		hover: $psj_default,
 		override: $psj_default,
@@ -157,11 +157,11 @@
 	$config: map-merge((
 		prefix: '',
 		padding: 1em 2em,
-		textColor: color(secondary),
+		textColor: PSJ_color(secondary),
 		background: none,
 		hover: $psj_default,
 		override: $psj_default,
-		slideBackground: color(primary),
+		slideBackground: PSJ_color(primary),
 	), $config);
 
 

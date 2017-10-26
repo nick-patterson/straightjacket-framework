@@ -83,20 +83,20 @@
 //
 // ------------------------------------------------- /
 
-$PSJModuleRegistry: (
+$PSJ_module-registry: (
 
-	displayHelpers: (),
+	display-helpers: (),
 
 	container: (),
 	grid: (),
-	structureHelpers: (),
-	blockHelpers: (),
-	flexHelpers: (),
+	structure-helpers: (),
+	block-helpers: (),
+	flex-helpers: (),
 
-	textSizing: (),
-	texthelpers: (),
+	text-sizing: (),
+	text-helpers: (),
 
-	popoverModal: (),
+	popover-modal: (),
 
 	tooltip: ()
 
@@ -161,7 +161,7 @@ $PSJModuleRegistry: (
 //
 //   Global colors live inside of a map that
 //	 allows users to easily access them with the
-//	 simple color(color) function.
+//	 simple PSJ_color(color) function.
 //
 //	 This map can be found in the StraightJacket
 //	 Configuration file.

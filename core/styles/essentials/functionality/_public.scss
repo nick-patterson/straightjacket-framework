@@ -5,30 +5,30 @@
 
 // ------   Strip Units    ------------------------- /
 
-@function strip-unit($quantity) {
+@function PSJ_strip-unit($quantity) {
 	@return $quantity / ($quantity * 0 + 1);
 }
 
 // ------   Calculate Rem Based on textBase    ----- /
 
-@mixin rem($props, $rem: 1rem, $breakpoint: lg) {
+@mixin PSJ_rem($props, $rem: 1rem, $breakpoint: lg) {
 
 	@if type-of($props) == list {
 		@each $prop in $props {
-			#{$prop}: strip-unit($rem) * map-get($PSJ_textBase, $breakpoint);
-			#{$prop}: strip-unit($rem) * 1rem;
+			#{$prop}: PSJ_strip-unit($rem) * map-get($PSJ_text-base, $breakpoint);
+			#{$prop}: PSJ_strip-unit($rem) * 1rem;
 		}
 	}
 
 	@else {
-		#{$props}: strip-unit($rem) * map-get($PSJ_textBase, $breakpoint);
-		#{$props}: strip-unit($rem) * 1rem;
+		#{$props}: PSJ_strip-unit($rem) * map-get($PSJ_text-base, $breakpoint);
+		#{$props}: PSJ_strip-unit($rem) * 1rem;
 	}
 }
 
 // ------   Retrieve from Nested Map    ------------ /
 
-@function map-deep-get($map, $keys...) {
+@function PSJ_map-deep-get($map, $keys...) {
 
 	@each $key in $keys {
 		$map: map-get($map, $key);
@@ -41,7 +41,7 @@
 // ------   Exponential Functions   ---------------- /
 // Supports only integers as exponents for now
 
-@function pow($b, $x) {
+@function PSJ_pow($b, $x) {
 
 	@if type_of($b) != number or type_of($x) != number or not unitless($b) or not unitless($x) {
 		@warn 'Both arguments must be unitless numbers.';
@@ -105,11 +105,11 @@
 
 	@for $i from 2 to round($x + 150) {
 		@if $i % 2 != 0 {
-			$y: $y + (pow($t, $i) / $i);
+			$y: $y + (PSJ_pow($t, $i) / $i);
 		}
 
 		@else {
-			$y: $y - (pow($t, $i) / $i);
+			$y: $y - (PSJ_pow($t, $i) / $i);
 		}
 	}
 
@@ -125,7 +125,7 @@
 
 // ------   Rounding Decimals   -------------------- /
 
-@function round-decimal($number, $places: 0, $mode: round) {
+@function PSJ_round-decimal($number, $places: 0, $mode: round) {
 
 	$n: 1;
 
@@ -166,16 +166,10 @@
 
 // ------   Retrieving Colors   -------------------- /
 
-@function color($color) {
-	@if map-has-key($PSJ_colorMap, $color) {
+@function PSJ_color($color) {
 
-		@if map-has-key(map-get($PSJ_colorMap, $color), value) {
-			@return map-deep-get($PSJ_colorMap, $color, value);
-		}
-
-		@else {
-			@warn '#{ $color } does not have a value assigned to it in your color map';
-		}
+	@if map-has-key($PSJ_color-map, $color) {
+		@return map-get($PSJ_color-map, $color);
 	}
 
 	@else {

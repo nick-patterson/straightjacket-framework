@@ -4,7 +4,7 @@
 
 
 // Clearfix
-@mixin clearfix() {
+@mixin PSJ_clearfix() {
 	&::after {
 		content: '';
 		display: block;

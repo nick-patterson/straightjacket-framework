@@ -2,51 +2,49 @@
 // ------------------------------------------ /
 
 
-@mixin PSJTextSizing($config: ()) {
+@mixin PSJ_text-sizing($config: ()) {
 
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
-		namespace: '',
-		breakpointMap: $PSJ_breakpointMap,
-		textMap: $PSJ_textMap,
-		renderAsExtendable: false
+		breakpoint-map: $PSJ_breakpoint-map,
+		text-map: $PSJ_text-map
 	), $config);
 
 
 	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(textSizing, #{&}, $config);
+	$registration: PSJ_register-module(text-sizing, #{&}, $config);
 
 
 	// ------   Generated CSS   ------------- /
 
 	@at-root {
 
-		@each $element, $propMap in map-get($config, textMap) {
+		@each $element, $prop-map in map-get($config, textMap) {
 
 			// Get default element for size treatment
-			$defaultElement: map-get($propMap, defaultElement);
+			$default-element: map-get($prop-map, defaultElement);
 
 			// Construct selector
-			$selector: &--#{$element + if($defaultElement, ' ,' + $defaultElement, '')};
+			$selector: &--#{$element + if($default-element, ' ,' + $default-element, '')};
 
 			// Rendered
 			#{$selector} {
 
-				@each $breakpoint, $cssPropMap in map-get($propMap, breakpoints) {
+				@each $breakpoint, $css-prop-map in map-get($prop-map, breakpoints) {
 
 					// Defaults
 					@if $breakpoint == default {
 
-						@each $cssProp, $cssValue in $cssPropMap {
+						@each $css-prop, $css-value in $css-prop-map {
 
 							// Render with rem fallback
-							@if type-of($cssValue) == number and unit($cssValue) == rem {
-								@include rem($cssProp, $cssValue, default);
+							@if type-of($css-value) == number and unit($css-value) == rem {
+								@include PSJ_rem($css-prop, $css-value, default);
 							}
 							@else {
-								#{$cssProp}: #{$cssValue};
+								#{$css-prop}: #{$css-value};
 							}
 						}
 					}
@@ -55,18 +53,18 @@
 					@else {
 
 						// Only print CSS if breakpoint exists in both the text map and the breakpoint map
-						@if map-has-key(map-get($config, breakpointMap), $breakpoint) {
+						@if map-has-key(map-get($config, breakpoint-map), $breakpoint) {
 
-							@media screen and (min-width: map-deep-get($config, breakpointMap, $breakpoint, viewportWidth)) {
+							@media screen and (min-width: PSJ_map-deep-get($config, breakpoint-map, $breakpoint, viewport-width)) {
 
-								@each $cssProp, $cssValue in $cssPropMap {
+								@each $css-prop, $css-value in $css-prop-map {
 
 									// Render with rem fallback
-									@if type-of($cssValue) == number and unit($cssValue) == rem {
-										@include rem($cssProp, $cssValue, default);
+									@if type-of($css-value) == number and unit($css-value) == rem {
+										@include PSJ_rem($css-prop, $css-value, default);
 									}
 									@else {
-										#{$cssProp}: #{$cssValue};
+										#{$css-prop}: #{$css-value};
 									}
 								}
 							}

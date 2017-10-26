@@ -2,11 +2,11 @@
 // ------------------------------------------ /
 
 
-@mixin PSJFlexHelpers() {
+@mixin PSJ_flex-helpers() {
 
 	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(flexHelpers, #{&}, ());
+	$registration: PSJ_register-module(flex-helpers, #{&}, ());
 
 
 	// ------   Generated CSS   ------------- /

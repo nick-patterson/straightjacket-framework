@@ -2,21 +2,19 @@
 // ------------------------------------------ /
 
 
-@mixin PSJNormalization($config: ()) {
+@mixin PSJ_normalization($config: ()) {
 
 
 	// ------   Default Configuration   ----- /
 
 	$config: map-merge((
-		includeBoxSizing: true
+		include-box-sizing: true
 	), $config);
-
-	$id: unique-id();
 
 
 	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(normalization, normalization, ());
+	$registration: PSJ_register-module(normalization, normalization, ());
 
 
 	// ------   Generated CSS   ------------- /
@@ -26,7 +24,7 @@
 		// Rendered
 
 		// Change box-sizing to border-box universally
-		@if (map_get($config, includeBoxSizing) == true) {
+		@if (map_get($config, include-box-sizing) == true) {
 
 			html {
 				box-sizing: border-box;

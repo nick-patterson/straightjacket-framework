@@ -2,12 +2,12 @@
 // ------------------------------------------ /
 
 
-@mixin PSJDisplayHelpers() {
+@mixin PSJ_display-helpers() {
 
 
 	// ------   Registration   -------------- /
 
-	$registration: psj-register-module(displayHelpers, #{&}, ());
+	$registration: PSJ_register-module(display-helpers, #{&}, ());
 
 
 	// ------   Generated CSS   ------------- /
