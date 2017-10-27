@@ -13,3 +13,32 @@
 		height: 0;
 	}
 }
+
+// Print a map of styles
+@mixin PSJ_map-styles($style-map) {
+	@each $prop, $value in $style-map {
+		#{$prop}: #{$value};
+	}
+}
+
+// Generate breakpoint selectors for every breakpoint
+@mixin PSJ_breakpointify-styles($breakpoint-map: $PSJ_breakpoint-map, $include-default: true) {
+
+	// If default is included, add user-generated content
+	@if $include-default {
+		@content;
+	}
+
+	// Styles for other brakpoints
+	@each $breakpoint-label, $viewport-width in $breakpoint-map {
+
+		// Set media query
+		@media screen and (min-width: $viewport-width) {
+
+			// User-generated-content
+			&#{\@ + $breakpoint-label} {
+				@content;
+			}
+		}
+	}
+}

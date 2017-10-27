@@ -61,7 +61,7 @@
 
 									// Render with rem fallback
 									@if type-of($css-value) == number and unit($css-value) == rem {
-										@include PSJ_rem($css-prop, $css-value, default);
+										@include PSJ_rem($css-prop, $css-value, $breakpoint);
 									}
 									@else {
 										#{$css-prop}: #{$css-value};

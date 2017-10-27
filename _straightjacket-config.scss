@@ -95,41 +95,14 @@ $PSJ_color-map: (
 // ------------------------------------------------- /
 
 $PSJ_breakpoint-map: (
-	default: (
-		container-width: 90%
-	),
-	xs: (
-		viewport-width: 480px,
-		container-width: 90%
-	),
-	sm: (
-		viewport-width: 680px,
-		container-width: 85%
-	),
-	md: (
-		viewport-width: 768px,
-		container-width: 680px
-	),
-	lg: (
-		viewport-width: 1024px,
-		container-width: 940px
-	),
-	xl: (
-		viewport-width: 1200px,
-		container-width: 1080px
-	),
-	xxl: (
-		viewport-width: 1600px,
-		container-width: 1280px
-	),
-	xxxl: (
-		viewport-width: 1920px,
-		container-width: 1344px
-	),
-	longboi: (
-		viewport-width: 3000px,
-		container-width: 1440px
-	)
+	xs: 480px,
+	sm: 680px,
+	md: 768px,
+	lg: 1024px,
+	xl: 1200px,
+	xxl: 1600px,
+	xxxl: 1920px,
+	longboi: 3000px
 );
 
 $PSJ_container-map: (
@@ -171,13 +144,14 @@ $PSJ_container-map: (
 // ------------------------------------------------- /
 
 $PSJ_font-map: (
-
+	headings: 'Klavika, sans-serif',
+	body: 'Copernicus, serif'
 );
 
 $PSJ_text-map: (
 
 	// Heading 1 styles
-	'heading-1': (
+	heading-1: (
 		default-element: h1,
 		breakpoints: (
 			default: (
@@ -212,7 +186,7 @@ $PSJ_text-map: (
 	),
 
 	// Heading 2 styles
-	'heading-2': (
+	heading-2: (
 		default-element: h2,
 		breakpoints: (
 			default: (
@@ -247,7 +221,7 @@ $PSJ_text-map: (
 	),
 
 	// Heading 3 styles
-	'heading-3': (
+	heading-3: (
 		default-element: h3,
 		breakpoints: (
 			default: (
@@ -282,7 +256,7 @@ $PSJ_text-map: (
 	),
 
 	// Heading 4 styles
-	'heading-4': (
+	heading-4: (
 		default-element: h4,
 		breakpoints: (
 			default: (
@@ -317,7 +291,7 @@ $PSJ_text-map: (
 	),
 
 	// Body styles (be vewy vewy cereful)
-	'body': (
+	body: (
 		default-element: html,
 		breakpoints: (
 			default: (

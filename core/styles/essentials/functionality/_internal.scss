@@ -3,8 +3,9 @@
 // ================================================= /
 
 
-// ------   Registering Modules   ------------------ /
+// ------   Interacting with Modules   ------------- /
 
+// Module registration
 @function PSJ_register-module($module-name, $module-namespace, $module-config: () ) {
 
 	// Construct a new entry
@@ -25,19 +26,35 @@
 }
 
 
-// ------   Checking Module Registration   --------- /
-
+// Check to see if a module is registered
 @function PSJ_is-module-registered($module-name) {
 	@return length(map-get($PSJ_module-registry, $module-name)) > 0;
 }
 
 
-// ------   Getting Module Props   ----------------- /
-
+// Get instance of a module
 @function PSJ_get-module-instance($module-name, $index: 1) {
 	@return nth(map-get($PSJ_module-registry, $module-name), $index);
 }
 
+// Get namespace of a module
 @function PSJ_get-module-namespace($module-name, $index: 1) {
 	@return map-get(PSJ_get-module-instance($module-name, $index), namespace);
+}
+
+
+// ------   Abstractions   ------------------------- /
+
+// Get a value from a map in a friendly, transparent, helpful-when-fails way!
+@function PSJ_map-friendly-get( $map, $map-nice-name, $key ) {
+
+	@if map-has-key($map, $key) {
+		@return map-get($map, $key);
+	}
+
+	@else {
+		@warn '#{ $key } is not defined in your ' + #{$map-nice-name} + ' map';
+	}
+
+	@return false;
 }

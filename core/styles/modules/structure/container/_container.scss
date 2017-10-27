@@ -34,13 +34,10 @@
 	@content;
 
 	// Container for other screen sizes
-	@each $breakpoint, $prop-map in map-get($config, breakpoint-map) {
+	@each $breakpoint-label, $viewport-width in map-get($config, breakpoint-map) {
 
-		@if $breakpoint != default {
-
-			@media (min-width: map-get($prop-map, viewport-width)) {
-				width: PSJ_map-deep-get($config, container-map, $breakpoint);
-			}
+		@media (min-width: $viewport-width) {
+			width: PSJ_map-deep-get($config, container-map, $breakpoint-label);
 		}
 	}
 }

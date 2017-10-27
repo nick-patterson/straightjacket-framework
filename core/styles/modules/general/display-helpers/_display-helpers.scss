@@ -2,7 +2,15 @@
 // ------------------------------------------ /
 
 
-@mixin PSJ_display-helpers() {
+@mixin PSJ_display-helpers($config: ()) {
+
+	// ------   Default Configuration   ----- /
+
+	$config: map-merge((
+		include-breakpoints: true,
+		breakpoint-map: $PSJ_breakpoint-map,
+		provide-placeholders: true,
+	), $config);
 
 
 	// ------   Registration   -------------- /
@@ -16,28 +24,40 @@
 
 		// Display helpers
 		&--invisible {
-			visibility: hidden;
-			opacity: 0;
+			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
+				visibility: hidden;
+				opacity: 0;
+			}
 		}
 
 		&--hidden {
-			display: none;
+			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
+				display: none;
+			}
 		}
 
 		&--inline {
-			display: inline;
+			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
+				display: inline;
+			}
 		}
 
 		&--block {
-			display: block;
+			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
+				display: block;
+			}
 		}
 
 		&--inline-block {
-			display: inline-block;
+			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
+				display: inline-block;
+			}
 		}
 
 		&--flex {
-			display: flex;
+			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
+				display: flex;
+			}
 		}
 	}
 }

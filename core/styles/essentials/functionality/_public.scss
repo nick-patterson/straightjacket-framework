@@ -3,14 +3,14 @@
 // ================================================= /
 
 
-// ------   Strip Units    ------------------------- /
+// ------   General functions   -------------------- /
 
+// Strip unit
 @function PSJ_strip-unit($quantity) {
 	@return $quantity / ($quantity * 0 + 1);
 }
 
-// ------   Calculate Rem Based on textBase    ----- /
-
+//C alculate Rem Based on text-base
 @mixin PSJ_rem($props, $rem: 1rem, $breakpoint: lg) {
 
 	@if type-of($props) == list {
@@ -26,21 +26,22 @@
 	}
 }
 
-// ------   Retrieve from Nested Map    ------------ /
+//R etrieve value from Nested Map
 
 @function PSJ_map-deep-get($map, $keys...) {
 
 	@each $key in $keys {
-		$map: map-get($map, $key);
+		$map: PSJ_map-friendly-get($map, $map, $key);
 	}
 
 	@return $map;
 }
 
 
-// ------   Exponential Functions   ---------------- /
-// Supports only integers as exponents for now
+// ------   Mathematics Functions   ---------------- /
 
+// Exponentiation
+// Supports only integers as exponents for now
 @function PSJ_pow($b, $x) {
 
 	@if type_of($b) != number or type_of($x) != number or not unitless($b) or not unitless($x) {
@@ -83,9 +84,8 @@
 }
 
 
-// ------   Natural Logrithmic Functions   --------- /
+// Natural Logrithms
 // Who in the hell thought it would ever come to needing Taylor series expansion in sass!?
-
 @function ln($x) {
 
 	@if type_of($x) != number or not unitless($x) {
@@ -123,8 +123,7 @@
 }
 
 
-// ------   Rounding Decimals   -------------------- /
-
+// Round decimals
 @function PSJ_round-decimal($number, $places: 0, $mode: round) {
 
 	$n: 1;
@@ -164,15 +163,14 @@
 }
 
 
-// ------   Retrieving Colors   -------------------- /
+// ------   Interacting with PSJ varibles   -------- /
 
+// Get color from color map
 @function PSJ_color($color) {
+	@return PSJ_map-friendly-get($PSJ_color-map, 'color', $color);
+}
 
-	@if map-has-key($PSJ_color-map, $color) {
-		@return map-get($PSJ_color-map, $color);
-	}
-
-	@else {
-		@warn '#{ $color } is not defined in your color map';
-	}
+// Get font from font map
+@function PSJ_font($font) {
+	@return PSJ_map-friendly-get($PSJ_font-map, 'font', $font);
 }

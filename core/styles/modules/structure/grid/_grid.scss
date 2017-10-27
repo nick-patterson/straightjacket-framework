@@ -18,7 +18,7 @@
 
 	$id: unique-id();
 	$columns: map-get($config, columns);
-	$restricted-columns: map-get($config, restrict-columns);
+	$restrict-columns: map-get($config, restrict-columns);
 	$restrict-pushes: map-get($config, restrict-pushes);
 
 
@@ -101,12 +101,12 @@
 				@extend %#{$id}_float-column;
 			}
 
-			// Default columns (used for mobile devices & other tiny screens)
-			$restrict-columns: map-get($config, restrict-columns);
+			// Columns
 
-			// Only run loops if configured correctly
+			// Only run loops if columns are included
 			@if $restrict-columns == false or type-of($restrict-columns) == 'list' {
 
+				//Default columns (used for mobile devices & other tiny screens)
 				@for $i from 1 through $columns {
 
 					// Only output CSS if index is in restrictedColumns list
@@ -119,35 +119,17 @@
 				}
 
 				// Columns for other screen sizes
-				@each $breakpoint-label, $prop-map in map-get($config, $PSJ_breakpoint-map) {
+				@each $breakpoint-label, $viewport-width in map-get($config, breakpoint-map) {
 
-					@if $breakpoint-label != default {
+					@media screen and (min-width: $viewport-width) {
 
-						@media screen and (min-width: map-get($prop-map, viewportWidth)) {
+						@for $i from 1 through $columns {
 
-							@for $i from 1 through $columns {
+							// Only output column if index is in restrict-columns list
+							@if $restrict-columns == false or index($restrict-columns, $i) {
 
-								// Only allocate placeholder if index is in restrict-columns list
-								@if $restrict-columns == false or index($restrict-columns, $i) {
-
-									@at-root {
-
-										// Dynamc placeholder
-										%#{$id}-column-#{ $i }-#{ $breakpoint-label } {
-											width: ((100 / $columns) * $i) * 1%;
-										}
-									}
-
-									@for $c from 1 through $columns {
-
-										// Only output CSS if both indicies is in restrictedColumns list
-										@if $restrict-columns == false or index($restrict-columns, $c) {
-
-											&--#{ $c + \@ + $breakpoint-label } {
-												@extend %#{$id}-column-#{ $c }-#{ $breakpoint-label };
-											}
-										}
-									}
+								&--#{ $i + \@ + $breakpoint-label } {
+									width: ((100 / $columns) * $i) * 1%;
 								}
 							}
 						}
@@ -155,29 +137,19 @@
 				}
 			}
 
-			// Pushes
+			// Default Pushes
 
-			// Only run loop if configured correctly
+			// Only run loop if pushes are included
 			@if $restrict-pushes == false or type-of($restrict-pushes) == 'list' {
 
+				// Default pushes (used for mobile devices & other tiny screens)
 				@for $i from 1 through ($columns - 1) {
 
 					// Only output CSS if index is in restrictedPushes list
 					@if $restrict-pushes == false or index($restrict-pushes, $i) {
 
-						@at-root {
-
-							// Dynamc placeholder
-							%#{$id}-column-#{ $i }-push-#{ $i } {
-								margin-left: ((100 / $columns) * $i) * 1%;
-							}
-						}
-
-						@for $c from 1 through ($columns - 1) {
-
-							&--#{ $c }.#{ push }--#{ $i } {
-								@extend %#{$id}-column-#{ $i }-push-#{ $i };
-							}
+						&--#{ push }-#{ $i } {
+							margin-left: ((100 / $columns) * $i) * 1%;
 						}
 					}
 				}
@@ -188,7 +160,7 @@
 			// Block helpers (linked with stricture helpers module)
 			@if map-get($config, include-helpers) and map-get($config, type) != 'flex' and PSJ_is-module-registered( block-helpers ) {
 
-				$helper-block: psj-get-module-namespace(block-helpers, 1);
+				$helper-block: PSJ_get-module-namespace(block-helpers, 1);
 
 				@for $i from 1 through $columns {
 
@@ -196,15 +168,15 @@
 					@if $restrict-columns == false or index($restrict-columns, $i) {
 
 						&--#{ $i + $helper-block }--float-left {
-							@extend %psj_floatLeft;
+							@extend %PSJ_float-left;
 						}
 
 						&--#{ $i + $helper-block }--float-right {
-							@extend %psj_floatRight;
+							@extend %PSJ_float-right;
 						}
 
 						&--#{ $i + $helper-block }--centered {
-							@extend %psj_centered;
+							@extend %PSJ_centered;
 						}
 					}
 				}
