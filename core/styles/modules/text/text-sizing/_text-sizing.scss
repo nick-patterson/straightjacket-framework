@@ -21,10 +21,10 @@
 
 	@at-root {
 
-		@each $element, $prop-map in map-get($config, textMap) {
+		@each $element, $prop-map in map-get($config, text-map) {
 
 			// Get default element for size treatment
-			$default-element: map-get($prop-map, defaultElement);
+			$default-element: map-get($prop-map, default-element);
 
 			// Construct selector
 			$selector: &--#{$element + if($default-element, ' ,' + $default-element, '')};
@@ -32,46 +32,36 @@
 			// Rendered
 			#{$selector} {
 
+				// Default text (for mobile and other tiny screen sizes)
+				@each $css-prop, $css-value in map-deep-get(prop-map, breakpoints, default) {
+
+					// Render with rem fallback
+					@if type-of($css-value) == number and unit($css-value) == rem {
+						@include PSJ_rem($css-prop, $css-value, default);
+					}
+					@else {
+						#{$css-prop}: #{$css-value};
+					}
+				}
+
+				// Text for other screen sizes
 				@each $breakpoint, $css-prop-map in map-get($prop-map, breakpoints) {
 
-					// Defaults
-					@if $breakpoint == default {
+					// Only print CSS if breakpoint exists in both the text map and the breakpoint map
+					@if map-has-key(map-get($config, breakpoint-map), $breakpoint) {
 
-						@each $css-prop, $css-value in $css-prop-map {
+						@media screen and (min-width: PSJ_map-deep-get($config, breakpoint-map, $breakpoint)) {
 
-							// Render with rem fallback
-							@if type-of($css-value) == number and unit($css-value) == rem {
-								@include PSJ_rem($css-prop, $css-value, default);
-							}
-							@else {
-								#{$css-prop}: #{$css-value};
-							}
-						}
-					}
+							@each $css-prop, $css-value in $css-prop-map {
 
-					// Responsive
-					@else {
-
-						// Only print CSS if breakpoint exists in both the text map and the breakpoint map
-						@if map-has-key(map-get($config, breakpoint-map), $breakpoint) {
-
-							@media screen and (min-width: PSJ_map-deep-get($config, breakpoint-map, $breakpoint, viewport-width)) {
-
-								@each $css-prop, $css-value in $css-prop-map {
-
-									// Render with rem fallback
-									@if type-of($css-value) == number and unit($css-value) == rem {
-										@include PSJ_rem($css-prop, $css-value, $breakpoint);
-									}
-									@else {
-										#{$css-prop}: #{$css-value};
-									}
+								// Render with rem fallback
+								@if type-of($css-value) == number and unit($css-value) == rem {
+									@include PSJ_rem($css-prop, $css-value, $breakpoint);
+								}
+								@else {
+									#{$css-prop}: #{$css-value};
 								}
 							}
-						}
-
-						@else {
-							@warn 'You have breakpoints in your breakpoint map that do not exist in your text map or vice versa. Check to make sure this is what you want.';
 						}
 					}
 				}

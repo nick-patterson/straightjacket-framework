@@ -8,9 +8,31 @@
 
 	$config: map-merge((
 		include-breakpoints: true,
-		breakpoint-map: $PSJ_breakpoint-map,
-		provide-placeholders: true,
+		breakpoint-map: $PSJ_breakpoint-map
 	), $config);
+
+	// Set up helper classes
+	$helper-classes: (
+		invisible: (
+			visibility: hidden,
+			opacity: 0
+		),
+		hidden: (
+			display: none
+		),
+		inline: (
+			display: inline
+		),
+		block: (
+			display: block
+		),
+		inline-block: (
+			display: inline-block
+		),
+		flex: (
+			display: flex
+		)
+	);
 
 
 	// ------   Registration   -------------- /
@@ -21,43 +43,6 @@
 	// ------   Generated CSS   ------------- /
 
 	@at-root {
-
-		// Display helpers
-		&--invisible {
-			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
-				visibility: hidden;
-				opacity: 0;
-			}
-		}
-
-		&--hidden {
-			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
-				display: none;
-			}
-		}
-
-		&--inline {
-			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
-				display: inline;
-			}
-		}
-
-		&--block {
-			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
-				display: block;
-			}
-		}
-
-		&--inline-block {
-			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
-				display: inline-block;
-			}
-		}
-
-		&--flex {
-			@include PSJ_helper-class-styles(map-get($config, include-breakpoints), map-get($config, breakpoint-map)) {
-				display: flex;
-			}
-		}
+		@include PSJ_map-helper-classes($helper-classes, map-get($config, include-breakpoints), map-get($config, breakpoint-map));
 	}
 }

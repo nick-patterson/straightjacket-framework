@@ -106,7 +106,7 @@
 			// Only run loops if columns are included
 			@if $restrict-columns == false or type-of($restrict-columns) == 'list' {
 
-				//Default columns (used for mobile devices & other tiny screens)
+				// Default columns (used for mobile devices & other tiny screens)
 				@for $i from 1 through $columns {
 
 					// Only output CSS if index is in restrictedColumns list
