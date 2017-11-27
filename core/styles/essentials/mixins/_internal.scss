@@ -20,6 +20,21 @@
 }
 
 // Generate helper classes
+// @mixin PSJ_map-helper-classes($helper-classes, $include-breakpoints: true, $breakpoint-map: $PSJ_breakpoint-map) {
+
+// 	// Loop through and create the actual class
+// 	@each $class-name, $prop-map in $helper-classes {
+// 		&--#{$class-name} {
+
+// 			// Generate the styles
+// 			@include PSJ_print-helper-class-styles($include-breakpoints, $breakpoint-map) {
+// 				@include PSJ_map-styles($prop-map);
+// 			}
+// 		}
+// 	}
+// }
+
+// Generate helper classes
 @mixin PSJ_map-helper-classes($helper-classes, $include-breakpoints: true, $breakpoint-map: $PSJ_breakpoint-map) {
 
 	// Loop through and create the actual class
@@ -27,8 +42,25 @@
 		&--#{$class-name} {
 
 			// Generate the styles
-			@include PSJ_print-helper-class-styles($include-breakpoints, $breakpoint-map) {
-				@include PSJ_map-styles($prop-map);
+			@include PSJ_map-styles($prop-map);
+		}
+	}
+
+	// If breakpoints are included, loop through them again
+	@if $include-breakpoints {
+
+		@each $breakpoint, $viewport-width in $breakpoint-map {
+
+			@each $class-name, $prop-map in $helper-classes {
+
+				@media screen and (min-width:$viewport-width) {
+
+					&--#{$class-name + \@ + $breakpoint} {
+
+						// Generate the styles
+						@include PSJ_map-styles($prop-map);
+					}
+				}
 			}
 		}
 	}

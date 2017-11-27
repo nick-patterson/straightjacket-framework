@@ -24,19 +24,22 @@
 
 // @include PSJ_normalization();
 
-.container {
+.c-container {
 	// @include PSJ_container();
 }
 
-.u {
-	// @include PSJ_display-helpers();
+.u-block {
 	@include PSJ_block-helpers();
 }
 
-.grid {
+.o-grid {
 	// @include PSJ_grid();
 }
 
-.text {
+.u-text {
 	@include PSJ_text-helpers();
+}
+
+.u-display {
+	@include PSJ_display-helpers();
 }

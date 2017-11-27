@@ -8,11 +8,22 @@
 
 	$config: map-merge((
 		include-breakpoints: true,
-		breakpoint-map: $PSJ_breakpoint-map
+		breakpoint-map: $PSJ_breakpoint-map,
+		additional-class-map: ()
 	), $config);
 
 	// Set up helper classes
 	$helper-classes: (
+
+		// Direction
+		direction-row: (
+			flex-direction: row
+		),
+		direction-column: (
+			flex-direction: column
+		),
+
+		// Justification
 		justify-right: (
 			justify-content: right
 		),
@@ -25,13 +36,32 @@
 		justify-center: (
 			justify-content: center
 		),
-		align-bottom: (
-			align-items: bottom
+
+		// Alignment
+		align-start: (
+			align-items: flex-start
+		),
+		align-end: (
+			align-items: flex-end
 		),
 		align-center: (
 			align-items: center
+		),
+
+		// Align self
+		align-self-start: (
+			align-self: flex-start
+		),
+		align-self-end: (
+			align-self: flex-end
+		),
+		align-self-center: (
+			align-self: center
 		)
 	);
+
+	// Merge additional classes into helper classes
+	$helper-classes: map-merge($helper-classes, map-get($config, additional-class-map));
 
 
 	// ------   Registration   -------------- /

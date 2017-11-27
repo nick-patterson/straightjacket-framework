@@ -33,7 +33,7 @@
 			#{$selector} {
 
 				// Default text (for mobile and other tiny screen sizes)
-				@each $css-prop, $css-value in map-deep-get(prop-map, breakpoints, default) {
+				@each $css-prop, $css-value in PSJ_map-deep-get($prop-map, breakpoints, default) {
 
 					// Render with rem fallback
 					@if type-of($css-value) == number and unit($css-value) == rem {

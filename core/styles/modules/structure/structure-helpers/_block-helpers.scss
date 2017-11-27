@@ -8,7 +8,8 @@
 
 	$config: map-merge((
 		include-breakpoints: true,
-		breakpoint-map: $PSJ_breakpoint-map
+		breakpoint-map: $PSJ_breakpoint-map,
+		additional-class-map: ()
 	), $config);
 
 	// Set up helper classes map
@@ -37,6 +38,9 @@
 			margin-right: auto
 		)
 	);
+
+	// Merge additional classes into helper classes
+	$helper-classes: map-merge($helper-classes, map-get($config, additional-class-map));
 
 	// ------   Registration   -------------- /
 
