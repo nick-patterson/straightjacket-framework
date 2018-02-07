@@ -31,12 +31,12 @@
 
 / -------------------------------------------------- /
 
-   VERSION: 1.5 ------------------------------------ /
-   RELEASE: OCTOBER 27, 2017 ----------------------- /
+   VERSION: 0.6 ------------------------------------ /
+   RELEASE: FEBRUARY 7, 2018 ----------------------- /
    AUTHOR: NICK PATTERSON -------------------------- /
 
    PHANTASM: phantasm.io --------------------------- /
-   15FOUR: fifteenfour.com ------------------------- /
+   FIFTEEN FOUR: fifteenfour.com ------------------- /
 
 / ------------------------------------------------- */
 
@@ -63,8 +63,52 @@
 //
 //   1. TEST. TEST. TEST.
 //   2. Expand the number of helpers
+//   3. Clean up the scripts - use ES2015 and event delegation
+//   4. Consider incorporating proportions idea into framework
+//   5. Clean up the way global variables are presented (perhaps add constants doc)
+//   6. Test the new responsive classes system and make sure it works
 //
 // -------------------------------------------------- /
+
+
+// A WORD ON RESPONSIVE CLASSES --------------------- /
+//
+//   Straightjacket uses two different flavors of
+//   responsive classes in its modules
+//
+//   STATIC and DYNAMIC
+//
+//   STATIC responsive classes always have the same
+//   exact property values for each breakpoint.
+//   This is useful in the case of helper classes
+//   in which the goal is to change discrete properties
+//   across different breakpoints. An example is
+//   aligning text to the center on smartphones,
+//   then switching it to left for tablets or laptops
+//   by applying two static responsive classes at
+//   their respective breakpoints. They look like this:
+//
+//   static-class-name: (
+//       property: value
+//   )
+//
+//   DYNAMIC responsive classes can change continuous
+//   properties (such as font size or margins) across
+//   breakpoints and also handle multiple unrelated
+//   properties at the same time. An example of this
+//   is setting up text sizes for different typographic
+//   styles across breakpoints. They look like this:
+//
+//   dynamic-class-name: (
+//       default: (
+//           property: value,
+//           property2: value2
+//       ),
+//       // More breakpoints
+//   )
+//
+// -------------------------------------------------- /
+
 
 
 
@@ -201,9 +245,9 @@ $PSJ_module-registry: (
 // ================================================= /
 
 
-// ------   Text Sizing Module   ------------ /
+// ------   Text Styles Module   ------------ /
 // ------------------------------------------ /
-@import 'modules/text/text-sizing/text-sizing';
+@import 'modules/text/text-styles/text-styles';
 
 // ------   Text Helpers Module   ----------- /
 // ------------------------------------------ /

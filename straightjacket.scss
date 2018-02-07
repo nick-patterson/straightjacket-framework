@@ -29,7 +29,7 @@
 }
 
 .u-block {
-	@include PSJ_block-helpers();
+	// @include PSJ_block-helpers();
 }
 
 .o-grid {
@@ -37,9 +37,10 @@
 }
 
 .u-text {
-	@include PSJ_text-helpers();
+	//@include PSJ_text-helpers();
+	@include PSJ_text-styles();
 }
 
 .u-display {
-	@include PSJ_display-helpers();
+	// @include PSJ_display-helpers();
 }

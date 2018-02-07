@@ -2,7 +2,7 @@
 // ------------------------------------------ /
 
 
-@mixin PSJ_flex-helpers() {
+@mixin PSJ_flex-helpers($config: ()) {
 
 	// ------   Default Configuration   ----- /
 
@@ -24,8 +24,11 @@
 		),
 
 		// Justification
-		justify-right: (
-			justify-content: right
+		justify-start: (
+			justify-content: flex-start
+		),
+		justify-end: (
+			justify-content: flex-end
 		),
 		justify-around: (
 			justify-content: space-around
@@ -72,6 +75,6 @@
 	// ------   Generated CSS   ------------- /
 
 	@at-root {
-		@include PSJ_map-helper-classes($helper-classes, map-get($config, include-breakpoints), map-get($config, breakpoint-map));
+		@include PSJ_map-static-responsive-classes($helper-classes, map-get($config, include-breakpoints), map-get($config, breakpoint-map));
 	}
 }

@@ -41,20 +41,3 @@
 @function PSJ_get-module-namespace($module-name, $index: 1) {
 	@return map-get(PSJ_get-module-instance($module-name, $index), namespace);
 }
-
-
-// ------   Abstractions   ------------------------- /
-
-// Get a value from a map in a friendly, transparent, helpful-when-fails way!
-@function PSJ_map-friendly-get( $map, $map-nice-name, $key ) {
-
-	@if map-has-key($map, $key) {
-		@return map-get($map, $key);
-	}
-
-	@else {
-		@warn '#{ $key } is not defined in your ' + #{$map-nice-name} + ' map';
-	}
-
-	@return false;
-}

@@ -1,0 +1,31 @@
+// ------   Text Styles Module   ------------ /
+// ------------------------------------------ /
+
+
+@mixin PSJ_text-styles($config: ()) {
+
+	// ------   Default Configuration   ----- /
+
+	$config: map-merge((
+		include-breakpoints: false,
+		fill-empty-breakpoints: false,
+		breakpoint-map: $PSJ_breakpoint-map,
+		text-style-map: $PSJ_text-style-map,
+		additional-class-map: ()
+	), $config);
+
+	// Merge additional classes into text style map
+	$text-classes: map-merge(map-get($config, text-style-map), map-get($config, additional-class-map));
+
+
+	// ------   Registration   -------------- /
+
+	$registration: PSJ_register-module(text-styles, #{&}, $config);
+
+
+	// ------   Generated CSS   ------------- /
+
+	@at-root {
+		@include PSJ_map-dynamic-responsive-classes($text-classes, map-get($config, include-breakpoints), map-get($config, fill-empty-breakpoints), map-get($config, breakpoint-map));
+	}
+}

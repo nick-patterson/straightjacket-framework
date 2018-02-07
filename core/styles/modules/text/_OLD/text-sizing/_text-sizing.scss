@@ -1,0 +1,51 @@
+// ------   Text Sizing Module   ------------ /
+// ------------------------------------------ /
+
+
+@mixin PSJ_text-sizing($config: ()) {
+
+	// ------   Default Configuration   ----- /
+
+	$config: map-merge((
+		breakpoint-map: $PSJ_breakpoint-map,
+		text-size-map: $PSJ_text-size-map
+	), $config);
+
+
+	// ------   Registration   -------------- /
+
+	$registration: PSJ_register-module(text-sizing, #{&}, $config);
+
+
+	// ------   Generated CSS   ------------- /
+
+	@at-root {
+
+		@each $element, $breakpoint-map in map-get($config, text-size-map) {
+
+			// Rendered
+			&--#{$element} {
+
+				// Default text (for mobile and other tiny screen sizes)
+				@each $css-prop, $css-value in map-get($breakpoint-map, default) {
+					#{$css-prop}: #{$css-value};
+				}
+
+				// Text for other screen sizes
+				@each $breakpoint, $css-prop-map in $breakpoint-map {
+
+					// Only print CSS if breakpoint exists in both the text map and the breakpoint map
+					@if map-has-key(map-get($config, breakpoint-map), $breakpoint) {
+
+						@media screen and (min-width: PSJ_map-deep-get($config, breakpoint-map, $breakpoint)) {
+
+							@each $css-prop, $css-value in $css-prop-map {
+								#{$css-prop}: #{$css-value};
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

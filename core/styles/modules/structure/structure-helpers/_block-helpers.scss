@@ -50,6 +50,6 @@
 	// ------   Generated CSS   ------------- /
 
 	@at-root {
-		@include PSJ_map-helper-classes($helper-classes, map-get($config, include-breakpoints), map-get($config, breakpoint-map));
+		@include PSJ_map-static-responsive-classes($helper-classes, map-get($config, include-breakpoints), map-get($config, breakpoint-map));
 	}
 }

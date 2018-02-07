@@ -21,24 +21,23 @@
 	}
 }
 
-// Generate breakpoint selectors for every breakpoint
-@mixin PSJ_breakpointify-styles($breakpoint-map: $PSJ_breakpoint-map, $include-default: true) {
+// Print styles at a breakpoint
+@mixin PSJ_breakpoint($breakpoint: lg, $breakpoint-map: $PSJ_breakpoint-map) {
 
-	// If default is included, add user-generated content
-	@if $include-default {
+	// If the breakpoint is 'default', print the styles
+	@if $breakpoint == default {
 		@content;
 	}
 
-	// Styles for other brakpoints
-	@each $breakpoint-label, $viewport-width in $breakpoint-map {
-
-		// Set media query
-		@media screen and (min-width: $viewport-width) {
-
-			// User-generated-content
-			&#{\@ + $breakpoint-label} {
-				@content;
-			}
+	// Or, if the breakpoint exists in the breakpoint map, print the styles in the correct media query
+	@else if map-has-key($breakpoint-map, $breakpoint) {
+		@media screen and (min-width: map-get($breakpoint-map, $breakpoint)) {
+			@content;
 		}
+	}
+
+	// Otherwise, warn the user and print nothing
+	@else {
+		@warn( #{$breakpoint + ' is not a breakpoint present in your breakpoint map. Styles not printed.'});
 	}
 }

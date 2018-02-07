@@ -11,6 +11,7 @@
 		columns: 12,
 		restrict-columns: false,
 		gutter: $PSJ_base * 4,
+		type: 'block',
 		restrict-pushes: false,
 		include-helpers: true
 	), $config);
@@ -30,34 +31,77 @@
 
 	@at-root {
 
-		// Placehlder for grid-like classes
-		%#{$id}_grid-like {
+		// Main grid
+		%#{$id}_grid {
+			clear: both;
+		}
+		%#{$id}_block-grid {
+			@include PSJ_clearfix();
+		}
+		%#{$id}_flex-grid {
 			display: flex;
 			flex-wrap: wrap;
 		}
 
-		// The grid itself
 		& {
-			@extend %#{$id}_grid-like;
 			margin-left: map-get($config, gutter) * -1;
+
+			@extend %#{$id}_grid;
+
+			@if (map-get($config,type) == flex) {
+				@extend %#{$id}_flex-grid;
+			}
+
+			@else {
+				@extend %#{$id}_block-grid;
+			}
 
 			// User-generated styling
 			@content;
 		}
 
-		// Rows
-		&__row {
-			@extend %#{$id}_grid-like;
+		// Main grid helpers
+		@if map-get($config, include-helpers) and PSJ_is-module-registered( flex-helpers ) and map-get($config, type) == 'flex' {
+			&--justify-right {
+				justify-content: right;
+			}
 		}
+
+
+		// Rows
+		%#{$id}_row {
+			clear: both;
+
+			@include PSJ_clearfix();
+		}
+		&__row {
+			@extend %#{$id}_row;
+		}
+
 
 		// Columns
 		%#{$id}_column {
 			padding-left: map-get($config, gutter);
 		}
+		%#{$id}_float-column {
+			float: left;
+		}
+		%#{$id}_flex-column {
+		}
 
 		&__column {
 
 			@extend %#{$id}_column;
+
+			@if (map-get($config, type) == flex) {
+				@extend %#{$id}_flex-column;
+			}
+
+			@else {
+				@extend %#{$id}_float-column;
+			}
+
+			// Columns
 
 			// Only run loops if columns are included
 			@if $restrict-columns == false or type-of($restrict-columns) == 'list' {
@@ -106,6 +150,33 @@
 
 						&--#{ push }-#{ $i } {
 							margin-left: ((100 / $columns) * $i) * 1%;
+						}
+					}
+				}
+			}
+
+			// Column Helpers
+
+			// Block helpers (linked with stricture helpers module)
+			@if map-get($config, include-helpers) and map-get($config, type) != 'flex' and PSJ_is-module-registered( block-helpers ) {
+
+				$helper-block: PSJ_get-module-namespace(block-helpers, 1);
+
+				@for $i from 1 through $columns {
+
+					// Only output CSS if index is in restrictedColumns list
+					@if $restrict-columns == false or index($restrict-columns, $i) {
+
+						&--#{ $i + $helper-block }--float-left {
+							@extend %PSJ_float-left;
+						}
+
+						&--#{ $i + $helper-block }--float-right {
+							@extend %PSJ_float-right;
+						}
+
+						&--#{ $i + $helper-block }--centered {
+							@extend %PSJ_centered;
 						}
 					}
 				}

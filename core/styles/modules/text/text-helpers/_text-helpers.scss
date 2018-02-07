@@ -9,19 +9,24 @@
 	$config: map-merge((
 		include-breakpoints: true,
 		breakpoint-map: $PSJ_breakpoint-map,
-		additional-class-map: ()
+		additional-class-map: (),
+		include-colors: true,
+		include-fonts: true
 	), $config);
 
 	// Set up helper classes
 	$helper-classes: (
 		uppercase: (
-			text-align: uppercase
+			text-transform: uppercase
 		),
 		lowercase: (
 			text-transform: lowercase
 		),
 		capitalized: (
 			text-transform: capitalize
+		),
+		no-transform: (
+			text-transform: none
 		),
 		align-left: (
 			text-align: left
@@ -35,8 +40,17 @@
 	);
 
 	// Add colors from color map to helper classes
-	@each $color, $value in $PSJ_color-map {
-		$helper-classes: map-merge($helper-classes, ($color: (color: $value )));
+	@if map-get($config, include-colors) {
+		@each $color, $value in $PSJ_color-map {
+			$helper-classes: map-merge($helper-classes, (#{'color-' + $color}: (color: $value )));
+		}
+	}
+
+	// Add fonts from fontmap to helper classes
+	@if map-get($config, include-fonts) {
+		@each $font, $value in $PSJ_font-map {
+			$helper-classes: map-merge($helper-classes, (#{'font-' + $font}: (font-family: $value )));
+		}
 	}
 
 	// Merge additional classes into helper classes
@@ -51,6 +65,6 @@
 	// ------   Generated CSS   ------------- /
 
 	@at-root {
-		@include PSJ_map-helper-classes($helper-classes, map-get($config, include-breakpoints), map-get($config, breakpoint-map));
+		@include PSJ_map-static-responsive-classes($helper-classes, map-get($config, include-breakpoints), map-get($config, breakpoint-map));
 	}
 }
