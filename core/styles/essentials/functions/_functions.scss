@@ -1,0 +1,27 @@
+// ================================================= /
+// ======   Functions   ============================ /
+// ================================================= /
+
+
+// ------   Internal functions   ------------------- /
+
+// Include error handling functions
+@import 'internal/error-handling';
+
+// Include module functions
+@import 'internal/modules';
+
+// Include responsive class functions
+@import 'internal/responsive-classes';
+
+// Include functions for each data type
+@import 'internal/lists';
+@import 'internal/maps';
+
+
+// ------   Public functions   --------------------- /
+
+// Include functions for each data type
+@import 'public/numbers';
+@import 'public/lists';
+@import 'public/maps';

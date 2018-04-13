@@ -1,22 +1,22 @@
-// ------   Popover Modal Module   ---------- /
-// ------------------------------------------ /
+// ------   Popover Modal Module   ----------------- /
+// ------------------------------------------------- /
 
 
 @mixin PSJ_popover-modal($config: ()) {
 
-	// ------   Default Configuration   ----- /
+	// ------   Default Configuration   ------------ /
 
 	$config: map-merge((
 		opinionated: true
 	), $config);
 
 
-	// ------   Registration   -------------- /
+	// ------   Registration   --------------------- /
 
 	$registration: PSJ_register-module(popover-modal, #{&}, $config);
 
 
-	// ------   Generated CSS   -------------- /
+	// ------   Generated CSS   -------------------- /
 
 	position: fixed;
 	z-index: -999;

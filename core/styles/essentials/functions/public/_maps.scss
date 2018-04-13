@@ -1,0 +1,29 @@
+// ================================================= /
+// ======   Public Map Functions   ================= /
+// ================================================= /
+
+
+// ------   General map functions   ---------------- /
+
+// Retrieve value from Nested Map
+@function PSJ_map-deep-get($map, $keys...) {
+
+	@each $key in $keys {
+		$map: PSJ_friendly-map-get($map, $key);
+	}
+
+	@return $map;
+}
+
+
+// ------   Interacting with global maps   -------- /
+
+// Get color from color map
+@function PSJ_color($color) {
+	@return PSJ_friendly-map-get($PSJ_color-map, $color, 'color map');
+}
+
+// Get font from font map
+@function PSJ_font($font) {
+	@return PSJ_friendly-map-get($PSJ_font-map, $font, 'font map');
+}

@@ -1,0 +1,11 @@
+// ================================================= /
+// ======   Internal Functions   =================== /
+// ================================================= /
+
+
+// Include module functions
+@import 'internal/modules';
+
+// Include functions for each data type
+@import 'internal/lists';
+@import 'internal/maps';

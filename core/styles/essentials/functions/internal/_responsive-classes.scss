@@ -1,0 +1,129 @@
+// ================================================= /
+// ======   Internal Responsive Class Functions   == /
+// ================================================= /
+
+// - DESCRIPTION: -----------------------------------/
+//
+//   Functions that provide necessary logic to
+//   the responsive class mixins.
+//
+// ------------------------------------------------- /
+
+
+// Given a breakpoint label, determine the closest smaller common breakpoint between a list of dynamic responsive class breakpoints and the master list
+// This helps with filling in breakpoints that do not exist in dynamic responsive classes
+@function PSJ_get-dynamic-responsive-class-fallback-breakpoint($class-responsive-style-map: (), $master-breakpoint-label: null, $breakpoint-map: $PSJ_breakpoint-map) {
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: $master-breakpoint-label == null,
+			description: 'No $master-breakpoint-label specified'
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_get-dynamic-responsive-class-fallback-breakpoint', $error-cases) {
+		@return null;
+	}
+
+	// Otherwise, set breakpoint lists
+	$class-breakpoint-list: map-keys($class-responsive-style-map);
+	$master-breakpoint-list: map-keys($breakpoint-map);
+
+	// If the breakpoint label is specified in both lists, return it
+	@if index($class-breakpoint-list, $master-breakpoint-label) != null and index($master-breakpoint-list, $master-breakpoint-label) != null {
+		@return $master-breakpoint-label;
+	}
+
+	// Otherwise, create a (reversed) list of breakpoints in the master list that are smaller than the specified breakpoint label
+	$smaller-master-breakpoints: PSJ_reverse-list(PSJ_slice-list($master-breakpoint-list, 1, index($master-breakpoint-list, $master-breakpoint-label)));
+
+	// Loop through smaller breakpoints
+	@each $smaller-master-breakpoint in $smaller-master-breakpoints {
+
+		// If the smaller master breakpoint is in the class breakpoint list, return it
+		@if index($class-breakpoint-list, $smaller-master-breakpoint) != null {
+			@return $smaller-master-breakpoint;
+		}
+	}
+
+	// Otherwise, return default
+	@return default;
+}
+
+// Get styles for a dynamic responsive class at a certain breakpoint
+// Hoists all styles from lower breakpoints and overwrites them with ones from higher breakpoints
+// This preserves properties that are only designated at lower breakpoints but still need to be present for responsive classes at higher breakpoints to overwrite others
+@function PSJ_get-dynamic-responsive-class-styles-at-breakpoint( $class-responsive-style-map: null, $breakpoint-label: null ) {
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: $class-responsive-style-map == null,
+			description: 'No $breakpoint-style-map specified'
+		),
+		(
+			conditional: $breakpoint-label == null,
+			description: 'No $breakpoint-label specified'
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_get_dynamic-breakpoint-hoisted-styles', $error-cases) {
+		@return null;
+	}
+
+	// Splice breakpoint style map to only include up to the current breakpoint
+	$class-responsive-style-map: PSJ_slice-list($class-responsive-style-map, 1, index(map-keys($class-responsive-style-map), $breakpoint-label));
+
+	// Set hoisted style map
+	$hoisted-style-map: ();
+
+	// Loop through breakpoint style map and merge the style maps at that breakpoint
+	@each $breakpoint-label, $style-map in $class-responsive-style-map {
+		$hoisted-style-map: map-merge($hoisted-style-map, $style-map);
+	}
+
+	// Return the hoisted style map
+	@return $hoisted-style-map;
+}
+
+// Fills in a breakpoint in a dynamic responsive class breakpoint style map
+// Finds the closest smaller breakpoint between it and the master breakpoint map and hoists those styles from lower in the breakpoint style map
+@function PSJ_get-filled-dynamic-responsive-class-breakpoint-style-map($breakpoint-label, $class-responsive-style-map, $breakpoint-map: $PSJ_breakpoint-map) {
+
+	// Get the list of master breakpoints with the default property prepended
+	$master-breakpoint-list: join(default, map-keys($breakpoint-map));
+
+	// Set temporary filler map
+	// This ensures that filler keys are added in the correct order
+	$temp-filler-map: ();
+
+	// Fill the temporary filler map with blank maps in accordance to the keys in the master breakpoints list
+	@each $item in $master-breakpoint-list {
+		$temp-filler-map: map-merge($temp-filler-map, (#{$item}: ()));
+	}
+
+	// Determine the closest common breakpoint
+	$closest-common-breakpoint: PSJ_get-dynamic-responsive-class-fallback-breakpoint($class-responsive-style-map, $breakpoint-label, $breakpoint-map);
+
+	// Add the closest common breakpoint to the filler map
+	$temp-filler-map: map-merge($temp-filler-map, (
+		#{$breakpoint-label}: PSJ_get-dynamic-responsive-class-styles-at-breakpoint($class-responsive-style-map, $closest-common-breakpoint)
+	));
+
+	// Copy the filler map
+	$filler-map: $temp-filler-map;
+
+	// Loop through each element in the filler map and remove the empty maps
+	@each $breakpoint-label, $style-map in $temp-filler-map {
+		// If the style map is empty, remove it
+		@if length($style-map) == 0 {
+			$filler-map: map-remove($filler-map, $breakpoint-label);
+		}
+	}
+
+	// Return the original breakpoint style map merged with the filler
+	@return map-merge($filler-map, $class-responsive-style-map);
+}

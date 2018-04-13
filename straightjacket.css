@@ -1,54 +1,681 @@
-/* ================================================= /
-// ======   PHANTASM STRAIGHTJACKET   ============== /
-// ================================================= /
-// ------   RESPONSIVE SCSS FRAMEWORK   ------------ /
-// ================================================= /
+.o-grid, .o-grid__row {
+  display: flex;
+  flex-wrap: wrap; }
 
-/- DESCRIPTION: -------------------------------------/
+.o-grid {
+  margin-left: -64px; }
 
-   A lightweight and powerful framework designed
-   for maximum customizability.
+.o-grid__column {
+  padding-left: 64px; }
 
-   Straightjacket aims to substantiate complex css
-   into a system of awesome features and functions
-   that are presented as a collection of modules.
+.o-grid__column--1 {
+  width: 8.3333333333%; }
+.o-grid__column--2 {
+  width: 16.6666666667%; }
+.o-grid__column--3 {
+  width: 25%; }
+.o-grid__column--4 {
+  width: 33.3333333333%; }
+.o-grid__column--5 {
+  width: 41.6666666667%; }
+.o-grid__column--6 {
+  width: 50%; }
+.o-grid__column--7 {
+  width: 58.3333333333%; }
+.o-grid__column--8 {
+  width: 66.6666666667%; }
+.o-grid__column--9 {
+  width: 75%; }
+.o-grid__column--10 {
+  width: 83.3333333333%; }
+.o-grid__column--11 {
+  width: 91.6666666667%; }
+.o-grid__column--12 {
+  width: 100%; }
+@media screen and (min-width: 480px) {
+  .o-grid__column--1\@xs {
+    width: 8.3333333333%; }
+  .o-grid__column--2\@xs {
+    width: 16.6666666667%; }
+  .o-grid__column--3\@xs {
+    width: 25%; }
+  .o-grid__column--4\@xs {
+    width: 33.3333333333%; }
+  .o-grid__column--5\@xs {
+    width: 41.6666666667%; }
+  .o-grid__column--6\@xs {
+    width: 50%; }
+  .o-grid__column--7\@xs {
+    width: 58.3333333333%; }
+  .o-grid__column--8\@xs {
+    width: 66.6666666667%; }
+  .o-grid__column--9\@xs {
+    width: 75%; }
+  .o-grid__column--10\@xs {
+    width: 83.3333333333%; }
+  .o-grid__column--11\@xs {
+    width: 91.6666666667%; }
+  .o-grid__column--12\@xs {
+    width: 100%; } }
+@media screen and (min-width: 680px) {
+  .o-grid__column--1\@sm {
+    width: 8.3333333333%; }
+  .o-grid__column--2\@sm {
+    width: 16.6666666667%; }
+  .o-grid__column--3\@sm {
+    width: 25%; }
+  .o-grid__column--4\@sm {
+    width: 33.3333333333%; }
+  .o-grid__column--5\@sm {
+    width: 41.6666666667%; }
+  .o-grid__column--6\@sm {
+    width: 50%; }
+  .o-grid__column--7\@sm {
+    width: 58.3333333333%; }
+  .o-grid__column--8\@sm {
+    width: 66.6666666667%; }
+  .o-grid__column--9\@sm {
+    width: 75%; }
+  .o-grid__column--10\@sm {
+    width: 83.3333333333%; }
+  .o-grid__column--11\@sm {
+    width: 91.6666666667%; }
+  .o-grid__column--12\@sm {
+    width: 100%; } }
+@media screen and (min-width: 768px) {
+  .o-grid__column--1\@md {
+    width: 8.3333333333%; }
+  .o-grid__column--2\@md {
+    width: 16.6666666667%; }
+  .o-grid__column--3\@md {
+    width: 25%; }
+  .o-grid__column--4\@md {
+    width: 33.3333333333%; }
+  .o-grid__column--5\@md {
+    width: 41.6666666667%; }
+  .o-grid__column--6\@md {
+    width: 50%; }
+  .o-grid__column--7\@md {
+    width: 58.3333333333%; }
+  .o-grid__column--8\@md {
+    width: 66.6666666667%; }
+  .o-grid__column--9\@md {
+    width: 75%; }
+  .o-grid__column--10\@md {
+    width: 83.3333333333%; }
+  .o-grid__column--11\@md {
+    width: 91.6666666667%; }
+  .o-grid__column--12\@md {
+    width: 100%; } }
+@media screen and (min-width: 1024px) {
+  .o-grid__column--1\@lg {
+    width: 8.3333333333%; }
+  .o-grid__column--2\@lg {
+    width: 16.6666666667%; }
+  .o-grid__column--3\@lg {
+    width: 25%; }
+  .o-grid__column--4\@lg {
+    width: 33.3333333333%; }
+  .o-grid__column--5\@lg {
+    width: 41.6666666667%; }
+  .o-grid__column--6\@lg {
+    width: 50%; }
+  .o-grid__column--7\@lg {
+    width: 58.3333333333%; }
+  .o-grid__column--8\@lg {
+    width: 66.6666666667%; }
+  .o-grid__column--9\@lg {
+    width: 75%; }
+  .o-grid__column--10\@lg {
+    width: 83.3333333333%; }
+  .o-grid__column--11\@lg {
+    width: 91.6666666667%; }
+  .o-grid__column--12\@lg {
+    width: 100%; } }
+@media screen and (min-width: 1200px) {
+  .o-grid__column--1\@xl {
+    width: 8.3333333333%; }
+  .o-grid__column--2\@xl {
+    width: 16.6666666667%; }
+  .o-grid__column--3\@xl {
+    width: 25%; }
+  .o-grid__column--4\@xl {
+    width: 33.3333333333%; }
+  .o-grid__column--5\@xl {
+    width: 41.6666666667%; }
+  .o-grid__column--6\@xl {
+    width: 50%; }
+  .o-grid__column--7\@xl {
+    width: 58.3333333333%; }
+  .o-grid__column--8\@xl {
+    width: 66.6666666667%; }
+  .o-grid__column--9\@xl {
+    width: 75%; }
+  .o-grid__column--10\@xl {
+    width: 83.3333333333%; }
+  .o-grid__column--11\@xl {
+    width: 91.6666666667%; }
+  .o-grid__column--12\@xl {
+    width: 100%; } }
+@media screen and (min-width: 1600px) {
+  .o-grid__column--1\@xxl {
+    width: 8.3333333333%; }
+  .o-grid__column--2\@xxl {
+    width: 16.6666666667%; }
+  .o-grid__column--3\@xxl {
+    width: 25%; }
+  .o-grid__column--4\@xxl {
+    width: 33.3333333333%; }
+  .o-grid__column--5\@xxl {
+    width: 41.6666666667%; }
+  .o-grid__column--6\@xxl {
+    width: 50%; }
+  .o-grid__column--7\@xxl {
+    width: 58.3333333333%; }
+  .o-grid__column--8\@xxl {
+    width: 66.6666666667%; }
+  .o-grid__column--9\@xxl {
+    width: 75%; }
+  .o-grid__column--10\@xxl {
+    width: 83.3333333333%; }
+  .o-grid__column--11\@xxl {
+    width: 91.6666666667%; }
+  .o-grid__column--12\@xxl {
+    width: 100%; } }
+@media screen and (min-width: 1920px) {
+  .o-grid__column--1\@xxxl {
+    width: 8.3333333333%; }
+  .o-grid__column--2\@xxxl {
+    width: 16.6666666667%; }
+  .o-grid__column--3\@xxxl {
+    width: 25%; }
+  .o-grid__column--4\@xxxl {
+    width: 33.3333333333%; }
+  .o-grid__column--5\@xxxl {
+    width: 41.6666666667%; }
+  .o-grid__column--6\@xxxl {
+    width: 50%; }
+  .o-grid__column--7\@xxxl {
+    width: 58.3333333333%; }
+  .o-grid__column--8\@xxxl {
+    width: 66.6666666667%; }
+  .o-grid__column--9\@xxxl {
+    width: 75%; }
+  .o-grid__column--10\@xxxl {
+    width: 83.3333333333%; }
+  .o-grid__column--11\@xxxl {
+    width: 91.6666666667%; }
+  .o-grid__column--12\@xxxl {
+    width: 100%; } }
+@media screen and (min-width: 3000px) {
+  .o-grid__column--1\@longboi {
+    width: 8.3333333333%; }
+  .o-grid__column--2\@longboi {
+    width: 16.6666666667%; }
+  .o-grid__column--3\@longboi {
+    width: 25%; }
+  .o-grid__column--4\@longboi {
+    width: 33.3333333333%; }
+  .o-grid__column--5\@longboi {
+    width: 41.6666666667%; }
+  .o-grid__column--6\@longboi {
+    width: 50%; }
+  .o-grid__column--7\@longboi {
+    width: 58.3333333333%; }
+  .o-grid__column--8\@longboi {
+    width: 66.6666666667%; }
+  .o-grid__column--9\@longboi {
+    width: 75%; }
+  .o-grid__column--10\@longboi {
+    width: 83.3333333333%; }
+  .o-grid__column--11\@longboi {
+    width: 91.6666666667%; }
+  .o-grid__column--12\@longboi {
+    width: 100%; } }
 
-   Straightjacket's modules can be created, destroyed,
-   duplicated, and modified at your will to suit the
-   project at hand. Tweak your configurations to
-   perfection or just jump right in and start firing
-   off some defaults. It's all up to you.
-
-   In order to keep your code clean and your project
-   fast, Straightjacket makes no assumptions and
-   will not act unless called upon, thus keeping
-   all of the power where it belongs: in the
-   hands of the developer.
-
-   Normalizing styles have been helped along thanks to
-   Nicolas Gallagher and Jonathan Neal
-   http://necolas.github.com/normalize.css/
-
-/ -------------------------------------------------- /
-
-   VERSION: 0.6 ------------------------------------ /
-   RELEASE: FEBRUARY 7, 2018 ----------------------- /
-   AUTHOR: NICK PATTERSON -------------------------- /
-
-   PHANTASM: phantasm.io --------------------------- /
-   FIFTEEN FOUR: fifteenfour.com ------------------- /
-
-/ ------------------------------------------------- */
-.u-text--body {
-  font-size: 14px;
-  line-height: 1.4; }
+.u-text--heading-1 {
+  font-size: 2.125rem;
+  line-height: 1.25; }
+  @media screen and (min-width: 480px) {
+    .u-text--heading-1 {
+      font-size: 2.6rem; } }
+  @media screen and (min-width: 768px) {
+    .u-text--heading-1 {
+      font-size: 3rem; } }
   @media screen and (min-width: 1024px) {
+    .u-text--heading-1 {
+      font-size: 3.25rem;
+      line-height: 1.125; } }
+  @media screen and (min-width: 1200px) {
+    .u-text--heading-1 {
+      font-size: 3.5rem;
+      line-height: 1.05; } }
+  @media screen and (min-width: 1600px) {
+    .u-text--heading-1 {
+      font-size: 3.65rem; } }
+
+.u-text--heading-2 {
+  font-size: 1.3rem;
+  line-height: 1.125; }
+  @media screen and (min-width: 480px) {
+    .u-text--heading-2 {
+      font-size: 1.35rem;
+      line-height: 1.15384614; } }
+  @media screen and (min-width: 768px) {
+    .u-text--heading-2 {
+      line-height: 1.25; } }
+  @media screen and (min-width: 1024px) {
+    .u-text--heading-2 {
+      font-size: 1.55rem; } }
+  @media screen and (min-width: 1200px) {
+    .u-text--heading-2 {
+      font-size: 1.65rem; } }
+
+.u-text--heading-3 {
+  font-size: 1.75rem;
+  line-height: 1.125; }
+  @media screen and (min-width: 480px) {
+    .u-text--heading-3 {
+      line-height: 1.13636364; } }
+  @media screen and (min-width: 768px) {
+    .u-text--heading-3 {
+      line-height: 1.25; } }
+  @media screen and (min-width: 1024px) {
+    .u-text--heading-3 {
+      font-size: 2.2rem;
+      line-height: 1.225; } }
+  @media screen and (min-width: 1200px) {
+    .u-text--heading-3 {
+      font-size: 2.375rem; } }
+
+.u-text--heading-4 {
+  font-size: 1.25rem;
+  line-height: 1.125; }
+  @media screen and (min-width: 480px) {
+    .u-text--heading-4 {
+      line-height: 1.11111111; } }
+  @media screen and (min-width: 1024px) {
+    .u-text--heading-4 {
+      line-height: 1.22222222; } }
+
+.u-text--body {
+  font-size: 14;
+  line-height: 1.4; }
+  @media screen and (min-width: 768px) {
     .u-text--body {
       font-size: 16px;
       line-height: 1.5; } }
   @media screen and (min-width: 1600px) {
     .u-text--body {
-      font-size: 16px;
+      font-size: 17px;
       line-height: 1.6; } }
+
+@media screen and (min-width: 480px) {
+  .u-text--heading-1\@xs {
+    font-size: 2.6rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 768px) {
+  .u-text--heading-1\@xs {
+    font-size: 2.6rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-1\@xs {
+    font-size: 2.6rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-1\@xs {
+    font-size: 2.6rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1600px) {
+  .u-text--heading-1\@xs {
+    font-size: 2.6rem;
+    line-height: 1.25; } }
+
+@media screen and (min-width: 480px) {
+  .u-text--heading-2\@xs {
+    font-size: 1.35rem;
+    line-height: 1.15384614; } }
+@media screen and (min-width: 768px) {
+  .u-text--heading-2\@xs {
+    font-size: 1.35rem;
+    line-height: 1.15384614; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-2\@xs {
+    font-size: 1.35rem;
+    line-height: 1.15384614; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-2\@xs {
+    font-size: 1.35rem;
+    line-height: 1.15384614; } }
+
+@media screen and (min-width: 480px) {
+  .u-text--heading-3\@xs {
+    font-size: 1.75rem;
+    line-height: 1.13636364; } }
+@media screen and (min-width: 768px) {
+  .u-text--heading-3\@xs {
+    font-size: 1.75rem;
+    line-height: 1.13636364; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-3\@xs {
+    font-size: 1.75rem;
+    line-height: 1.13636364; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-3\@xs {
+    font-size: 1.75rem;
+    line-height: 1.13636364; } }
+
+@media screen and (min-width: 480px) {
+  .u-text--heading-4\@xs {
+    font-size: 1.25rem;
+    line-height: 1.11111111; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-4\@xs {
+    font-size: 1.25rem;
+    line-height: 1.11111111; } }
+
+@media screen and (min-width: 480px) {
+  .u-text--body\@xs {
+    font-size: 14;
+    line-height: 1.4; } }
+@media screen and (min-width: 768px) {
+  .u-text--body\@xs {
+    font-size: 14;
+    line-height: 1.4; } }
+@media screen and (min-width: 1600px) {
+  .u-text--body\@xs {
+    font-size: 14;
+    line-height: 1.4; } }
+
+@media screen and (min-width: 680px) {
+  .u-text--heading-1\@sm {
+    font-size: 2.6rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 768px) {
+  .u-text--heading-1\@sm {
+    font-size: 2.6rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-1\@sm {
+    font-size: 2.6rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-1\@sm {
+    font-size: 2.6rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1600px) {
+  .u-text--heading-1\@sm {
+    font-size: 2.6rem;
+    line-height: 1.25; } }
+
+@media screen and (min-width: 680px) {
+  .u-text--heading-2\@sm {
+    font-size: 1.35rem;
+    line-height: 1.15384614; } }
+@media screen and (min-width: 768px) {
+  .u-text--heading-2\@sm {
+    font-size: 1.35rem;
+    line-height: 1.15384614; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-2\@sm {
+    font-size: 1.35rem;
+    line-height: 1.15384614; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-2\@sm {
+    font-size: 1.35rem;
+    line-height: 1.15384614; } }
+
+@media screen and (min-width: 680px) {
+  .u-text--heading-3\@sm {
+    font-size: 1.75rem;
+    line-height: 1.13636364; } }
+@media screen and (min-width: 768px) {
+  .u-text--heading-3\@sm {
+    font-size: 1.75rem;
+    line-height: 1.13636364; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-3\@sm {
+    font-size: 1.75rem;
+    line-height: 1.13636364; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-3\@sm {
+    font-size: 1.75rem;
+    line-height: 1.13636364; } }
+
+@media screen and (min-width: 680px) {
+  .u-text--heading-4\@sm {
+    font-size: 1.25rem;
+    line-height: 1.11111111; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-4\@sm {
+    font-size: 1.25rem;
+    line-height: 1.11111111; } }
+
+@media screen and (min-width: 680px) {
+  .u-text--body\@sm {
+    font-size: 14;
+    line-height: 1.4; } }
+@media screen and (min-width: 768px) {
+  .u-text--body\@sm {
+    font-size: 14;
+    line-height: 1.4; } }
+@media screen and (min-width: 1600px) {
+  .u-text--body\@sm {
+    font-size: 14;
+    line-height: 1.4; } }
+
+@media screen and (min-width: 768px) {
+  .u-text--heading-1\@md {
+    font-size: 3rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-1\@md {
+    font-size: 3rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-1\@md {
+    font-size: 3rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1600px) {
+  .u-text--heading-1\@md {
+    font-size: 3rem;
+    line-height: 1.25; } }
+
+@media screen and (min-width: 768px) {
+  .u-text--heading-2\@md {
+    font-size: 1.35rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-2\@md {
+    font-size: 1.35rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-2\@md {
+    font-size: 1.35rem;
+    line-height: 1.25; } }
+
+@media screen and (min-width: 768px) {
+  .u-text--heading-3\@md {
+    font-size: 1.75rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-3\@md {
+    font-size: 1.75rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-3\@md {
+    font-size: 1.75rem;
+    line-height: 1.25; } }
+
+@media screen and (min-width: 768px) {
+  .u-text--heading-4\@md {
+    font-size: 1.25rem;
+    line-height: 1.11111111; } }
+@media screen and (min-width: 1024px) {
+  .u-text--heading-4\@md {
+    font-size: 1.25rem;
+    line-height: 1.11111111; } }
+
+@media screen and (min-width: 768px) {
+  .u-text--body\@md {
+    font-size: 16px;
+    line-height: 1.5; } }
+@media screen and (min-width: 1600px) {
+  .u-text--body\@md {
+    font-size: 16px;
+    line-height: 1.5; } }
+
+@media screen and (min-width: 1024px) {
+  .u-text--heading-1\@lg {
+    font-size: 3.25rem;
+    line-height: 1.125; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-1\@lg {
+    font-size: 3.25rem;
+    line-height: 1.125; } }
+@media screen and (min-width: 1600px) {
+  .u-text--heading-1\@lg {
+    font-size: 3.25rem;
+    line-height: 1.125; } }
+
+@media screen and (min-width: 1024px) {
+  .u-text--heading-2\@lg {
+    font-size: 1.55rem;
+    line-height: 1.25; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-2\@lg {
+    font-size: 1.55rem;
+    line-height: 1.25; } }
+
+@media screen and (min-width: 1024px) {
+  .u-text--heading-3\@lg {
+    font-size: 2.2rem;
+    line-height: 1.225; } }
+@media screen and (min-width: 1200px) {
+  .u-text--heading-3\@lg {
+    font-size: 2.2rem;
+    line-height: 1.225; } }
+
+@media screen and (min-width: 1024px) {
+  .u-text--heading-4\@lg {
+    font-size: 1.25rem;
+    line-height: 1.22222222; } }
+
+@media screen and (min-width: 1024px) {
+  .u-text--body\@lg {
+    font-size: 16px;
+    line-height: 1.5; } }
+@media screen and (min-width: 1600px) {
+  .u-text--body\@lg {
+    font-size: 16px;
+    line-height: 1.5; } }
+
+@media screen and (min-width: 1200px) {
+  .u-text--heading-1\@xl {
+    font-size: 3.5rem;
+    line-height: 1.05; } }
+@media screen and (min-width: 1600px) {
+  .u-text--heading-1\@xl {
+    font-size: 3.5rem;
+    line-height: 1.05; } }
+
+@media screen and (min-width: 1200px) {
+  .u-text--heading-2\@xl {
+    font-size: 1.65rem;
+    line-height: 1.25; } }
+
+@media screen and (min-width: 1200px) {
+  .u-text--heading-3\@xl {
+    font-size: 2.375rem;
+    line-height: 1.225; } }
+
+@media screen and (min-width: 1200px) {
+  .u-text--heading-4\@xl {
+    font-size: 1.25rem;
+    line-height: 1.22222222; } }
+
+@media screen and (min-width: 1200px) {
+  .u-text--body\@xl {
+    font-size: 16px;
+    line-height: 1.5; } }
+@media screen and (min-width: 1600px) {
+  .u-text--body\@xl {
+    font-size: 16px;
+    line-height: 1.5; } }
+
+@media screen and (min-width: 1600px) {
+  .u-text--heading-1\@xxl {
+    font-size: 3.65rem;
+    line-height: 1.05; } }
+
+@media screen and (min-width: 1600px) {
+  .u-text--heading-2\@xxl {
+    font-size: 1.65rem;
+    line-height: 1.25; } }
+
+@media screen and (min-width: 1600px) {
+  .u-text--heading-3\@xxl {
+    font-size: 2.375rem;
+    line-height: 1.225; } }
+
+@media screen and (min-width: 1600px) {
+  .u-text--heading-4\@xxl {
+    font-size: 1.25rem;
+    line-height: 1.22222222; } }
+
+@media screen and (min-width: 1600px) {
+  .u-text--body\@xxl {
+    font-size: 17px;
+    line-height: 1.6; } }
+
+@media screen and (min-width: 1920px) {
+  .u-text--heading-1\@xxxl {
+    font-size: 3.65rem;
+    line-height: 1.05; } }
+
+@media screen and (min-width: 1920px) {
+  .u-text--heading-2\@xxxl {
+    font-size: 1.65rem;
+    line-height: 1.25; } }
+
+@media screen and (min-width: 1920px) {
+  .u-text--heading-3\@xxxl {
+    font-size: 2.375rem;
+    line-height: 1.225; } }
+
+@media screen and (min-width: 1920px) {
+  .u-text--heading-4\@xxxl {
+    font-size: 1.25rem;
+    line-height: 1.22222222; } }
+
+@media screen and (min-width: 1920px) {
+  .u-text--body\@xxxl {
+    font-size: 17px;
+    line-height: 1.6; } }
+
+@media screen and (min-width: 3000px) {
+  .u-text--heading-1\@longboi {
+    font-size: 3.65rem;
+    line-height: 1.05; } }
+
+@media screen and (min-width: 3000px) {
+  .u-text--heading-2\@longboi {
+    font-size: 1.65rem;
+    line-height: 1.25; } }
+
+@media screen and (min-width: 3000px) {
+  .u-text--heading-3\@longboi {
+    font-size: 2.375rem;
+    line-height: 1.225; } }
+
+@media screen and (min-width: 3000px) {
+  .u-text--heading-4\@longboi {
+    font-size: 1.25rem;
+    line-height: 1.22222222; } }
+
+@media screen and (min-width: 3000px) {
+  .u-text--body\@longboi {
+    font-size: 17px;
+    line-height: 1.6; } }
 
 /*# sourceMappingURL=straightjacket.css.map */

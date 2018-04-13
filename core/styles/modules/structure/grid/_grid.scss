@@ -1,36 +1,40 @@
-// ------   Grid Module   ------------------- /
-// ------------------------------------------ /
+// ------   Grid Module   -------------------------- /
+// ------------------------------------------------- /
 
 
 @mixin PSJ_grid($config: ()) {
 
-	// ------   Default Configuration   ----- /
+	// ------   Default Configuration   ------------ /
 
 	$config: map-merge((
-		breakpoint-map: $PSJ_breakpoint-map,
 		columns: 12,
-		restrict-columns: false,
 		gutter: $PSJ_base * 4,
-		restrict-pushes: false,
-		include-helpers: true
+		include-columns: true,
+		include-pushes: false,
+		include-responsive-classes: true,
+		breakpoint-map: $PSJ_breakpoint-map,
 	), $config);
 
 	$id: unique-id();
+
+	// Get column count
 	$columns: map-get($config, columns);
-	$restrict-columns: map-get($config, restrict-columns);
-	$restrict-pushes: map-get($config, restrict-pushes);
+
+	// Normalize included columns, pushes, and responsive classes
+	$include-columns: map-get($config, include-columns);
+	$include-pushes: map-get($config, include-pushes);
 
 
-	// ------   Registration   -------------- /
+	// ------   Registration   --------------------- /
 
 	$registration: PSJ_register-module(grid, #{&}, $config);
 
 
-	// ------   Generated CSS   ------------- /
+	// ------   Generated CSS   -------------------- /
 
 	@at-root {
 
-		// Placehlder for grid-like classes
+		// Placeholder for grid-like classes
 		%#{$id}_grid-like {
 			display: flex;
 			flex-wrap: wrap;
@@ -60,13 +64,13 @@
 			@extend %#{$id}_column;
 
 			// Only run loops if columns are included
-			@if $restrict-columns == false or type-of($restrict-columns) == 'list' {
+			@if $include-columns == true or type-of($include-columns) == 'list' {
 
 				// Default columns (used for mobile devices & other tiny screens)
 				@for $i from 1 through $columns {
 
 					// Only output CSS if index is in restrictedColumns list
-					@if $restrict-columns == false or index($restrict-columns, $i) {
+					@if $include-columns == true or index($include-columns, $i) {
 
 						&--#{ $i } {
 							width: ((100 / $columns) * $i) * 1%;
@@ -81,8 +85,8 @@
 
 						@for $i from 1 through $columns {
 
-							// Only output column if index is in restrict-columns list
-							@if $restrict-columns == false or index($restrict-columns, $i) {
+							// Only output column if index is in include-columns list
+							@if $include-columns == true or index($include-columns, $i) {
 
 								&--#{ $i + \@ + $breakpoint-label } {
 									width: ((100 / $columns) * $i) * 1%;
@@ -96,13 +100,13 @@
 			// Default Pushes
 
 			// Only run loop if pushes are included
-			@if $restrict-pushes == false or type-of($restrict-pushes) == 'list' {
+			@if $include-pushes == true or type-of($include-pushes) == 'list' {
 
 				// Default pushes (used for mobile devices & other tiny screens)
 				@for $i from 1 through ($columns - 1) {
 
 					// Only output CSS if index is in restrictedPushes list
-					@if $restrict-pushes == false or index($restrict-pushes, $i) {
+					@if $include-pushes == true or index($include-pushes, $i) {
 
 						&--#{ push }-#{ $i } {
 							margin-left: ((100 / $columns) * $i) * 1%;

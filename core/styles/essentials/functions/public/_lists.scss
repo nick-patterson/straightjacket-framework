@@ -1,0 +1,196 @@
+// ================================================= /
+// ======   Public List Functions   ================ /
+// ================================================= /
+
+
+// Converts value to a list
+@function PSJ_to-list($value) {
+	@return if(type-of($value) == list, $value, ($value,));
+}
+
+// Slices a list and returns some subset of the list
+@function PSJ_slice-list($list: (), $start: 1, $end: length($list)) {
+
+	// Set result as an empty list
+	$result: ();
+
+	// Force evaluation of function args
+	$start: if($start, $start, 1);
+	$end: if($end, $end, length($list));
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: type-of($list) != list and type-of($list) != map,
+			description: '$list must be either a list or a map'
+		),
+		(
+			conditional: type-of($start) != number or type-of($end) != number,
+			description: 'Either $start or $end is not a number'
+		),
+		(
+			conditional: $start > $end,
+			description: 'The $start index has to be less than or equal to the $end index'
+		),
+		(
+			conditional: $start < 1 or $end < 1,
+			description: 'List indices must be non-zero integers'
+		),
+		(
+			conditional: $start > length($list),
+			description: 'List $start index is #{$start} but list is only #{length($list)} items long'
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_slice-list', $error-cases) {
+		@return null;
+	}
+
+	// Otherwise, do the thing
+	@else {
+
+		// If the end arg is greater than the length of the list, warn the user and correct the mistake, but do not fail
+		@if $end > length($list) {
+			@warn 'PSJ_slice-list: List index is #{$end} but list is only #{length($list)} item(s) long';
+			$end: length($list);
+		}
+
+		// Loop through the original list and add the items in the start-end range to the result
+		@for $i from $start through $end {
+			$result: append($result, nth($list, $i));
+		}
+	}
+
+	@return $result;
+}
+
+// Sorts a list of numbers
+// Implements Quick Sort algorithm by Sam Richards
+@function PSJ_sort-list($list) {
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: type-of($list) != list,
+			description: '$list must be a list'
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_sort-list', $error-cases) {
+		@return null;
+	}
+
+	// Set sublists
+	$less:  ();
+	$equal: ();
+	$large: ();
+
+	// If the list length is greater than 1, sort the list
+	@if length($list) > 1 {
+
+		// Set the seed to which every value is compared
+		$seed: nth($list, ceil(length($list) / 2));
+
+		@each $item in $list {
+
+			// Strip the unit of the item
+			$item: PSJ_strip-unit($item);
+
+			// Compare the item to the seed and place the item in its appropriate sublist
+			@if ($item == $seed) {
+				$equal: append($equal, $item);
+			}
+			@else if ($item < $seed) {
+				$less: append($less, $item);
+			}
+			@else if ($item > $seed) {
+				$large: append($large, $item);
+			}
+		}
+
+		// Join each sorted sublist together
+		@return join(join(PSJ_sort-list($less, $order), $equal), PSJ_sort-list($large, $order));
+	}
+
+	// Otherwise, return the list
+	@return $list;
+}
+
+// Reverse a list
+// By Hugo Giraudel
+@function PSJ_reverse-list($list, $recursive: false) {
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: type-of($list) != list and type-of($list) != map,
+			description: '$list must be either a list or a map'
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_reverse-list', $error-cases) {
+		@return null;
+	}
+
+	// Otherwise, set result
+	$result: ();
+
+	// Loop through the list backwards
+	@for $i from length($list) * -1 through -1 {
+
+		// If the current item is a list and the recursive arg is true, go DEEPER
+		@if type-of(nth($list, abs($i))) == list and $recursive {
+			$result: append($result, reverse(nth($list, abs($i)), $recursive));
+		}
+
+		// Otherwise, just add the item to the result
+		@else {
+			$result: append($result, nth($list, abs($i)));
+		}
+	}
+
+	// Return the result
+	@return $result;
+}
+
+// Creates a list from a range of numbers
+// Similar to Python's range function
+@function PSJ_range( $start: 1, $end: 10, $include-bounds: true) {
+
+	// Force evaluation of function args
+	$start: if($start, $start, 1);
+	$end: if($end, $end, length($list));
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: $start >= $end,
+			description: '$start must not be greater than or equal to $end'
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_range', $error-cases) {
+		@return null;
+	}
+
+	// Otherwise, set result
+	$result: ();
+
+	// Set start
+	$start: if($include-bounds, $start, $start + 1);
+
+	// Set end
+	$end: if($include-bounds, $end, $end - 1);
+
+	// Loop through range and add each value to the result
+	@for $i from $start through $end {
+		$result: append($result, $i);
+	}
+
+	// Return result
+	@return $result;
+}

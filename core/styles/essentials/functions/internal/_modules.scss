@@ -1,9 +1,7 @@
 // ================================================= /
-// ======   Internal Functions   =================== /
+// ======   Internal Module Functions   ============ /
 // ================================================= /
 
-
-// ------   Interacting with Modules   ------------- /
 
 // Module registration
 @function PSJ_register-module($module-name, $module-namespace, $module-config: () ) {

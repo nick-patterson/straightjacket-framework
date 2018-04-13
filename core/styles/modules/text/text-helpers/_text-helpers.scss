@@ -1,13 +1,13 @@
-// ------   Text Helpers   ------------------ /
-// ------------------------------------------ /
+// ------   Text Helpers   ------------------------- /
+// ------------------------------------------------- /
 
 
 @mixin PSJ_text-helpers($config: ()) {
 
-	// ------   Default Configuration   ----- /
+	// ------   Default Configuration   ------------ /
 
 	$config: map-merge((
-		include-breakpoints: true,
+		include-responsive-classes: true,
 		breakpoint-map: $PSJ_breakpoint-map,
 		additional-class-map: (),
 		include-colors: true,
@@ -57,14 +57,14 @@
 	$helper-classes: map-merge($helper-classes, map-get($config, additional-class-map));
 
 
-	// ------   Registration   -------------- /
+	// ------   Registration   --------------------- /
 
 	$registration: PSJ_register-module(text-helpers, #{&}, ());
 
 
-	// ------   Generated CSS   ------------- /
+	// ------   Generated CSS   -------------------- /
 
 	@at-root {
-		@include PSJ_map-static-responsive-classes($helper-classes, map-get($config, include-breakpoints), map-get($config, breakpoint-map));
+		@include PSJ_static-responsive-classes($helper-classes, map-get($config, include-responsive-classes), map-get($config, breakpoint-map));
 	}
 }

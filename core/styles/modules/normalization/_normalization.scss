@@ -1,18 +1,18 @@
-// ------   Normalization Module   ---------- /
-// ------------------------------------------ /
+// ------   Normalization Module   ----------------- /
+// ------------------------------------------------- /
 
 
 @mixin PSJ_normalization($config: ()) {
 
 
-	// ------   Default Configuration   ----- /
+	// ------   Default Configuration   ------------ /
 
 	$config: map-merge((
 		include-box-sizing: true
 	), $config);
 
 
-	// ------   Registration   -------------- /
+	// ------   Registration   --------------------- /
 
 	$registration: PSJ_register-module(normalization, normalization, ());
 

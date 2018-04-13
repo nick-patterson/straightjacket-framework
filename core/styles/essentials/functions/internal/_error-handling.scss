@@ -1,0 +1,31 @@
+// ================================================= /
+// ======   Internal Error Handling Functions   ==== /
+// ================================================= /
+
+
+// Handles errors by conditional and emits error descriptions
+@function PSJ_has-errors($function-name: 'PSJ', $error-cases: ()) {
+
+	// Make sure error cases is a list
+	$error-cases: PSJ_to-list($error-cases);
+
+	// Set has-errors status to false by default
+	$has-errors: false;
+
+	// Loop through error map
+	@each $error-case in $error-cases {
+
+		// Get the error conditional
+		$error-conditional: PSJ_friendly-map-get($error-case, conditional, 'error case');
+
+		// If the conditional is satisfied, emit an error and force function to return true
+		@if $error-conditional {
+
+			// If error type is 'error' throw an error and force this function to return false
+			@error $function-name + ': ' + PSJ_friendly-map-get($error-case, description, 'error case');
+			$has-errors: true;
+		}
+	}
+
+	@return $has-errors;
+}

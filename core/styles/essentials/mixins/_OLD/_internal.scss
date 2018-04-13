@@ -4,7 +4,7 @@
 
 
 // Generate static responsive classes
-@mixin PSJ_map-static-responsive-classes($classes, $include-breakpoint-classes: true, $breakpoint-map: $PSJ_breakpoint-map) {
+@mixin PSJ_static-responsive-classes($classes, $include-breakpoint-classes: true, $breakpoint-map: $PSJ_breakpoint-map) {
 
 	// Loop through the classes and create a base class for each
 	@each $class-name, $style-map in $classes {
@@ -42,10 +42,12 @@
 }
 
 // Generate dynamic responsive classes
-@mixin PSJ_map-dynamic-responsive-classes($classes, $include-breakpoint-classes: false, $fill-empty-breakpoints: false, $breakpoint-map: PSJ_breakpoint-map) {
+@mixin PSJ_dynamic-responsive-classes($classes, $include-breakpoint-classes: false, $fill-empty-breakpoints: false, $breakpoint-map: PSJ_breakpoint-map) {
 
 	// Loop through the classes and create a base class for each
 	@each $class-name, $breakpoint-style-map in $classes {
+
+		// Set base class
 		&--#{$class-name} {
 
 			// Loop through the class's breakpoint map and print the styles at each breakpoint
@@ -114,6 +116,8 @@
 							@include PSJ_breakpoint($breakpoint, $breakpoint-map) {
 								@include PSJ_map-styles($style-map);
 							}
+
+							// TODO: Add media queries for higher breakpoints than the current one perhaps link with placeholders to minimize output
 						}
 					}
 				}

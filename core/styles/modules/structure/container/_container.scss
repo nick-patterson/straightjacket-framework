@@ -1,26 +1,39 @@
-// ------   Container Module   -------------- /
-// ------------------------------------------ /
+// ------   Container Module   --------------------- /
+// ------------------------------------------------- /
 
+// Default container map
+$PSJ_container-map: (
+	default: 90%,
+	xs: 90%,
+	sm: 85%,
+	md: 680px,
+	lg: 940px,
+	xl: 1080px,
+	xxl: 1280px,
+	xxxl: 1344px,
+	longboi: 1440px
+);
 
+// Container mixin
 @mixin PSJ_container($config: ()) {
 
-	// ------   Default Configuration   ----- /
+	// ------   Default Configuration   ------------ /
 
 	$config: map-merge((
-		breakpoint-map: $PSJ_breakpoint-map,
 		container-map: $PSJ_container-map,
+		breakpoint-map: $PSJ_breakpoint-map,
 		centered: true
 	), $config);
 
 	$id: unique-id();
 
 
-	// ------   Registration   -------------- /
+	// ------   Registration   --------------------- /
 
 	$registration: PSJ_register-module(container, #{&}, $config);
 
 
-	// ------   Generated CSS   ------------- /
+	// ------   Generated CSS   -------------------- /
 
 	// Default container (for mobile devices & other tiny screens)
 	width: PSJ_map-deep-get($config, container-map, default);

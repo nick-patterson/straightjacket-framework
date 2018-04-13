@@ -4,7 +4,7 @@
 // ------   LAUNCHPAD   ---------------------------- /
 // ================================================= /
 
-// DESCRIPTION: -------------------------------------/
+// - DESCRIPTION: -----------------------------------/
 //
 //   This is the final destination for all of
 //   StraightJacket's amazingness. All functions
@@ -33,12 +33,15 @@
 }
 
 .o-grid {
-	// @include PSJ_grid();
+	@include PSJ_grid();
 }
 
 .u-text {
-	//@include PSJ_text-helpers();
-	@include PSJ_text-styles();
+	// @include PSJ_text-helpers();
+	@include PSJ_text-styles((
+		include-responsive-classes: true,
+		fill-empty-responsive-classes: true
+	));
 }
 
 .u-display {

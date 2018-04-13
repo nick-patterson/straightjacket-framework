@@ -1,0 +1,21 @@
+// ================================================= /
+// ======   Internal List Functions   ============== /
+// ================================================= /
+
+
+// Normalizes booleans or lists into selective lists
+@function PSJ_selective-list($selection: true, $full-list: ()) {
+
+	// If the selection is already a list, return it
+	@if type-of($selection) == list {
+		@return $selection;
+	}
+
+	// Otherwise, if the selection is not a bool, place it in a list and return that list
+	@else if type-of($selection) != bool {
+		@return ($selection);
+	}
+
+	// Otherwise, either return the full list or an empty list depending on the truth value of the selection
+	@return if($selection, $full-list, ());
+}

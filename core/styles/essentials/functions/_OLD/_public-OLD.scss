@@ -10,11 +10,27 @@
 	@return $quantity / ($quantity * 0 + 1);
 }
 
+// Calculate Rem Based on text-base
+@mixin PSJ_rem($props, $rem: 1rem, $breakpoint: lg) {
+
+	@if type-of($props) == list {
+		@each $prop in $props {
+			#{$prop}: PSJ_strip-unit($rem) * map-get($PSJ_text-base, $breakpoint);
+			#{$prop}: PSJ_strip-unit($rem) * 1rem;
+		}
+	}
+
+	@else {
+		#{$props}: PSJ_strip-unit($rem) * map-get($PSJ_text-base, $breakpoint);
+		#{$props}: PSJ_strip-unit($rem) * 1rem;
+	}
+}
+
 // Retrieve value from Nested Map
 @function PSJ_map-deep-get($map, $keys...) {
 
 	@each $key in $keys {
-		$map: PSJ_map-friendly-get($map, $map, $key);
+		$map: PSJ_friendly-map-get($map, $key);
 	}
 
 	@return $map;
@@ -69,7 +85,7 @@
 
 // Natural Logrithms
 // Who in the hell thought it would ever come to needing Taylor series expansion in sass!?
-@function PSJ_ln($x) {
+@function ln($x) {
 
 	@if type_of($x) != number or not unitless($x) {
 		@warn 'Argument must be a unitless number';
@@ -150,27 +166,10 @@
 
 // Get color from color map
 @function PSJ_color($color) {
-	@return PSJ_map-friendly-get($PSJ_color-map, 'color', $color);
+	@return PSJ_friendly-map-get($PSJ_color-map, 'color', $color);
 }
 
 // Get font from font map
 @function PSJ_font($font) {
-	@return PSJ_map-friendly-get($PSJ_font-map, 'font', $font);
-}
-
-
-// ------   Abstractions   ------------------------- /
-
-// Get a value from a map in a friendly, transparent, helpful-when-fails way!
-@function PSJ_map-friendly-get( $map, $map-nice-name, $key ) {
-
-	@if map-has-key($map, $key) {
-		@return map-get($map, $key);
-	}
-
-	@else {
-		@warn '#{ $key } is not defined in your ' + #{$map-nice-name} + ' map';
-	}
-
-	@return false;
+	@return PSJ_friendly-map-get($PSJ_font-map, 'font', $font);
 }
