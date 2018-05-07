@@ -1,10 +1,10 @@
 // ================================================= /
 // ======   PHANTASM STRAIGHTJACKET   ============== /
 // ================================================= /
-// ------   LAUNCHPAD   ---------------------------- /
+// ======   LAUNCHPAD   ============================ /
 // ================================================= /
 
-// - DESCRIPTION: -----------------------------------/
+// - DESCRIPTION: ---------------------------------- /
 //
 //   This is the final destination for all of
 //   StraightJacket's amazingness. All functions
@@ -38,10 +38,7 @@
 
 .u-text {
 	// @include PSJ_text-helpers();
-	@include PSJ_text-styles((
-		include-responsive-classes: true,
-		fill-empty-responsive-classes: true
-	));
+	@include PSJ_text-styles();
 }
 
 .u-display {

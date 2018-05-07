@@ -1,4 +1,53 @@
-// ------   Text Helpers   ------------------------- /
+// ================================================= /
+// ======   TEXT HELPERS MODULE   ================== /
+// ================================================= /
+
+// - DESCRIPTION ----------------------------------- /
+//
+//   Outputs helper classes related to text properties.
+//
+//   Uses static responsive classes.
+//
+// - Configuration --------------------------------- /
+//
+//   Parameter: include-colors (bool/list)
+//
+//   Description: Determines which colors to include
+//   as helper classes. Values included here must
+//   correspond to colors specified in the color map.
+//   Renders classes as &--color-#{$color}
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: include-fonts (bool/list)
+//
+//   Description: Determines which fonts to include
+//   as helper classes. Values included here must
+//   correspond to colors specified in the font map.
+//   Renders classes as &--font-#{$font}
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: include-responsive-classes (bool/list)
+//
+//   Description: Determines which responsive classes
+//   to include with each helper class in the module.
+//   Passing a bool of 'true' assumes all responsive
+//   classes are to be included.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: breakpoint-map (map)
+//
+//   Description: Determines which breakpoint map will
+//   be used to set the responsive classes.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: additional-class-map (map)
+//
+//   Description: Additional classes and styles to add.
+//
 // ------------------------------------------------- /
 
 
@@ -7,11 +56,11 @@
 	// ------   Default Configuration   ------------ /
 
 	$config: map-merge((
+		include-colors: true,
+		include-fonts: true,
 		include-responsive-classes: true,
 		breakpoint-map: $PSJ_breakpoint-map,
-		additional-class-map: (),
-		include-colors: true,
-		include-fonts: true
+		additional-class-map: ()
 	), $config);
 
 	// Set up helper classes

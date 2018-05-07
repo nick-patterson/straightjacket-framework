@@ -1,0 +1,97 @@
+// ================================================= /
+// ======   PADDING HELPERS MODULE   =============== /
+// ================================================= /
+
+// - DESCRIPTION ----------------------------------- /
+//
+//   Provides helper classes for padding.
+//
+//   Uses dynamic responsive classes generated from
+//   a proportion map.
+//
+// - Configuration --------------------------------- /
+//
+//   Parameter: include-sides (bool/list)
+//
+//   Description: Adds additional helper classes that
+//   can add padding to a specific side or an element.
+//   Passing a bool of 'true' assumes all sides
+//   (top, right, bottom, left) are to be included.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: include-responsive-classes (bool/list)
+//
+//   Description: Determines which responsive classes
+//   to include with each helper class in the module.
+//   Passing a bool assumes either all or no responsive
+//   classes are to be included.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: fill-empty-responsive-classes (bool/list)
+//
+//   Description: Determines whether to generate
+//   responsive classes for breakpoints that are not
+//   specified in the proportion map. Finds and uses
+//   styles from the closest lower breakpoint relative
+//   to the one being generated.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: proportion-map (map)
+//
+//   Description: Determines which proportion map will
+//   be used to set the responsive classes.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: breakpoint-map (map)
+//
+//   Description: Determines which breakpoint map will
+//   be used to set the responsive classes.
+//
+// ------------------------------------------------- /
+
+
+@mixin PSJ_padding-helpers($config: ()) {
+
+	// ------   Default Configuration   ------------ /
+
+	$config: map-merge((
+		include-sides: true,
+		include-responsive-classes: true,
+		fill-empty-responsive-classes: false,
+		proportion-map: $PSJ_proportion-map,
+		breakpoint-map: $PSJ_breakpoint-map
+	), $config);
+
+	// Normalize included sides
+	$included-sides: PSJ_selective-list(map-get($config, include-sides), (top, right, bottom, left));
+
+	// Build base helper classes
+	$helper-classes: PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-values(padding, map-get($config, proportion-map));
+
+	// ------   Registration   --------------------- /
+
+	$registration: PSJ_register-module(padding-helpers, #{&}, ());
+
+
+	// ------   Generated CSS   -------------------- /
+
+	@at-root {
+		@include PSJ_dynamic-responsive-classes($helper-classes, map-get($config, include-responsive-classes), map-get($config, fill-empty-responsive-classes), map-get($config, breakpoint-map));
+
+		// Loop through included sides
+		@each $side in $included-sides {
+
+			// Get side helper classes
+			$side-helper-classes: PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-values(#{'padding-' + $side}, map-get($config, proportion-map));
+
+			// Include directional class for side
+			&-#{$side} {
+				@include PSJ_dynamic-responsive-classes($side-helper-classes, map-get($config, include-responsive-classes), map-get($config, fill-empty-responsive-classes), map-get($config, breakpoint-map));
+			}
+		}
+	}
+}

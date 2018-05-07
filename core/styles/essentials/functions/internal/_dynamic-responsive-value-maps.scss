@@ -1,0 +1,68 @@
+// ================================================= /
+// ======   Internal Dynamic Responsive Value   ==== /
+// ======   Map Functions   ======================== /
+// ================================================= /
+
+// - DESCRIPTION: -----------------------------------/
+//
+//   Functions that process dynamic responsive
+//   value maps.
+//
+// ------------------------------------------------- /
+
+
+// Creates a dynamic responsive class map from dynamic responsive value map
+@function PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-values($css-property: null, $dynamic-responsive-value-map: null) {
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: $css-property == null,
+			description: 'No $css-property specified'
+		),
+		(
+			conditional: $dynamic-responsive-value-map == null,
+			description: 'No $dynamic-responsive-value-map specified'
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-values', $error-cases) {
+		@return null;
+	}
+
+	// Set the responsive class map
+	$dynamic-responsive-class-map: ();
+
+	// Loop through the values in the dynamic responsive value map
+	@each $dynamic-responsive-value-name, $dynamic-responsive-value-breakpoint-value-map in $dynamic-responsive-value-map {
+
+		// Set class breakpoint-value map
+		$class-breakpoint-value-map: ();
+
+		// Loop through the dynamic responsive value breakpoint values
+		@each $breakpoint-name, $dynamic-responsive-value in $dynamic-responsive-value-breakpoint-value-map {
+
+			// Add the values to the class breakpoint-value map
+			$class-breakpoint-value-map: map-merge(
+				$class-breakpoint-value-map,
+				(
+					#{$breakpoint-name}: (
+						#{$css-property}: $dynamic-responsive-value
+					)
+				)
+			);
+		}
+
+		// Add class breakpoint-value map to dynamic responsive classes map
+		$dynamic-responsive-class-map: map-merge(
+			$dynamic-responsive-class-map,
+			(
+				#{$dynamic-responsive-value-name}: $class-breakpoint-value-map
+			)
+		);
+	}
+
+	// Return the dynamic responsive class map
+	@return $dynamic-responsive-class-map;
+}

@@ -1,10 +1,10 @@
 // ================================================= /
 // ======   PHANTASM STRAIGHTJACKET   ============== /
 // ================================================= /
-// ------   RESPONSIVE SCSS FRAMEWORK   ------------ /
+// ======   RESPONSIVE SCSS FRAMEWORK   ============ /
 // ================================================= /
 
-// - DESCRIPTION ------------------------------------/
+// - DESCRIPTION ----------------------------------- /
 //
 //   A lightweight and powerful framework designed
 //   for maximum customizability.
@@ -25,14 +25,14 @@
 //   all of the power where it belongs: in the
 //   hands of the developer.
 //
-//   Normalizing styles have been helped along thanks to
+//   Normalizing styles would be impossible without
 //   Nicolas Gallagher and Jonathan Neal
 //   http://necolas.github.com/normalize.css/
 //
-// - BIOGRAPHICAL INFORMATION ---------------------- /
+// - BLAH BLAH BLAH -------------------------------- /
 //
-//   VERSION: 0.6 ---------------------------------- /
-//   RELEASE: FEBRUARY 7, 2018 --------------------- /
+//   VERSION: 0.7 ---------------------------------- /
+//   RELEASE: MAY 7, 2018 -------------------------- /
 //   AUTHOR: NICK PATTERSON ------------------------ /
 //
 //   PHANTASM: phantasm.io ------------------------- /
@@ -105,11 +105,14 @@
 //   by applying two static responsive classes at
 //   their respective breakpoints.
 //
-//   Structure:
+//   Schema:
 //
-//   static-class-name: (
-//       property: value,
-//       property2: value2
+//   $static-class-map: (
+//       static-class-name: (
+//           CSS-property: CSS-value,
+//           CSS-property: CSS-value
+//       ),
+//       // More static class names
 //   )
 //
 // - Dynamic --------------------------------------- /
@@ -121,14 +124,17 @@
 //   of paddings for <section> tags that increases in
 //   size as the viewport grows.
 //
-//   Dynamic responsive class maps look like this:
+//   Schema:
 //
-//   dynamic-class-name: (
-//       default: (
-//           property: value,
-//           property2: value2
-//       ),
-//       // More breakpoints
+//   $dynamic-class-map: (
+//       dynamic-class-name: (
+//           breakpoint-name: (
+//               CSS-property: CSS-value,
+//               CSS-property: CSS-value
+//           ),
+//           // More breakpoint names
+//       )
+//       // More dynamic class names
 //   )
 //
 // - Important notes ------------------------------- /
@@ -186,7 +192,7 @@ $PSJ_module-registry: (
 	block-helpers: (),
 	flex-helpers: (),
 
-	text-sizing: (),
+	text-styling: (),
 	text-helpers: (),
 
 	popover-modal: (),
@@ -267,6 +273,15 @@ $PSJ_module-registry: (
 
 // Flex helpers
 @import 'modules/structure/structure-helpers/flex-helpers';
+
+// ------   Proportion Helpers Modules   ---- /
+// ------------------------------------------ /
+
+// Padding helpers
+@import 'modules/structure/structure-helpers/proportion-helpers/padding-helpers';
+
+// Margin helpers
+@import 'modules/structure/structure-helpers/proportion-helpers/margin-helpers';
 
 
 

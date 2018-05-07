@@ -1,4 +1,36 @@
-// ------   Block Helpers   ------------------------ /
+// ================================================= /
+// ======   BLOCK HELPERS MODULE   ================= /
+// ================================================= /
+
+// - DESCRIPTION ----------------------------------- /
+//
+//   Provides helper classes for general element
+//   arrangement and display.
+//
+//   Uses static responsive classes.
+//
+// - Configuration --------------------------------- /
+//
+//   Parameter: include-responsive-classes (bool/list)
+//
+//   Description: Determines which responsive classes
+//   to include with each helper class in the module.
+//   Passing a bool assumes either all or no responsive
+//   classes are to be included.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: breakpoint-map (map)
+//
+//   Description: Determines which breakpoint map will
+//   be used to set the responsive classes.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: additional-class-map (map)
+//
+//   Description: Additional classes and styles to add.
+//
 // ------------------------------------------------- /
 
 
@@ -36,6 +68,18 @@
 			float: none,
 			margin-left: auto,
 			margin-right: auto
+		),
+		auto-width: (
+			width: auto
+		),
+		full-width: (
+			width: 100%
+		),
+		auto-height: (
+			height: auto
+		),
+		full-height: (
+			height: auto
 		)
 	);
 

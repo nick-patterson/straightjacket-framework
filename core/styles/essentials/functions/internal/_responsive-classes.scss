@@ -55,7 +55,7 @@
 // Get styles for a dynamic responsive class at a certain breakpoint
 // Hoists all styles from lower breakpoints and overwrites them with ones from higher breakpoints
 // This preserves properties that are only designated at lower breakpoints but still need to be present for responsive classes at higher breakpoints to overwrite others
-@function PSJ_get-dynamic-responsive-class-styles-at-breakpoint( $class-responsive-style-map: null, $breakpoint-label: null ) {
+@function PSJ_get-hoisted-dynamic-responsive-class-styles-at-breakpoint($class-responsive-style-map: null, $breakpoint-label: null) {
 
 	// Set up error cases
 	$error-cases: (
@@ -70,7 +70,7 @@
 	);
 
 	// If there are errors, return null
-	@if PSJ_has-errors('PSJ_get_dynamic-breakpoint-hoisted-styles', $error-cases) {
+	@if PSJ_has-errors('PSJ_get-hoisted-dynamic-responsive-class-styles-at-breakpoint', $error-cases) {
 		@return null;
 	}
 
@@ -110,7 +110,7 @@
 
 	// Add the closest common breakpoint to the filler map
 	$temp-filler-map: map-merge($temp-filler-map, (
-		#{$breakpoint-label}: PSJ_get-dynamic-responsive-class-styles-at-breakpoint($class-responsive-style-map, $closest-common-breakpoint)
+		#{$breakpoint-label}: PSJ_get-hoisted-dynamic-responsive-class-styles-at-breakpoint($class-responsive-style-map, $closest-common-breakpoint)
 	));
 
 	// Copy the filler map

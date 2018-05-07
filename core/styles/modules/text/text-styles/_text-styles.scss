@@ -1,5 +1,54 @@
-// ------   Text Styles Module   ------------------- /
+// ================================================= /
+// ======   TEXT STYLES MODULE   =================== /
+// ================================================= /
+
+// - DESCRIPTION ----------------------------------- /
+//
+//   Outputs classes for custom text styles by name.
+//
+//   Uses dynamic responsive classes.
+//
+// - Configuration --------------------------------- /
+//
+//   Parameter: include-responsive-classes (bool/list)
+//
+//   Description: Determines which responsive classes
+//   to include with each helper class in the module.
+//   Passing a bool assumes either all or no responsive
+//   classes are to be included.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: fill-empty-responsive-classes (bool/list)
+//
+//   Description: Determines whether to generate
+//   responsive classes for breakpoints that are not
+//   specified in the proportion map. Finds and uses
+//   styles from the closest lower breakpoint relative
+//   to the one being generated.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: test-style-map (map)
+//
+//   Description: Determines which text style map will
+//   be used to set the text classes and styles.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: breakpoint-map (map)
+//
+//   Description: Determines which breakpoint map will
+//   be used to set the responsive classes.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: additional-class-map (map)
+//
+//   Description: Additional classes and styles to add.
+//
 // ------------------------------------------------- /
+
 
 // Default text style map
 $PSJ_text-style-map: (
@@ -110,8 +159,8 @@ $PSJ_text-style-map: (
 	$config: map-merge((
 		include-responsive-classes: false,
 		fill-empty-responsive-classes: false,
-		breakpoint-map: $PSJ_breakpoint-map,
 		text-style-map: $PSJ_text-style-map,
+		breakpoint-map: $PSJ_breakpoint-map,
 		additional-class-map: ()
 	), $config);
 

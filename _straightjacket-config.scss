@@ -1,10 +1,10 @@
 // ================================================= /
 // ======   PHANTASM STRAIGHTJACKET   ============== /
 // ================================================= /
-// ------   STYLE CONFIGURATION   ------------------ /
+// ======   CONFIGURATION   ======================== /
 // ================================================= /
 
-// - DESCRIPTION: -----------------------------------/
+// - DESCRIPTION: ---------------------------------- /
 //
 //   This file sets the default configuration for
 //   StraightJacket. All user-generated configuration
@@ -28,7 +28,7 @@
 //
 //   Defines simple global proportions to
 //   use when calculating consistent margins,
-//   widths, text sizes, etc.
+//   widths, etc.
 //
 // ------------------------------------------------- /
 
@@ -53,7 +53,7 @@ $PSJ_base: 16px;
 //   viewport widths at which styles should be
 //   able to change.
 //
-// - Structure ------------------------------------- /
+// - Schema ---------------------------------------- /
 //
 //   $breakpoint-map: (
 //       breakpoint-name: viewport-width-at-breakpoint,
@@ -89,16 +89,18 @@ $PSJ_breakpoint-map: (
 //
 //   Defines global proportions.
 //
+//   This is an example of a dynamic responsive value map.
+//
 //   These are guidelines for things such as padding,
 //   margins, positioning, etc. so that they can
 //   stay consistent project-wide across each
 //   component or module.
 //
-// - Structure ------------------------------------- /
+// - Schema ---------------------------------------- /
 //
 //   $proportion-map: (
 //       proportion-name: (
-//           breakpoint-name: proportion-value
+//           breakpoint-name: proportion-value-at-breakpoint
 //       )
 //   );
 //
@@ -129,12 +131,14 @@ $PSJ_proportion-map: (
 //   Defines color values that can be easily
 //   retrieved using the PSJ_color() function.
 //
+//   This is an example of a static responsive value map.
+//
 //   Simply define a color with any valid
 //   CSS value (or SCSS value) and pass the
 //   name of the key into the PSJ_color() function
 //   to reference it anywhere.
 //
-// - Structure ------------------------------------- /
+// - Schema ---------------------------------------- /
 //
 //   $color-map: (
 //       color-name: color-value
@@ -167,12 +171,14 @@ $PSJ_color-map: (
 //   Defines font family values that can be easily
 //   retrieved using the PSJ_font-family() function.
 //
+//   This is an example of a static responsive value map.
+//
 //   Simply define a font family with any valid
 //   CSS value (or SASS value) and pass the
 //   name of the key into the PSJ_font-family() function
 //   to reference it anywhere.
 //
-//   STRUCTURE:
+// - Schema ---------------------------------------- /
 //
 //   $font-map: (
 //       font-name: font-value

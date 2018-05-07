@@ -1,4 +1,36 @@
-// ------   Display Helpers   ---------------------- /
+// ================================================= /
+// ======   DISPLAY HELPERS MODULE   =============== /
+// ================================================= /
+
+// - DESCRIPTION ----------------------------------- /
+//
+//   Outputs helper classes related to how
+//   elements display.
+//
+//   Uses static responsive classes.
+//
+// - Configuration --------------------------------- /
+//
+//   Parameter: include-responsive-classes (bool/list)
+//
+//   Description: Determines which responsive classes
+//   to include with each helper class in the module.
+//   Passing a bool assumes either all or no responsive
+//   classes are to be included.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: breakpoint-map (map)
+//
+//   Description: Determines which breakpoint map will
+//   be used to set the responsive classes.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: additional-class-map (map)
+//
+//   Description: Additional classes and styles to add.
+//
 // ------------------------------------------------- /
 
 
@@ -15,7 +47,7 @@
 	// Set up helper classes
 	$helper-classes: (
 		visible: (
-			visiblity: visible,
+			visibility: visible,
 			opacity: 1
 		),
 		invisible: (

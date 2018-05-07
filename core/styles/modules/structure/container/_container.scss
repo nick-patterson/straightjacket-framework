@@ -1,4 +1,34 @@
-// ------   Container Module   --------------------- /
+// ================================================= /
+// ======   CONTAINER MODULE   ===================== /
+// ================================================= /
+
+// - DESCRIPTION ----------------------------------- /
+//
+//   Provides a content container that changes its
+//   width depending on the viewport width.
+//   Meant to act as a maximum width for content.
+//
+// - Configuration --------------------------------- /
+//
+//   Parameter: centered (bool)
+//
+//   Description: Determines if the container element
+//   is to be centered on the page.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: container-map (map)
+//
+//   Description: Determines which container map is
+//   used to set the widths of the container.
+//
+//   ----------------------------------------------- /
+//
+//   Parameter: breakpoint-map (map)
+//
+//   Description: Determines which breakpoint map will
+//   be used to set the responsive classes.
+//
 // ------------------------------------------------- /
 
 // Default container map
@@ -20,9 +50,9 @@ $PSJ_container-map: (
 	// ------   Default Configuration   ------------ /
 
 	$config: map-merge((
+		centered: true,
 		container-map: $PSJ_container-map,
-		breakpoint-map: $PSJ_breakpoint-map,
-		centered: true
+		breakpoint-map: $PSJ_breakpoint-map
 	), $config);
 
 	$id: unique-id();

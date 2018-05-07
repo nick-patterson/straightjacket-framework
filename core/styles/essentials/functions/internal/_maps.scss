@@ -17,3 +17,57 @@
 	@error 'Either your map isn\'t a map or \'#{ $key }\' is not defined in your #{$map-nice-name}';
 	@return false;
 }
+
+// Determines if a responsive class map is static or dynamic
+@function PSJ_get-responsive-class-map-type($responsive-class-map: null) {
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: $responsive-class-map == null,
+			description: 'No $responsive-class-map specified'
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-values', $error-cases) {
+		@return null;
+	}
+
+	// Set the type
+	$type: null;
+
+	// Loop through each value of the map
+	@each $key, $value in $responsive-class-map {
+
+		// If the value is a map,
+		@if type-of($value) == 'map' {
+
+			// Get the first value of the map
+			$first-value: nth(map-values($value), 1);
+
+			// If the first value is a map and the type is set as dynamic or null, set the type as dynamic
+			@if (type-of($first-value) == 'map' and ($type == null or $type == 'dynamic')) {
+				$type: 'dynamic';
+			}
+
+			// Otherwise, if the type is set as static or null, set the type as static
+			@else if $type == null or $type == 'static' {
+				$type: 'static';
+			}
+
+			// Otherwise, the map is malformed, so return an error
+			@else {
+				@error 'PSJ_get-responsive-classes-map-type: The $responsive-class-map you specified is malformed.';
+				@return false;
+			}
+		}
+		@else {
+			@error 'PSJ_get-responsive-classes-map-type: The $responsive-class-map you specified is malformed.';
+			@return false;
+		}
+	}
+
+	// Return the type
+	@return $type;
+}
