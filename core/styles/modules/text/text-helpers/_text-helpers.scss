@@ -15,16 +15,19 @@
 //   Description: Determines which colors to include
 //   as helper classes. Values included here must
 //   correspond to colors specified in the color map.
+//
 //   Renders classes as &--color-#{$color}
 //
 //   ----------------------------------------------- /
 //
-//   Parameter: include-fonts (bool/list)
+//   Parameter: include-font-families (bool/list)
 //
-//   Description: Determines which fonts to include
-//   as helper classes. Values included here must
-//   correspond to colors specified in the font map.
-//   Renders classes as &--font-#{$font}
+//   Description: Determines which font families to
+//   include as helper classes. Values included here
+//   must correspond to font families specified in
+//   the font map.
+//
+//   Renders classes as &--family-#{$font}
 //
 //   ----------------------------------------------- /
 //
@@ -57,7 +60,7 @@
 
 	$config: map-merge((
 		include-colors: true,
-		include-fonts: true,
+		include-font-families: true,
 		include-responsive-classes: true,
 		breakpoint-map: $PSJ_breakpoint-map,
 		additional-class-map: ()
@@ -88,18 +91,18 @@
 		)
 	);
 
+	// Normalize included colors and fonts
+	$included-colors: PSJ_selective-list(map-get($config, include-colors), map-keys($PSJ_color-map));
+	$included-font-families: PSJ_selective-list(map-get($config, include-fonts), map-keys($PSJ_font-family-map));
+
 	// Add colors from color map to helper classes
-	@if map-get($config, include-colors) {
-		@each $color, $value in $PSJ_color-map {
-			$helper-classes: map-merge($helper-classes, (#{'color-' + $color}: (color: $value )));
-		}
+	@each $color in $included-colors {
+		$helper-classes: map-merge($helper-classes, (#{'color-' + $color}: (color: map-get($PSJ_color-map, $color))));
 	}
 
-	// Add fonts from fontmap to helper classes
-	@if map-get($config, include-fonts) {
-		@each $font, $value in $PSJ_font-map {
-			$helper-classes: map-merge($helper-classes, (#{'font-' + $font}: (font-family: $value )));
-		}
+	// Add fonts from font family map to helper classes
+	@each $font-family in $included-font-families {
+		$helper-classes: map-merge($helper-classes, (#{'family-' + $font-family}: (font-family: map-get($PSJ_font-family-map, $font-family))));
 	}
 
 	// Merge additional classes into helper classes

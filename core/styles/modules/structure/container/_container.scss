@@ -65,9 +65,6 @@ $PSJ_container-map: (
 
 	// ------   Generated CSS   -------------------- /
 
-	// Default container (for mobile devices & other tiny screens)
-	width: PSJ_map-deep-get($config, container-map, default);
-
 	// Center container if instructed
 	@if map-get($config, centered) == true {
 		margin-right: auto;
@@ -78,9 +75,9 @@ $PSJ_container-map: (
 	@content;
 
 	// Container for other screen sizes
-	@each $breakpoint-label, $viewport-width in map-get($config, breakpoint-map) {
+	@each $breakpoint-label in map-keys(map-get($config, container-map)) {
 
-		@media (min-width: $viewport-width) {
+		@include PSJ_breakpoint($breakpoint-label, map-get($config, breakpoint-map)) {
 			width: PSJ_map-deep-get($config, container-map, $breakpoint-label);
 		}
 	}
