@@ -188,7 +188,7 @@
 
 	// Loop through range and add each value to the result
 	@for $i from $start through $end {
-		$result: append($result, $i);
+		$result: append($result, ($i / 1));
 	}
 
 	// Return result

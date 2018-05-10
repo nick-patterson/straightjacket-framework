@@ -11,6 +11,15 @@
 //
 // - Configuration --------------------------------- /
 //
+//   Parameter: include-proportions (bool/list)
+//
+//   Description: Determines which proportions
+//   to include with each helper class in the module.
+//   Passing a bool assumes either all or no proportions
+//   are to be included.
+//
+//   ----------------------------------------------- /
+//
 //   Parameter: include-sides (bool/list)
 //
 //   Description: Adds additional helper classes that
@@ -59,6 +68,7 @@
 	// ------   Default Configuration   ------------ /
 
 	$config: map-merge((
+		include-proportions: true,
 		include-sides: true,
 		include-responsive-classes: true,
 		fill-empty-responsive-classes: false,
@@ -70,7 +80,7 @@
 	$included-sides: PSJ_selective-list(map-get($config, include-sides), (top, right, bottom, left));
 
 	// Build base helper classes
-	$helper-classes: PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-values(padding, map-get($config, proportion-map));
+	$helper-classes: PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-value-map(padding, map-get($config, include-proportions), map-get($config, proportion-map));
 
 	// ------   Registration   --------------------- /
 
@@ -86,7 +96,7 @@
 		@each $side in $included-sides {
 
 			// Get side helper classes
-			$side-helper-classes: PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-values(#{'padding-' + $side}, map-get($config, proportion-map));
+			$side-helper-classes: PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-value-map(#{'padding-' + $side}, map-get($config, include-proportions), map-get($config, proportion-map));
 
 			// Include directional class for side
 			&-#{$side} {

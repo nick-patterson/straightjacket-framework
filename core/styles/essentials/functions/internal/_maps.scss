@@ -6,7 +6,7 @@
 // ------   General map functions   ---------------- /
 
 // Get a value from a map in a friendly, transparent, helpful-when-fails way!
-@function PSJ_friendly-map-get( $map: null, $key: null, $map-nice-name: 'map' ) {
+@function PSJ_friendly-map-get( $map: null, $key: null ) {
 
 	// If the map is a map, and the key exists, go get it
 	@if type-of($map) == map and map-has-key($map, $key) {
@@ -14,7 +14,7 @@
 	}
 
 	// Otherwise, warn the user and return false
-	@error 'Either your map isn\'t a map or \'#{ $key }\' is not defined in your #{$map-nice-name}';
+	@error 'Either $map isn\'t a map or \'#{ $key }\' is not defined in your $map';
 	@return false;
 }
 

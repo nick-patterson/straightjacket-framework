@@ -29,21 +29,32 @@
 }
 
 .u-block {
-	// @include PSJ_block-helpers();
+	// @include PSJ_block-helpers((
+	// 	include-responsive-classes: false
+	// ));
 }
 
 .c-grid {
 	@include PSJ_grid((
-		include-column-widths: (3, 4, 6, 8, 10, 12),
 		include-column-responsive-classes: (md, lg, xl)
 	));
 }
 
 .u-text {
-	// @include PSJ_text-helpers();
+	// @include PSJ_text-helpers((
+	// 	include-responsive-classes: (md, lg, xl)
+	// ));
 	// @include PSJ_text-styles();
 }
 
 .u-display {
 	// @include PSJ_display-helpers();
+}
+
+.u-margin {
+	// @include PSJ_margin-helpers();
+}
+
+.u-padding {
+	@include PSJ_padding-helpers();
 }

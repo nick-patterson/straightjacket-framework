@@ -93,7 +93,7 @@
 
 	// Normalize included colors and fonts
 	$included-colors: PSJ_selective-list(map-get($config, include-colors), map-keys($PSJ_color-map));
-	$included-font-families: PSJ_selective-list(map-get($config, include-fonts), map-keys($PSJ_font-family-map));
+	$included-font-families: PSJ_selective-list(map-get($config, include-font-families), map-keys($PSJ_font-family-map));
 
 	// Add colors from color map to helper classes
 	@each $color in $included-colors {

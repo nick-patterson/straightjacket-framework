@@ -1,0 +1,73 @@
+// ================================================= /
+// ======   Public Structure Mixins   ============== /
+// ================================================= /
+
+
+// Clearfix
+@mixin PSJ_clearfix() {
+	&::after {
+		content: '';
+		display: block;
+		visibility: hidden;
+		clear: both;
+		height: 0;
+	}
+}
+
+// Set up a media query for a breakpoint
+@mixin PSJ_breakpoint($breakpoint: lg, $breakpoint-map: $PSJ_breakpoint-map) {
+
+	// If the breakpoint is 'default', print the styles
+	@if $breakpoint == default {
+		@content;
+	}
+
+	// Or, if the breakpoint exists in the breakpoint map, print the styles in the correct media query
+	@else if map-has-key($breakpoint-map, $breakpoint) {
+		@media screen and (min-width: map-get($breakpoint-map, $breakpoint)) {
+			@content;
+		}
+	}
+
+	// Otherwise, warn the user and print nothing
+	@else {
+		@warn( #{$breakpoint + ' is not a breakpoint present in your breakpoint map. Styles not printed.'});
+	}
+}
+
+// Get a proportion value for a style at any specified breakpoint
+@mixin PSJ_proportion($properties: null, $proportion: null, $proportion-map: $PSJ_proportion-map, $breakpoint-map: $PSJ_breakpoint-map) {
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: $properties == null,
+			description: '$properties must be either a CSS property or a list of them'
+		),
+		(
+			conditional: $proportion == null,
+			description: '$proportion must be not be null'
+		)
+	);
+
+	// If there are errors, do nothing except print the errors
+	@if PSJ_has-errors('PSJ_proportion', $error-cases) {
+		// Do nothing
+	}
+
+	// Normalize the property into a list
+	$properties: PSJ_to-list($properties);
+
+	// Loop through the breakpoints in the proportion responsive value map
+	@each $breakpoint-label, $proportion-value in PSJ_friendly-map-get($proportion-map, $proportion) {
+
+		// Print the styles at said breakpoint
+		@include PSJ_breakpoint($breakpoint-label, $breakpoint-map) {
+
+			// Loop through properties and print them with the proportion value
+			@each $property in $properties {
+				#{$property}: #{$proportion-value};
+			}
+		}
+	}
+}

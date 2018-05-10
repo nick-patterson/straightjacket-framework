@@ -16,13 +16,13 @@
 	@each $error-case in $error-cases {
 
 		// Get the error conditional
-		$error-conditional: PSJ_friendly-map-get($error-case, conditional, 'error case');
+		$error-conditional: PSJ_friendly-map-get($error-case, conditional);
 
 		// If the conditional is satisfied, emit an error and force function to return true
 		@if $error-conditional {
 
 			// If error type is 'error' throw an error and force this function to return false
-			@error $function-name + ': ' + PSJ_friendly-map-get($error-case, description, 'error case');
+			@error $function-name + ': ' + PSJ_friendly-map-get($error-case, description);
 			$has-errors: true;
 		}
 	}

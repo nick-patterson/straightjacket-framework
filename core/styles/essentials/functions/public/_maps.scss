@@ -8,10 +8,14 @@
 // Retrieve value from Nested Map
 @function PSJ_map-deep-get($map, $keys...) {
 
+	// Loop through each key
 	@each $key in $keys {
+
+		// Set the map as the previous key's value
 		$map: PSJ_friendly-map-get($map, $key);
 	}
 
+	// Return the map
 	@return $map;
 }
 
@@ -20,10 +24,10 @@
 
 // Get color from color map
 @function PSJ_color($color) {
-	@return PSJ_friendly-map-get($PSJ_color-map, $color, 'color map');
+	@return PSJ_friendly-map-get($PSJ_color-map, $color);
 }
 
-// Get font from font map
-@function PSJ_font($font) {
-	@return PSJ_friendly-map-get($PSJ_font-map, $font, 'font map');
+// Get font family from font family map
+@function PSJ_font-family($font-family) {
+	@return PSJ_friendly-map-get($PSJ_font-family-map, $font-family);
 }
