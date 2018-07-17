@@ -3,11 +3,96 @@
 // ================================================= /
 
 
-// ------   Genera number functions   -------------- /
+// ------   General number functions   -------------- /
+
+// Casts anything into a number
+// By Hugo Giraudel
+@function PSJ_to-number($value: null) {
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: $value == null,
+			description: '$value must not be null'
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_to-number', $error-cases) {
+		@return null;
+	}
+
+	// If the value is already a number, return it
+	@if type-of($value) == number {
+		@return $value;
+	}
+
+	// Otherwise, if the value is a list or a map, return the length
+	@if type-of($value) == list or type-of($value) == map {
+		@return length($value);
+	}
+
+	// Otherwise, set vars
+	$result: 0;
+	$digits: 0;
+	$minus: str-slice($value, 1, 1) == '-';
+	$numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
+
+	// Do Hugo magic
+	@for $i from if($minus, 2, 1) through str-length($value) {
+
+		$character: str-slice($value, $i, $i);
+
+		@if not (index(map-keys($numbers), $character) or $character == '.') {
+			@return to-length(if($minus, -$result, $result), str-slice($value, $i));
+		}
+
+		@if $character == '.' {
+			$digits: 1;
+		}
+
+		@else if $digits == 0 {
+			$result: $result * 10 + map-get($numbers, $character);
+		}
+
+		@else {
+			$digits: $digits * 10;
+			$result: $result + map-get($numbers, $character) / $digits;
+		}
+	}
+
+	@return if($minus, -$result, $result);
+}
+
 
 // Strip unit from a number
 @function PSJ_strip-unit($quantity) {
 	@return $quantity / ($quantity * 0 + 1);
+}
+
+
+// Add a unit to a number
+// By Hugo Giraudel
+@function PSJ_to-length($value, $unit) {
+
+	// Set list of units
+	$units: ('px': 1px, 'cm': 1cm, 'mm': 1mm, '%': 1%, 'ch': 1ch, 'pc': 1pc, 'in': 1in, 'em': 1em, 'rem': 1rem, 'pt': 1pt, 'ex': 1ex, 'vw': 1vw, 'vh': 1vh, 'vmin': 1vmin, 'vmax': 1vmax);
+
+	// Set error cases
+	$error-cases: (
+		(
+			conditional: not index(map-keys($units), $unit),
+			description: 'Invalid $unit'
+		)
+	);
+
+	// If there are errors, return 0
+	@if PSJ_has-errors('PSJ_to-length', $error-cases) {
+		@return 0;
+	}
+
+	// Otherwise, return the value appended with the unit
+	@return $value * map-get($units, $unit);
 }
 
 
@@ -17,7 +102,7 @@
 // Supports only integers as exponents for now
 @function PSJ_pow($base, $exponent) {
 
-	// Srt error cases
+	// Set error cases
 	$error-cases: (
 		(
 			conditional: type_of($base) != number or type_of($exponent) != number or not unitless($base) or not unitless($exponent),

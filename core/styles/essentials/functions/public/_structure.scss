@@ -1,0 +1,21 @@
+// ================================================= /
+// ======   Public Structure Functions   =========== /
+// ================================================= /
+
+
+// Get a proportion value at any specified breakpoint
+@function PSJ_get_proportion_at_breakpoint($proportion: null, $breakpoint-label: default, $proportion-map: $PSJ_proportion-map) {
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: $proportion == null,
+			description: '$proportion must be not be null'
+		)
+	);
+
+	// If there are no errors, return the proportion at that breakpoint
+	@if PSJ_has-errors('PSJ_get_proportion_at_breakpoint', $error-cases) == false {
+		@return PSJ_map-deep-get($proportion-map, $proportion, $breakpoint-label);
+	}
+}

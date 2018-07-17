@@ -5,6 +5,11 @@
 
 // ------   Internal functions   ------------------- /
 
+// Include functions for each data type
+@import 'internal/strings';
+@import 'internal/lists';
+@import 'internal/maps';
+
 // Include error handling functions
 @import 'internal/error-handling';
 
@@ -14,12 +19,8 @@
 // Include responsive class functions
 @import 'internal/responsive-classes';
 
-// Include functions for each data type
-@import 'internal/lists';
-@import 'internal/maps';
-
-// Include functions for dynamic responsive value maps
-@import 'internal/dynamic-responsive-value-maps';
+// Include functions for responsive value maps
+@import 'internal/responsive-value-maps';
 
 
 // ------   Public functions   --------------------- /
@@ -28,3 +29,6 @@
 @import 'public/numbers';
 @import 'public/lists';
 @import 'public/maps';
+
+// Include public functions for structure
+@import 'public/structure';

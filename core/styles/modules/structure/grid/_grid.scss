@@ -87,7 +87,7 @@
 	$columns: map-get($config, columns);
 
 	// Normalize included columns, pushes, and responsive classes
-	$included-column-widths: PSJ_selective-list(map-get($config, include-column-widths), PSJ_range(1, $columns));
+	$included-column-widths: PSJ_selective-list(map-get($config, include-column-widths), PSJ_number-range(1, $columns));
 	$included-push-widths: PSJ_selective-list(map-get($config, include-push-widths), PSJ_range(1, $columns - 1));
 	$included-column-responsive-classes: PSJ_selective-list(map-get($config, include-column-responsive-classes), map-keys(map-get($config, breakpoint-map)));
 	$included-push-responsive-classes: PSJ_selective-list(map-get($config, include-push-responsive-classes), map-keys(map-get($config, breakpoint-map)));
@@ -117,6 +117,9 @@
 			// Column base classes
 			@each $column-index in $included-column-widths {
 
+				// Column index must be a number, so lets cast it
+				$column-index: PSJ_to-number($column-index);
+
 				// Output CSS for each included column
 				&--#{ $column-index } {
 					width: ((100 / $columns) * $column-index) * 1%;
@@ -130,6 +133,9 @@
 
 					// Add responsive class for each included column
 					@each $column-index in $included-column-widths {
+
+						// Column index must be a number, so lets cast it
+						$column-index: PSJ_to-number($column-index);
 
 						&--#{ $column-index + \@ + $breakpoint-label } {
 							width: ((100 / $columns) * $column-index) * 1%;

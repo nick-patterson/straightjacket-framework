@@ -1,6 +1,6 @@
 // ================================================= /
-// ======   Internal Dynamic Responsive Value   ==== /
-// ======   Map Functions   ======================== /
+// ======   Internal Responsive Value Map   ======== /
+// ======   Functions   ============================ /
 // ================================================= /
 
 // - DESCRIPTION: -----------------------------------/
@@ -11,8 +11,8 @@
 // ------------------------------------------------- /
 
 
-// Creates a dynamic responsive class map from dynamic responsive value map
-@function PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-value-map($css-property: null, $include-dynamic-responsive-values: true, $dynamic-responsive-value-map: null) {
+// Creates a dynamic responsive class map from responsive value map
+@function PSJ_get-dynamic-responsive-class-map-from-responsive-value-map($css-property: null, $include-responsive-values: true, $responsive-value-map: null) {
 
 	// Set up error cases
 	$error-cases: (
@@ -21,18 +21,18 @@
 			description: 'No $css-property specified'
 		),
 		(
-			conditional: $dynamic-responsive-value-map == null,
-			description: 'No $dynamic-responsive-value-map specified'
+			conditional: $responsive-value-map == null,
+			description: 'No $responsive-value-map specified'
 		)
 	);
 
 	// If there are errors, return null
-	@if PSJ_has-errors('PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-value-map', $error-cases) {
+	@if PSJ_has-errors('PSJ_get-dynamic-responsive-class-map-from-responsive-value-map', $error-cases) {
 		@return null;
 	}
 
 	// Otherwise, normalize the included dynamic responsive values
-	$included-dynamic-responsive-values: PSJ_selective-list($include-dynamic-responsive-values, map-keys($dynamic-responsive-value-map));
+	$included-dynamic-responsive-values: PSJ_selective-list($include-responsive-values, map-keys($responsive-value-map));
 
 	// Set the responsive class map
 	$dynamic-responsive-class-map: ();
@@ -41,7 +41,7 @@
 	@each $dynamic-responsive-value-name in $included-dynamic-responsive-values {
 
 		// Get the dynamic responsive value's breakpoint value map
-		$dynamic-responsive-value-breakpoint-value-map: map-get($dynamic-responsive-value-map, $dynamic-responsive-value-name);
+		$dynamic-responsive-value-breakpoint-value-map: map-get($responsive-value-map, $dynamic-responsive-value-name);
 
 		// Set class breakpoint-value map
 		$class-breakpoint-value-map: ();

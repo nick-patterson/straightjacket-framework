@@ -4,35 +4,47 @@
 
 
 // Generate static responsive classes
-@mixin PSJ_static-responsive-classes($classes, $included-responsive-classes: true, $breakpoint-map: $PSJ_breakpoint-map) {
+@mixin PSJ_static-responsive-classes($classes: null, $included-responsive-classes: true, $breakpoint-map: $PSJ_breakpoint-map) {
 
-	// Normalize included responsive classes
-	$included-responsive-classes: PSJ_selective-list($included-responsive-classes, map-keys($breakpoint-map));
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: $classes == null,
+			description: '$classes must be a static responsive class map'
+		)
+	);
 
-	// Loop through the classes and create a base class for each
-	@each $class-name, $style-map in $classes {
-		&--#{$class-name} {
+	// If there are no errors, proceed
+	@if PSJ_has-errors('PSJ_static-responsive-classes', $error-cases) == false {
 
-			// Generate the styles
-			@include PSJ_map-styles($style-map);
+		// Normalize included responsive classes
+		$included-responsive-classes: PSJ_selective-list($included-responsive-classes, map-keys($breakpoint-map));
+
+		// Loop through the classes and create a base class for each
+		@each $class-name, $style-map in $classes {
+			&--#{$class-name} {
+
+				// Generate the styles
+				@include PSJ_map-styles($style-map);
+			}
 		}
-	}
 
-	// Loop through breakpoint map
-	@each $breakpoint-label in map-keys($breakpoint-map) {
+		// Loop through breakpoint map
+		@each $breakpoint-label in map-keys($breakpoint-map) {
 
-		// If the current breakpoint is in the included responsive classes, include it
-		@if index($included-responsive-classes, $breakpoint-label) != null {
+			// If the current breakpoint is in the included responsive classes, include it
+			@if index($included-responsive-classes, $breakpoint-label) != null {
 
-			// Loop through classes to establish responsive classes for each
-			@each $class-name, $style-map in $classes {
+				// Loop through classes to establish responsive classes for each
+				@each $class-name, $style-map in $classes {
 
-				// Print the class's styles at the included breakpoint
-				@include PSJ_breakpoint($breakpoint-label, $breakpoint-map) {
-					&--#{$class-name + \@ + $breakpoint-label} {
+					// Print the class's styles at the included breakpoint
+					@include PSJ_breakpoint($breakpoint-label, $breakpoint-map) {
+						&--#{$class-name + \@ + $breakpoint-label} {
 
-						// Generate the styles
-						@include PSJ_map-styles($style-map);
+							// Generate the styles
+							@include PSJ_map-styles($style-map);
+						}
 					}
 				}
 			}
@@ -41,50 +53,62 @@
 }
 
 // Generate dynamic responsive classes
-@mixin PSJ_dynamic-responsive-classes($classes, $included-responsive-classes: false, $fill-empty-responsive-classes: false, $breakpoint-map: $PSJ_breakpoint-map) {
+@mixin PSJ_dynamic-responsive-classes($classes: null, $included-responsive-classes: false, $fill-empty-responsive-classes: false, $breakpoint-map: $PSJ_breakpoint-map) {
 
-	// Normalize included responsive classes
-	$included-responsive-classes: PSJ_selective-list($included-responsive-classes, map-keys($breakpoint-map));
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: $classes == null,
+			description: '$classes must be a dynamic responsive class map'
+		)
+	);
 
-	// Loop through the classes
-	@each $class-name, $responsive-style-map in $classes {
+	// If there are no errors, proceed
+	@if PSJ_has-errors('PSJ_dynamic-responsive-classes', $error-cases) == false {
 
-		// Set base class
-		&--#{$class-name} {
+		// Normalize included responsive classes
+		$included-responsive-classes: PSJ_selective-list($included-responsive-classes, map-keys($breakpoint-map));
 
-			// Loop through the class's breakpoint style map and print the styles at each breakpoint
-			@each $breakpoint, $style-map in $responsive-style-map {
-				@include PSJ_breakpoint($breakpoint, $breakpoint-map) {
-					@include PSJ_map-styles($style-map);
+		// Loop through the classes
+		@each $class-name, $responsive-style-map in $classes {
+
+			// Set base class
+			&--#{$class-name} {
+
+				// Loop through the class's breakpoint style map and print the styles at each breakpoint
+				@each $breakpoint, $style-map in $responsive-style-map {
+					@include PSJ_breakpoint($breakpoint, $breakpoint-map) {
+						@include PSJ_map-styles($style-map);
+					}
 				}
 			}
 		}
-	}
 
-	// Loop through each breakpoint in the breakpoint map
-	@each $breakpoint-label in $included-responsive-classes {
+		// Loop through each breakpoint in the breakpoint map
+		@each $breakpoint-label in $included-responsive-classes {
 
-		// Loop through classes to establish responsive classes for each
-		@each $class-name, $responsive-style-map in $classes {
+			// Loop through classes to establish responsive classes for each
+			@each $class-name, $responsive-style-map in $classes {
 
-			// If the breakpoint is included in the responsive style map or the fill-empty-responsive-classes arg is true, continue
-			@if $fill-empty-responsive-classes or map-has-key($responsive-style-map, $breakpoint-label) {
+				// If the breakpoint is included in the responsive style map or the fill-empty-responsive-classes arg is true, continue
+				@if $fill-empty-responsive-classes or map-has-key($responsive-style-map, $breakpoint-label) {
 
-				// If the fill-empty-responsive-classes arg is true and the breakpoint is not included in the responsive style map, fill the responsive style map with the missing breakpoint
-				@if $fill-empty-responsive-classes and map-has-key($responsive-style-map, $breakpoint-label) == false {
-					$responsive-style-map: PSJ_get-filled-dynamic-responsive-class-breakpoint-style-map($breakpoint-label, $responsive-style-map, $breakpoint-map);
-				}
+					// If the fill-empty-responsive-classes arg is true and the breakpoint is not included in the responsive style map, fill the responsive style map with the missing breakpoint
+					@if $fill-empty-responsive-classes and map-has-key($responsive-style-map, $breakpoint-label) == false {
+						$responsive-style-map: PSJ_get-filled-dynamic-responsive-class-breakpoint-style-map($breakpoint-label, $responsive-style-map, $breakpoint-map);
+					}
 
-				// Set the responsive class selector
-				&--#{$class-name + \@ + $breakpoint-label} {
+					// Set the responsive class selector
+					&--#{$class-name + \@ + $breakpoint-label} {
 
-					// Loop through each breakpoint in the class's responsive style map
-					@each $class-breakpoint-label, $style-map in $responsive-style-map {
+						// Loop through each breakpoint in the class's responsive style map
+						@each $class-breakpoint-label, $style-map in $responsive-style-map {
 
-						// If the breakpoint label is not default and the class breakpoint is larger than the master breakpoint, extend the placeholder
-						@if $class-breakpoint-label != default and map-get($breakpoint-map, $class-breakpoint-label) >= map-get($breakpoint-map, $breakpoint-label) {
-							@include PSJ_breakpoint($class-breakpoint-label) {
-								@include PSJ_map-styles(map-get($responsive-style-map, $class-breakpoint-label));
+							// If the breakpoint label is not default and the class breakpoint is larger than the master breakpoint, extend the placeholder
+							@if $class-breakpoint-label != default and map-get($breakpoint-map, $class-breakpoint-label) >= map-get($breakpoint-map, $breakpoint-label) {
+								@include PSJ_breakpoint($class-breakpoint-label) {
+									@include PSJ_map-styles(map-get($responsive-style-map, $class-breakpoint-label));
+								}
 							}
 						}
 					}

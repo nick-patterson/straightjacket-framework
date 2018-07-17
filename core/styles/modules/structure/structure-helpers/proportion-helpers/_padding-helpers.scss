@@ -80,7 +80,7 @@
 	$included-sides: PSJ_selective-list(map-get($config, include-sides), (top, right, bottom, left));
 
 	// Build base helper classes
-	$helper-classes: PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-value-map(padding, map-get($config, include-proportions), map-get($config, proportion-map));
+	$helper-classes: PSJ_get-dynamic-responsive-class-map-from-responsive-value-map(padding, map-get($config, include-proportions), map-get($config, proportion-map));
 
 	// ------   Registration   --------------------- /
 
@@ -96,7 +96,7 @@
 		@each $side in $included-sides {
 
 			// Get side helper classes
-			$side-helper-classes: PSJ_get-dynamic-responsive-class-map-from-dynamic-responsive-value-map(#{'padding-' + $side}, map-get($config, include-proportions), map-get($config, proportion-map));
+			$side-helper-classes: PSJ_get-dynamic-responsive-class-map-from-responsive-value-map(#{'padding-' + $side}, map-get($config, include-proportions), map-get($config, proportion-map));
 
 			// Include directional class for side
 			&-#{$side} {

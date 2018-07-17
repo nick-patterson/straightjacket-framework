@@ -1,0 +1,115 @@
+// ================================================= /
+// ======   Internal String Functions   ============ /
+// ================================================= /
+
+// Trims whitespace from the beginning and ending of a string
+@function PSJ_trim-string($string: '') {
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: type-of($string) != string,
+			description: '$string must be a string'
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_trim-string', $error-cases) {
+		@return null;
+	}
+
+	// Otherwise, get the first and last characters of the string
+	$first-character: str-slice($string, 1, 1);
+	$last-character: str-slice($string, -1);
+
+	// If the either character is a space, remove it
+	@if $first-character == ' ' {
+		$string: str_slice($string, 1, 2);
+	}
+	@if $last-character == ' ' {
+		$string: str-slice($string, -1, -2);
+	}
+	@return $string;
+}
+
+
+// Splits a string by a delimiter
+// Inspired by Justin Navarro
+@function PSJ_split-string($string: '', $delimiter: ',') {
+
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: type-of($string) != string or type-of($delimiter) != string,
+			description: '$string and $delimiter must both be strings'
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_split-string', $error-cases) {
+		@return null;
+	}
+
+	// Otherwise, set list
+	$list: ();
+
+	// Get string length
+	$string-length: str-length($string);
+
+	// Loop through string's length
+	@for $i from 1 through $string-length {
+
+		// Get the index of the next delimiter
+		$delimiter-index: str-index($string, $delimiter);
+
+		// If there is no delimiter left, just add the string to the list
+		@if str-length($string) >= 1 and $delimiter-index == null {
+			$list: append($list, $string);
+			$string: '';
+		}
+
+		// If there is one, get the next item and add it to the list
+		@if type-of($delimiter-index) == number {
+
+			// Get the next item
+			$item: str-slice($string, 0, ($delimiter-index - 1));
+			$list: append($list, $item);
+
+			// Reset the string
+			$string: str-slice($string, ($delimiter-index + str-length($delimiter)), $string-length);
+		}
+	}
+
+	@return $list;
+}
+
+
+// Determines whether or not a string is in range notation
+@function PSJ_is-range($subject: null) {
+
+	// If the subject is not a string, return false
+	@if type-of($subject) != string {
+		@return false;
+	}
+
+	// Otherwise, get the index of the '=>' arrow character
+	$arrow-index: str-index($subject, '=>');
+
+	// If the subject has at least 1 '=>' arrow character, it might be a range
+	@if type-of($arrow-index) == number {
+
+		// Remove that index from the string and make sure there are no more of them
+		$subject: str-slice($subject, ($arrow-index + 2));
+
+		// If the new subject has another arrow, return false
+		@if type-of(str-index($subject, '=>')) == number {
+			@warn('Ranges must include exactly one "=>"');
+			@return false;
+		}
+
+		// Otherwise, return true
+		@return true;
+	}
+
+	@return false;
+}

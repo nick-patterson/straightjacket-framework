@@ -158,7 +158,7 @@
 
 // Creates a list from a range of numbers
 // Similar to Python's range function
-@function PSJ_range( $start: 1, $end: 10, $include-bounds: true) {
+@function PSJ_number-range($start: 1, $end: 10, $include-bounds: true) {
 
 	// Force evaluation of function args
 	$start: if($start, $start, 1);

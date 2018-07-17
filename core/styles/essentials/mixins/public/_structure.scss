@@ -35,8 +35,8 @@
 	}
 }
 
-// Get a proportion value for a style at any specified breakpoint
-@mixin PSJ_proportion($properties: null, $proportion: null, $proportion-map: $PSJ_proportion-map, $breakpoint-map: $PSJ_breakpoint-map) {
+// Add properties for proportions at specified breakpoints
+@mixin PSJ_proportion($properties: null, $proportion: null, $breakpoints: true, $proportion-map: $PSJ_proportion-map, $breakpoint-map: $PSJ_breakpoint-map) {
 
 	// Set up error cases
 	$error-cases: (
@@ -50,23 +50,25 @@
 		)
 	);
 
-	// If there are errors, do nothing except print the errors
-	@if PSJ_has-errors('PSJ_proportion', $error-cases) {
-		// Do nothing
-	}
+	// If there are no errors, include the proportion
+	@if PSJ_has-errors('PSJ_proportion', $error-cases) == false {
 
-	// Normalize the property into a list
-	$properties: PSJ_to-list($properties);
+		// Normalize the properties into a list
+		$properties: PSJ_to-list($properties);
 
-	// Loop through the breakpoints in the proportion responsive value map
-	@each $breakpoint-label, $proportion-value in PSJ_friendly-map-get($proportion-map, $proportion) {
+		// Normalize the breakpoints into a list
+		$breakpoints: PSJ_selective_list($breakpoints, map-keys($breakpoint-map));
 
-		// Print the styles at said breakpoint
-		@include PSJ_breakpoint($breakpoint-label, $breakpoint-map) {
+		// Loop through the breakpoints in the proportion responsive value map
+		@each $breakpoint-label in $breakpoints {
 
-			// Loop through properties and print them with the proportion value
-			@each $property in $properties {
-				#{$property}: #{$proportion-value};
+			// Print the styles at said breakpoint
+			@include PSJ_breakpoint($breakpoint-label, $breakpoint-map) {
+
+				// Loop through properties and print them with the proportion value
+				@each $property in $properties {
+					#{$property}: PSJ_get-proportion-at-breakpoint($proportion, $breakpoint-label, $proportion-map);
+				}
 			}
 		}
 	}

@@ -2,13 +2,72 @@
 // ======   Internal List Functions   ============== /
 // ================================================= /
 
+// Creates a sublist from range notation
+@function PSJ_range-to-sublist($range: null, $full-list: ()) {
 
-// Normalizes booleans or lists into selective lists
+	// Set up error cases
+	$error-cases: (
+		(
+			conditional: PSJ_is-range($range) == false,
+			description: '$range must be in valid range notation '
+		)
+	);
+
+	// If there are errors, return null
+	@if PSJ_has-errors('PSJ_range-to-sublist', $error-cases) {
+		@return null;
+	}
+
+	// Otherwise, split the range string into an array
+	$range: PSJ_split-string($range, '=>');
+
+	// Get the start and end points
+	$start: PSJ_trim-string(nth($range, 1));
+	$end: PSJ_trim-string(nth($range, 2));
+
+	// Set sublist
+	$sublist: ();
+
+	// Set if start and end points has been reached in loop
+	$has-start-been-reached: false;
+
+	// Loop through each item in the full list
+	@each $item in $full-list {
+
+		// Ranges are always done as strings, so the item they compare to must also be interpolated as a tring
+		$item: #{$item};
+
+		// If the item is the same as the start point, say so
+		@if $item == $start {
+			$has-start-been-reached: true;
+		}
+
+		// If the start point has been reached, add the item to the sublist, whatever it is
+		@if $has-start-been-reached {
+			$sublist: append($sublist, $item);
+		}
+
+		// If this item is the end point, return the sublist
+		@if $item == $end {
+			@return $sublist;
+		}
+	}
+
+	@return $sublist;
+}
+
+
+// Normalizes booleans, ranges, and lists into selective lists
 @function PSJ_selective-list($selection: true, $full-list: ()) {
 
 	// If the selection is already a list, return it
 	@if type-of($selection) == list {
 		@return $selection;
+	}
+
+	// Otherwise, if the selection is a string with an arrow in it (range notation), create a sublist from the
+	@else if PSJ_is-range($selection) {
+		@return PSJ_range-to-sublist($selection, $full-list);
 	}
 
 	// Otherwise, if the selection is not a bool, place it in a list and return that list

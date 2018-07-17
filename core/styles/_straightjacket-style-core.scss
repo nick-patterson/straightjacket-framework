@@ -52,33 +52,25 @@
 //
 //   3. Clean up the scripts - use ES2015 and event delegation
 //
-//   4. Consider incorporating proportions idea into framework
-//
-//   5. Provide helper functions for encapsulating parts
+//   4. Provide helper functions for encapsulating parts
 //      of responsive classes elsewhere
 //
-//   6. Extract helpful stuff and documentation into a README
+//   5. Extract helpful stuff and documentation into a README
 //
-//   7. Add ability to change gutter on grid at different viewport sizes —
+//   6. Add ability to change gutter on grid at different viewport sizes —
 //      probably by accepting either a CSS value or a 1D map
 //
-//   8. Related to the above point: Add helper functions to
+//   7. Related to the above point: Add helper functions to
 //      unify all of these data types in configuration
 //      so that they all speak the same language and
 //      are parsed the same way predictably
 //
-//   9. Attempt to enforce responsive class paradigm
-//       within all modules. E.g. the grid would generate
-//       maps to pass to functions that map dynamic classes
-//
-//   10. Make 'include-breakpoints' argument a little more clearly named
+//   8. Make 'include-breakpoints' argument a little more clearly named
 //       in the cases of responsive classes and such
 //
-//   11: Consolidate error handling with new function
+//   9: Consolidate error handling with new function
 //
-//   12: Clean up math functions
-//
-//   13: Clean up grid module and include responsive pushes and restrictions
+//   10: Clean up math functions
 //
 // ------------------------------------------------- /
 
@@ -146,6 +138,39 @@
 //   encapsulate said styles somewhere else if needed,
 //   but still maintaining the usability of keeping
 //   all properties and property values in the same place.
+//
+// ------------------------------------------------- /
+
+
+// - A WORD ON RESPONSIVE VALUE MAPS --------------- /
+//
+//   Straightjacket also uses responsive value maps.
+//
+//   These are exactly what they sound like.
+//   Property-less values that change over different
+//   viewport sizes.
+//
+//   These are very useful for setting things
+//   like global proportions.
+//
+//   Schema:
+//
+//   $responsive-value-map: (
+//       responsive-value-name: (
+//           breakpoint-name: CSS-value,
+//           // More breakpoint names
+//       )
+//       // More responsive value names
+//   )
+//
+// - Important notes ------------------------------- /
+//
+//   There are several useful wrappers for these
+//   types of maps.
+//
+//   One example is the PSJ_proportion mixin which
+//   allows you to set a value as any proportion and
+//   automatically include the associated media queries.
 //
 // ------------------------------------------------- /
 
@@ -265,6 +290,7 @@ $PSJ_module-registry: (
 // ------------------------------------------ /
 @import 'modules/structure/grid/grid';
 
+
 // ------   Structure Helpers Modules   ----- /
 // ------------------------------------------ /
 
@@ -273,6 +299,7 @@ $PSJ_module-registry: (
 
 // Flex helpers
 @import 'modules/structure/structure-helpers/flex-helpers';
+
 
 // ------   Proportion Helpers Modules   ---- /
 // ------------------------------------------ /
