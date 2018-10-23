@@ -9,7 +9,7 @@
 	$error-cases: (
 		(
 			conditional: PSJ_is-range($range) == false,
-			description: '$range must be in valid range notation '
+			description: '$range must be in valid range notation'
 		)
 	);
 
@@ -56,16 +56,15 @@
 	@return $sublist;
 }
 
-
-// Normalizes booleans, ranges, and lists into selective lists
+// Normalizes booleans, range notations, and lists into selective lists
 @function PSJ_selective-list($selection: true, $full-list: ()) {
 
 	// If the selection is already a list, return it
 	@if type-of($selection) == list {
-		@return $selection;
+		@return PSJ_flatten-list($selection);
 	}
 
-	// Otherwise, if the selection is a string with an arrow in it (range notation), create a sublist from the
+	// Otherwise, if the selection is a range, create a sublist from it
 	@else if PSJ_is-range($selection) {
 		@return PSJ_range-to-sublist($selection, $full-list);
 	}

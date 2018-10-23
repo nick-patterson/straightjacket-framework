@@ -5,6 +5,13 @@
 
 // Converts value to a list
 @function PSJ_to-list($value) {
+
+	// If the value is a range, make it into a list
+	@if PSJ_is-range($value) {
+		@return PSJ_range-to-sublist($value);
+	}
+
+	// Otherwise, return the list or the value inserted into one
 	@return if(type-of($value) == list, $value, ($value,));
 }
 
@@ -193,4 +200,38 @@
 
 	// Return result
 	@return $result;
+}
+
+// Flattens lists into single-dimensional lists
+@function PSJ_flatten-list($list, $full-list: ()) {
+
+	// If the list is not a list, return it
+	@if (type-of($list) != list) {
+		@return $list;
+	}
+
+	// Otherwise, set flattened list
+	$flat-list: ();
+
+	// Loop through list items
+	@each $list-item in $list {
+
+		// If the list item is a range, make it a list
+		@if PSJ_is-range($list-item) {
+			$list-item: PSJ_range-to-sublist($list-item, $full-list);
+		}
+
+		// If the item is a list, add the flattened item
+		@if type-of($list-item) == list {
+			$flat-list: append($flat-list, PSJ_flatten-list($list-item, $full-list));
+		}
+
+		// Otherwise, just add the item in
+		@else {
+			$flat-list: append($flat-list, $list-item);
+		}
+	}
+
+	// Return the flattened list
+	@return $flat-list;
 }

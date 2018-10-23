@@ -24,7 +24,7 @@
 
 	// Or, if the breakpoint exists in the breakpoint map, print the styles in the correct media query
 	@else if map-has-key($breakpoint-map, $breakpoint) {
-		@media screen and (min-width: map-get($breakpoint-map, $breakpoint)) {
+		@media screen and (min-width: PSJ_friendly-map-get($breakpoint-map, $breakpoint)) {
 			@content;
 		}
 	}
@@ -57,7 +57,7 @@
 		$properties: PSJ_to-list($properties);
 
 		// Normalize the breakpoints into a list
-		$breakpoints: PSJ_selective_list($breakpoints, map-keys($breakpoint-map));
+		$breakpoints: PSJ_selective_list($breakpoints, map-keys(map-get($proportion-map, $proportion)));
 
 		// Loop through the breakpoints in the proportion responsive value map
 		@each $breakpoint-label in $breakpoints {

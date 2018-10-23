@@ -36,7 +36,7 @@
 //   AUTHOR: NICK PATTERSON ------------------------ /
 //
 //   PHANTASM: phantasm.io ------------------------- /
-//   FIFTEEN FOUR: fifteenfour.com ----------------- /
+//   FIFTEEN4: fifteen4.com ------------------------ /
 //
 // ------------------------------------------------- /
 
@@ -52,25 +52,27 @@
 //
 //   3. Clean up the scripts - use ES2015 and event delegation
 //
-//   4. Provide helper functions for encapsulating parts
-//      of responsive classes elsewhere
+//   4. Extract helpful stuff and documentation into a README
 //
-//   5. Extract helpful stuff and documentation into a README
-//
-//   6. Add ability to change gutter on grid at different viewport sizes —
+//   5. Add ability to change gutter on grid at different viewport sizes —
 //      probably by accepting either a CSS value or a 1D map
 //
-//   7. Related to the above point: Add helper functions to
+//   6. Related to the above point: Add helper functions to
 //      unify all of these data types in configuration
 //      so that they all speak the same language and
 //      are parsed the same way predictably
 //
-//   8. Make 'include-breakpoints' argument a little more clearly named
+//   7. Make 'include-breakpoints' argument a little more clearly named
 //       in the cases of responsive classes and such
 //
-//   9: Consolidate error handling with new function
+//   8: Consolidate error handling with new function
 //
-//   10: Clean up math functions
+//   9: Consider adding a 'stop' parameter to the
+//       breakpoint mixin that stops the style from
+//       propagating to the next breakpoint.
+//       Basically, this means a max width.
+//
+//   10: Re-organize and document functions and mixins
 //
 // ------------------------------------------------- /
 
@@ -139,6 +141,9 @@
 //   but still maintaining the usability of keeping
 //   all properties and property values in the same place.
 //
+//   Consult each module's file to find out which type
+//   (if any) is used for which options.
+//
 // ------------------------------------------------- /
 
 
@@ -171,6 +176,42 @@
 //   One example is the PSJ_proportion mixin which
 //   allows you to set a value as any proportion and
 //   automatically include the associated media queries.
+//
+// ------------------------------------------------- /
+
+
+// - A WORD ON RANGE NOTATION ---------------------- /
+//
+//   Straightjacket has cooked up its own way of
+//   easily delineating "ranges" within lists.
+//
+//   These allow you to specify part of a map or
+//   list without having to re-write part of the
+//   list you're referencing.
+//
+//   Schema:
+//
+//   If your list looks like this:
+//
+//   (item1, range-start, item2, range-end, item3)
+//
+//   And you write a range like this:
+//
+//   "range-start => range-end"
+//
+//   It returns this:
+//
+//   (range-start, item2, range-end)
+//
+// - Important notes ------------------------------- /
+//
+//   Since these are just a syntactically nice
+//   way of getting at a subset of some list, you
+//   have to specify exactly which list you're
+//   getting a sublist from.
+//
+//   These are parsed into lists via the
+//   PSJ_range-to-sublist function.
 //
 // ------------------------------------------------- /
 
@@ -214,7 +255,7 @@ $PSJ_module-registry: (
 
 	container: (),
 	grid: (),
-	block-helpers: (),
+	box-helpers: (),
 	flex-helpers: (),
 
 	text-styling: (),
@@ -241,6 +282,7 @@ $PSJ_module-registry: (
 //
 // ------------------------------------------------- /
 
+
 @import 'modules/normalization/normalization';
 
 
@@ -248,8 +290,24 @@ $PSJ_module-registry: (
 
 
 // ================================================= /
-// ======   #2 MIXINS & FUNCTIONS   ============ /
+// ======   #2 MIXINS & FUNCTIONS   ================ /
 // ================================================= /
+
+// ------------------------------------------------- /
+//
+//   Mixins and functions are also good things.
+//   These include both public ones designed to
+//   used freely elsewhere and internal ones
+//   that serve behind the scenes.
+//
+//   Of course, you can use whichever ones you want,
+//   just know that the internal ones are around to
+//   compartmentalize specific StraightJacket
+//   functions and may not be useful to actually
+//   write sass with.
+//
+// ------------------------------------------------- /
+
 
 @import 'essentials/functions/functions';
 @import 'essentials/mixins/mixins';
@@ -264,12 +322,15 @@ $PSJ_module-registry: (
 
 // ------------------------------------------------- /
 //
-//   General modules are here
+//   General modules are here. This is kinda where
+//   modules end up if they don't fit into any
+//   other category.
 //
 // ------------------------------------------------- /
 
-// ------   Display Helpers Module   -------- /
-// ------------------------------------------ /
+
+// ------   Display Helpers Module   --------------- /
+// ------------------------------------------------- /
 @import 'modules/general/display-helpers/display-helpers';
 
 
@@ -280,29 +341,37 @@ $PSJ_module-registry: (
 // ======   #4 STRUCTURE   ========================= /
 // ================================================= /
 
+// ------------------------------------------------- /
+//
+//   Structure modules deal with structure and
+//   layout of your site — anything that has to
+//   do with sizing, alignment, or spacing.
+//
+// ------------------------------------------------- /
 
-// ------   Container Module   -------------- /
-// ------------------------------------------ /
+
+// ------   Container Module   --------------------- /
+// ------------------------------------------------- /
 @import 'modules/structure/container/container';
 
 
-// ------   Grid Module   ------------------- /
-// ------------------------------------------ /
+// ------   Grid Module   -------------------------- /
+// ------------------------------------------------- /
 @import 'modules/structure/grid/grid';
 
 
-// ------   Structure Helpers Modules   ----- /
-// ------------------------------------------ /
+// ------   Structure Helpers Modules   ------------ /
+// ------------------------------------------------- /
 
-// Block helpers
-@import 'modules/structure/structure-helpers/block-helpers';
+// Box helpers
+@import 'modules/structure/structure-helpers/box-helpers';
 
 // Flex helpers
 @import 'modules/structure/structure-helpers/flex-helpers';
 
 
-// ------   Proportion Helpers Modules   ---- /
-// ------------------------------------------ /
+// ------   Proportion Helpers Modules   ----------- /
+// ------------------------------------------------- /
 
 // Padding helpers
 @import 'modules/structure/structure-helpers/proportion-helpers/padding-helpers';
@@ -317,13 +386,23 @@ $PSJ_module-registry: (
 // ======   #5 TEXT   ============================== /
 // ================================================= /
 
+// ------------------------------------------------- /
+//
+//   Text modules deal with text. Whoa.
+//
+//   But seriously, these handle anything related
+//   to text from global styles to specific utilities.
+//
+// ------------------------------------------------- /
 
-// ------   Text Styles Module   ------------ /
-// ------------------------------------------ /
+
+// ------   Text Styles Module   ------------------- /
+// ------------------------------------------------- /
 @import 'modules/text/text-styles/text-styles';
 
-// ------   Text Helpers Module   ----------- /
-// ------------------------------------------ /
+
+// ------   Text Helpers Module   ------------------ /
+// ------------------------------------------------- /
 @import 'modules/text/text-helpers/text-helpers';
 
 
@@ -342,9 +421,23 @@ $PSJ_module-registry: (
 // ======   #7 Popover Modals   ==================== /
 // ================================================= /
 
+// ------------------------------------------------- /
+//
+//   This module provides the basic styling needed
+//   to effectively show and hide a simple popover
+//   modal with a scrollable content area inside.
+//
+//   All other styling must be added manually.
+//
+//   In order to function properly, this module
+//   must be combined with the Popover Modals
+//   javascript in whatever flavor you choose.
+//
+// ------------------------------------------------- /
 
-// ------   Popover Modals Module   --------- /
-// ------------------------------------------ /
+
+// ------   Popover Modals Module   ---------------- /
+// ------------------------------------------------- /
 @import 'modules/popover-modal/popover-modal';
 
 
@@ -360,9 +453,21 @@ $PSJ_module-registry: (
 
 
 // ================================================= /
-// ======   #9 Tooltips   ========================= /
+// ======   #9 Tooltips   ========================== /
 // ================================================= /
 
-// ------   Tooltips Module   --------------- /
-// ------------------------------------------ /
+// ------------------------------------------------- /
+//
+//   This module provides the basic styling needed
+//   to effectively show and hide a simple tooltip
+//   when the user hovers over whatever element
+//   triggers its appearance.
+//
+//   All other styling must be added manually.
+//
+// ------------------------------------------------- /
+
+
+// ------   Tooltips Module   ---------------------- /
+// ------------------------------------------------- /
 @import 'modules/tooltip/tooltip';

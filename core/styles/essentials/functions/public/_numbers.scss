@@ -3,7 +3,7 @@
 // ================================================= /
 
 
-// ------   General number functions   -------------- /
+// ------   General number functions   ------------- /
 
 // Casts anything into a number
 // By Hugo Giraudel
@@ -38,11 +38,13 @@
 	$minus: str-slice($value, 1, 1) == '-';
 	$numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
 
-	// Do Hugo magic
+	// Begin Hugo magic and loop through each character in the value
 	@for $i from if($minus, 2, 1) through str-length($value) {
 
+		// Get the current character
 		$character: str-slice($value, $i, $i);
 
+		// ????
 		@if not (index(map-keys($numbers), $character) or $character == '.') {
 			@return to-length(if($minus, -$result, $result), str-slice($value, $i));
 		}
@@ -61,6 +63,7 @@
 		}
 	}
 
+	// Profit
 	@return if($minus, -$result, $result);
 }
 

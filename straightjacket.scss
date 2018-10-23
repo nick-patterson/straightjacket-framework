@@ -10,6 +10,9 @@
 //   StraightJacket's amazingness. All functions
 //   that output CSS directly should be stored here.
 //
+//   Or they can be stored wherever else. I don't
+//   really care. It's up to you!
+//
 //   Remember, all configuration objects and functions
 //   funnel through here, so keep in mind that
 //   the functions written here utilize those
@@ -28,23 +31,36 @@
 	// @include PSJ_container();
 }
 
-.u-block {
-	// @include PSJ_block-helpers((
+.u-box {
+	// @include PSJ_box-helpers((
 	// 	include-responsive-classes: false
 	// ));
 }
 
 .c-grid {
-	@include PSJ_grid((
-		include-column-responsive-classes: (md, lg, xl)
-	));
+	// @include PSJ_grid((
+	// 	include-column-responsive-classes: (md, lg, xl)
+	// ));
 }
+
+$test: (
+	// Heading 1 styles
+	heading-1: (
+		default: (
+			font-family: PSJ_font-family(headings),
+			font-size: 2.125rem,
+			line-height: 1.25
+		)
+	)
+);
 
 .u-text {
 	// @include PSJ_text-helpers((
 	// 	include-responsive-classes: (md, lg, xl)
 	// ));
-	// @include PSJ_text-styles();
+	@include PSJ_text-styles((
+		text-style-map: $test
+	));
 }
 
 .u-display {
@@ -56,5 +72,5 @@
 }
 
 .u-padding {
-	@include PSJ_padding-helpers();
+	// @include PSJ_padding-helpers();
 }

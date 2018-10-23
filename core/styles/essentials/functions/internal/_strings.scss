@@ -29,6 +29,13 @@
 	@if $last-character == ' ' {
 		$string: str-slice($string, -1, -2);
 	}
+
+	// If either the first or last character is still a blank space, trim again
+	@if str-slice($string, 1, 1) == ' ' or str-slice($string, -1) == ' ' {
+		$string: PSJ_trim-string($string);
+	}
+
+	// Return the string
 	@return $string;
 }
 

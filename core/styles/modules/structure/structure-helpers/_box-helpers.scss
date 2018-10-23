@@ -1,11 +1,11 @@
 // ================================================= /
-// ======   BLOCK HELPERS MODULE   ================= /
+// ======   BOX HELPERS MODULE   =================== /
 // ================================================= /
 
 // - DESCRIPTION ----------------------------------- /
 //
 //   Provides helper classes for general element
-//   arrangement and display.
+//   size and alignment.
 //
 //   Uses static responsive classes.
 //
@@ -34,7 +34,7 @@
 // ------------------------------------------------- /
 
 
-@mixin PSJ_block-helpers($config: ()) {
+@mixin PSJ_box-helpers($config: ()) {
 
 	// ------   Default Configuration   ------------ /
 
@@ -88,7 +88,7 @@
 
 	// ------   Registration   --------------------- /
 
-	$registration: PSJ_register-module(block-helpers, #{&}, ());
+	$registration: PSJ_register-module(box-helpers, #{&}, ());
 
 
 	// ------   Generated CSS   -------------------- /
