@@ -14,7 +14,7 @@
 	}
 
 	// Otherwise, warn the user and return false
-	@error 'Either $map isn\'t a map or \'#{ $key }\' is not defined in your $map';
+	@warn 'Either \'#{ $map }\' isn\'t a map or \'#{ $key }\' is not defined in your $map';
 	@return false;
 }
 
